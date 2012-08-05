@@ -84,7 +84,7 @@ namespace SourceLog.Subversion
 
 		private void ProcessChangedPaths(SvnLoggingEventArgs svnLogEntry, long revision, ILogEntry<ChangedFile> logEntry)
 		{
-			svnLogEntry.ChangedPaths.AsParallel().WithDegreeOfParallelism(20).ForAll(changedPath =>
+			svnLogEntry.ChangedPaths.AsParallel().WithDegreeOfParallelism(1).ForAll(changedPath =>
 			{
 				//var debugStartTime = DateTime.Now;
 				Debug.WriteLine("  Processing path " + changedPath.Path);
