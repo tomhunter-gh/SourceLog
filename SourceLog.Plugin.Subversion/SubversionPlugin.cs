@@ -16,17 +16,9 @@ namespace SourceLog.Subversion
 		private Timer _timer;
 		private readonly Object _lockObject = new Object();
 
-		public string SettingsXml
-		{
-			get;
-			set;
-		}
+		public string SettingsXml { get; set; }
 
-		public DateTime MaxDateTimeRetrieved
-		{
-			get;
-			set;
-		}
+		public DateTime MaxDateTimeRetrieved { get; set; }
 
 		public void Initialise()
 		{
@@ -44,14 +36,12 @@ namespace SourceLog.Subversion
 					{
 						var uri = new Uri(SettingsXml);
 						Collection<SvnLogEventArgs> svnLogEntries;
-						//SvnLogArgs la = new SvnLogArgs();
-						//la.
 						if (svnClient.GetLog(uri, out svnLogEntries))
 						{
 							var q = svnLogEntries
 								.Where(e => e.Time > MaxDateTimeRetrieved)
 								//.Where(e => e.Time.Year == 2012)
-								.Where(e => e.Revision >= 56759)
+								//.Where(e => e.Revision >= 56759)
 								.OrderBy(e => e.Time);
 							foreach (var svnLogEntry in q)
 							{
