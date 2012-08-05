@@ -215,7 +215,7 @@ namespace SourceLog
 		private void ScrollFirstChangeIntoView(double firstModifiedLineVerticalOffset)
 		{
 			LeftScroller.UpdateLayout();
-			LeftScroller.ScrollToVerticalOffset(firstModifiedLineVerticalOffset - 20);
+			LeftScroller.ScrollToVerticalOffset(firstModifiedLineVerticalOffset - 30);
 		}
 
 		private void LeftScrollerScrollChanged(object sender, ScrollChangedEventArgs e)

@@ -51,7 +51,7 @@
 			</ListBox.ItemTemplate>
 		</ListBox>
 
-		<GridSplitter Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"
+		<GridSplitter Grid.Row="1" Grid.Column="1" Grid.RowSpan="5" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center"
 					ShowsPreview="False" />
 
 		<DataGrid Grid.Row="1" Grid.Column="2" Name="dgLog" ItemsSource="{Binding Source={StaticResource cvsLog}}"
