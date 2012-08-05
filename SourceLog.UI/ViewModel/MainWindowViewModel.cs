@@ -11,7 +11,7 @@ namespace SourceLog.ViewModel
 	{
 		private readonly LogSubscriptionManager _logSubscriptionManager;
 
-		public List<LogSubscription> LogSubscriptions
+		public ObservableCollection<LogSubscription> LogSubscriptions
 		{
 			get { return _logSubscriptionManager.LogSubscriptions; }
 		}

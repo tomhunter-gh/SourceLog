@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SourceLog.Interface;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace SourceLog.Model
 {
@@ -12,13 +13,12 @@ namespace SourceLog.Model
 	{
 		private static readonly SourceLogContext Db = new SourceLogContext();
 
-		public List<LogSubscription> LogSubscriptions
+		public ObservableCollection<LogSubscription> LogSubscriptions
 		{
 			get
 			{
-				var subs = Db.LogSubscriptions.ToList();
-				subs.ForEach(EnsureInitialised);
-				return subs;
+				Db.LogSubscriptions.ToList().ForEach(EnsureInitialised);
+				return Db.LogSubscriptions.Local;
 			}
 		}
 
