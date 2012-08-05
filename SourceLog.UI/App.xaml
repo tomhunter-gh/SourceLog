@@ -1,0 +1,10 @@
+﻿<Application x:Class="SourceLog.App"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 StartupUri="MainWindow.xaml">
+	<Application.Resources>
+		<Style x:Key="DiffBox" TargetType="TextBlock">
+			<Setter Property="FontFamily" Value="Courier New" />
+		</Style>
+	</Application.Resources>
+</Application>
