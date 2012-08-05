@@ -5,11 +5,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.UI", "SourceLog.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Model", "SourceLog.Model\SourceLog.Model.csproj", "{80C8B2E9-4326-454C-B325-F0B1D1251550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.GitHub", "SourceLog.Plugin.GitHub\SourceLog.GitHub.csproj", "{D8ED9B9C-133A-4AF1-9C95-7D0BC93DE2D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.GitHub", "SourceLog.Plugin.GitHub\SourceLog.Plugin.GitHub.csproj", "{D8ED9B9C-133A-4AF1-9C95-7D0BC93DE2D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Interface", "SourceLog.Interface\SourceLog.Interface.csproj", "{3BCDD879-B6F0-447D-B102-A0373933CA05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Subversion", "SourceLog.Plugin.Subversion\SourceLog.Subversion.csproj", "{FA3CF659-D0F2-433A-8EE3-66ADF7CB48E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.Subversion", "SourceLog.Plugin.Subversion\SourceLog.Plugin.Subversion.csproj", "{FA3CF659-D0F2-433A-8EE3-66ADF7CB48E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.TeamFoundationServer2010", "SourceLog.Plugin.TeamFoundationServer2010\SourceLog.Plugin.TeamFoundationServer2010.csproj", "{4FBCB5F4-0933-4AE0-B288-B7EDD5103B3D}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -74,6 +76,16 @@ Global
 		{FA3CF659-D0F2-433A-8EE3-66ADF7CB48E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{FA3CF659-D0F2-433A-8EE3-66ADF7CB48E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{FA3CF659-D0F2-433A-8EE3-66ADF7CB48E6}.Release|x86.ActiveCfg = Release|Any CPU
+		{4FBCB5F4-0933-4AE0-B288-B7EDD5103B3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FBCB5F4-0933-4AE0-B288-B7EDD5103B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FBCB5F4-0933-4AE0-B288-B7EDD5103B3D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4FBCB5F4-0933-4AE0-B288-B7EDD5103B3D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4FBCB5F4-0933-4AE0-B288-B7EDD5103B3D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4FBCB5F4-0933-4AE0-B288-B7EDD5103B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FBCB5F4-0933-4AE0-B288-B7EDD5103B3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FBCB5F4-0933-4AE0-B288-B7EDD5103B3D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4FBCB5F4-0933-4AE0-B288-B7EDD5103B3D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4FBCB5F4-0933-4AE0-B288-B7EDD5103B3D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

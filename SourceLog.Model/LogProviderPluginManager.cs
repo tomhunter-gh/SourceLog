@@ -21,28 +21,52 @@ namespace SourceLog.Model
 			}
 		}
 
+		public static DirectoryInfo pluginsDirectory
+		{
+			get
+			{
+				return new DirectoryInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Plugins");
+			}
+		}
+
 		private static Dictionary<string, Type> LoadLogProviderPluginTypeList()
 		{
+			AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+			
 			var logProviderPluginTypeList = new Dictionary<string, Type>();
 
-			var directoryInfo = new DirectoryInfo(Environment.CurrentDirectory);
-			foreach(FileInfo fileInfo in directoryInfo.GetFiles("*.dll"))
+			foreach (var pluginDirectory in pluginsDirectory.GetDirectories())
 			{
-				try
+				foreach (FileInfo fileInfo in pluginDirectory.GetFiles("*.dll"))
 				{
-					Assembly assembly = Assembly.LoadFile(fileInfo.FullName);
-					foreach (Type type in assembly.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(ILogProvider<ChangedFile>))))
+					try
 					{
-						logProviderPluginTypeList.Add(assembly.FullName, type);
+						Assembly assembly = Assembly.LoadFile(fileInfo.FullName);
+						foreach (Type type in assembly.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(ILogProvider<ChangedFile>))))
+						{
+							logProviderPluginTypeList.Add(assembly.FullName, type);
+						}
 					}
+					catch (BadImageFormatException)
+					{ }
+					catch (FileLoadException)
+					{ }
 				}
-				catch (BadImageFormatException)
-				{ }
-				catch (FileLoadException)
-				{ }
 			}
 
 			return logProviderPluginTypeList;
+		}
+
+		static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+		{
+			foreach (var pluginDirectory in pluginsDirectory.GetDirectories())
+			{
+				string assemblyPath = Path.Combine(pluginDirectory.FullName, new AssemblyName(args.Name).Name + ".dll");
+				if (File.Exists(assemblyPath))
+					return Assembly.LoadFrom(assemblyPath);
+			}
+
+			return null;
 		}
 
 		public static void Refresh()

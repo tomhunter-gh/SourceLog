@@ -8,8 +8,8 @@
     <ProjectGuid>{FA3CF659-D0F2-433A-8EE3-66ADF7CB48E6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SourceLog.Subversion</RootNamespace>
-    <AssemblyName>SourceLog.Subversion</AssemblyName>
+    <RootNamespace>SourceLog.Plugin.Subversion</RootNamespace>
+    <AssemblyName>Subversion</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpSvn">
-      <HintPath>..\..\..\..\Downloads\SSvnEx-1.7002.1998\SharpSvn\SharpSvn.dll</HintPath>
+      <HintPath>..\Lib\SSvnEx-1.7002.1998\SharpSvn\SharpSvn.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,18 +47,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SourceLog.Model\SourceLog.Model.csproj">
-      <Project>{80C8B2E9-4326-454C-B325-F0B1D1251550}</Project>
-      <Name>SourceLog.Model</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SourceLog.Interface\SourceLog.Interface.csproj">
       <Project>{3BCDD879-B6F0-447D-B102-A0373933CA05}</Project>
       <Name>SourceLog.Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SourceLog.Model\SourceLog.Model.csproj">
+      <Project>{80C8B2E9-4326-454C-B325-F0B1D1251550}</Project>
+      <Name>SourceLog.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)SourceLog\bin\$(ConfigurationName)"</PostBuildEvent>
+    <PostBuildEvent>mkdir "$(SolutionDir)SourceLog.UI\bin\$(ConfigurationName)\Plugins\$(TargetName)"
+copy /Y "$(TargetDir)*.*" "$(SolutionDir)SourceLog.UI\bin\$(ConfigurationName)\Plugins\$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

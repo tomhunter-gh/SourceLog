@@ -53,12 +53,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DiffPlex">
-      <HintPath>..\..\..\..\Downloads\DiffPlex-1.2.0\Net40\DiffPlex.dll</HintPath>
+      <HintPath>..\Lib\DiffPlex-1.2.0\Net40\DiffPlex.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\Downloads\Json45r6\Bin\Net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
+    <Reference Include="EntityFramework, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+		<HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
+	</Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />

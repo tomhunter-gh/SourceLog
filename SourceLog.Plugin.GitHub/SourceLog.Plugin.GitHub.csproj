@@ -8,7 +8,7 @@
     <ProjectGuid>{D8ED9B9C-133A-4AF1-9C95-7D0BC93DE2D6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SourceLog.DataAccess.GitHub</RootNamespace>
+    <RootNamespace>SourceLog.Plugin.GitHub</RootNamespace>
     <AssemblyName>GitHub</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\Downloads\Json45r6\Bin\Net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Lib\Json45r8\Bin\Net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -58,7 +58,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetPath)" "$(SolutionDir)SourceLog\bin\$(ConfigurationName)"</PostBuildEvent>
+    <PostBuildEvent>mkdir "$(SolutionDir)SourceLog.UI\bin\$(ConfigurationName)\Plugins\$(TargetName)"
+copy /Y "$(TargetDir)*.dll" "$(SolutionDir)SourceLog.UI\bin\$(ConfigurationName)\Plugins\$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
