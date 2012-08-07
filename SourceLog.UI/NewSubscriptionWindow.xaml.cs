@@ -25,6 +25,7 @@ namespace SourceLog
 		{
 			vm = new NewSubscriptionWindowViewModel();
 			DataContext = vm;
+			
 
 			InitializeComponent();
 		}

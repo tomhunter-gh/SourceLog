@@ -44,5 +44,14 @@ namespace SourceLog.Model
 				PropertyChanged(this, new PropertyChangedEventArgs(property));
 			}
 		}
+
+		public void MarkAsReadAndSave()
+		{
+			using (var db = new SourceLogContext())
+			{
+				db.Entry(this).Entity.Read = true;
+				db.SaveChanges();
+			}
+		}
 	}
 }

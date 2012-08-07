@@ -51,22 +51,14 @@ namespace SourceLog.Model
 		void AddNewLogEntry(object sender, NewLogEntryEventArgs<ChangedFile> e)
 		{
 			GenerateFlowDocuments(e.LogEntry);
-			_uiThread.Post(entry =>
+			
+			using (var db = new SourceLogContext())
 			{
-				var logEntry = (LogEntry)entry;
-				//Debug.WriteLine(DateTime.Now + ": AddNewLogEntry before lock");
-				lock (LogSubscriptionManager.DbSaveLockObject)
-				{
-					Debug.WriteLine(DateTime.Now + ": AddNewLogEntry in lock");
-					Log.Add(logEntry);
-				}
-				//Debug.WriteLine(DateTime.Now + ": AddNewLogEntry after lock");
+				db.LogSubscriptions.First(s => s.LogSubscriptionId == LogSubscriptionId).Log.Add((LogEntry)e.LogEntry);
+				db.SaveChanges();
+			}
 
-				if (NewLogEntry != null)
-				{
-					NewLogEntry(this, new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry });
-				}
-			}, e.LogEntry);
+			_uiThread.Post(entry => Log.Add((LogEntry)entry), e.LogEntry);
 		}
 
 		private static void GenerateFlowDocuments(ILogEntry<ChangedFile> logEntry)
@@ -74,10 +66,10 @@ namespace SourceLog.Model
 			logEntry.ChangedFiles.AsParallel().ForAll(changedFile =>
 			{
 				Debug.WriteLine("   GeneratingFlowDocument: " + changedFile.FileName);
-				
+
 				changedFile.OldVersion = CheckForBinary(changedFile.OldVersion);
 				changedFile.NewVersion = CheckForBinary(changedFile.NewVersion);
-				
+
 				var diff = new SideBySideFlowDocumentDiffGenerator(changedFile.OldVersion, changedFile.NewVersion);
 				changedFile.LeftFlowDocument = diff.LeftDocument;
 				changedFile.RightFlowDocument = diff.RightDocument;

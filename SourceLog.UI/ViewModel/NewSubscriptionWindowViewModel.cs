@@ -6,7 +6,7 @@ using SourceLog.Model;
 
 namespace SourceLog.ViewModel
 {
-	class NewSubscriptionWindowViewModel
+	public class NewSubscriptionWindowViewModel
 	{
 		public List<string> LogProviderPluginNames
 		{
@@ -15,7 +15,7 @@ namespace SourceLog.ViewModel
 
 		public void AddSubscription(string name, string logProviderTypeName, string url)
 		{
-			LogSubscriptionManager.AddLogSubscription(name, logProviderTypeName, url);
+			MainWindowViewModel.LogSubscriptionManager.AddLogSubscription(name, logProviderTypeName, url);
 		}
 	}
 }
