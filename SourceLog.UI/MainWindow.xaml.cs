@@ -33,45 +33,25 @@ namespace SourceLog
 			ViewModel = new MainWindowViewModel();
 			DataContext = ViewModel;
 
-			//FixDataGridSorting();
+			FixDataGridSorting();
 		}
 
 		private void LstSubscriptionsSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			ViewModel.SelectedLogSubscription = e.AddedItems.Cast<LogSubscription>().First();
 
-			CollectionViewSource.GetDefaultView(ViewModel.SelectedLogSubscription.Log)
-				.SortDescriptions.Add(new SortDescription("CommittedDate", ListSortDirection.Descending));
-			CollectionViewSource.GetDefaultView(ViewModel.SelectedLogSubscription.Log).Refresh();
-			//CollectionViewSource.GetDefaultView(ViewModel.SelectedLogSubscription.Log).Refresh();
-			//CollectionViewSource.GetDefaultView(ViewModel.SelectedLogSubscription.Log).CollectionChanged += (o, ev) =>
-			//    {
-			//        if (ev.Action == NotifyCollectionChangedAction.Add)
-			//        {
-			//            ((ICollectionView)o).SortDescriptions.Add(new SortDescription("LogEntryId", ListSortDirection.Descending));
-			//            ((ICollectionView)o).Refresh();
-			//        }
-			//    };
-			//FixDataGridSorting();
+			FixDataGridSorting();
 		}
 
-		//private void FixDataGridSorting()
-		//{
-		//    // fix for datagrid clearing the sort order each time the ItemsSource is rebound
-		//    ViewModel.LogSubscriptions.ForEach(s =>
-		//        {
-		//            CollectionViewSource.GetDefaultView(s.Log).SortDescriptions.Add(
-		//                new SortDescription("LogEntryId", ListSortDirection.Descending));
-		//            CollectionViewSource.GetDefaultView(s.Log).CollectionChanged += (o, e) =>
-		//            {
-		//                if (e.Action == NotifyCollectionChangedAction.Add)
-		//                {
-		//                    ((ICollectionView)o).Refresh();
-		//                }
-
-		//            };
-		//        });
-		//}
+		private void FixDataGridSorting()
+		{
+			// fix for datagrid clearing the sort order each time the ItemsSource is rebound
+			ViewModel.LogSubscriptions.ToList().ForEach(s =>
+				{
+					CollectionViewSource.GetDefaultView(s.Log).SortDescriptions.Add(
+						new SortDescription("LogEntryId", ListSortDirection.Descending));
+				});
+		}
 
 		private void ButtonClick(object sender, RoutedEventArgs e)
 		{
