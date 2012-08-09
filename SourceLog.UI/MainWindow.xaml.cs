@@ -39,6 +39,10 @@ namespace SourceLog
 		private void LstSubscriptionsSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			ViewModel.SelectedLogSubscription = e.AddedItems.Cast<LogSubscription>().First();
+
+			CollectionViewSource.GetDefaultView(ViewModel.SelectedLogSubscription.Log)
+				.SortDescriptions.Add(new SortDescription("CommittedDate", ListSortDirection.Descending));
+			CollectionViewSource.GetDefaultView(ViewModel.SelectedLogSubscription.Log).Refresh();
 			//CollectionViewSource.GetDefaultView(ViewModel.SelectedLogSubscription.Log).Refresh();
 			//CollectionViewSource.GetDefaultView(ViewModel.SelectedLogSubscription.Log).CollectionChanged += (o, ev) =>
 			//    {
