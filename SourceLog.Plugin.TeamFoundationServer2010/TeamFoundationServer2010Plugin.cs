@@ -50,17 +50,17 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 						user: null,
 						versionFrom: null,
 						versionTo: null,
-						maxCount: 100, 
+						maxCount: 100,
 						includeChanges: true,
 						slotMode: false
 					).Cast<Changeset>();
 
-					foreach (var changeset in 
+					foreach (var changeset in
 						history.Where(c => c.CreationDate > MaxDateTimeRetrieved).OrderBy(c => c.CreationDate))
 					{
 						var changesetId = changeset.ChangesetId;
 						Debug.WriteLine(" [TFS]Creating LogEntry for Changeset " + changesetId);
-						
+
 						var logEntry = new LogEntry
 						{
 							Author = changeset.Committer,
@@ -85,9 +85,9 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 								changedFile.NewVersion = streamreader.ReadToEnd();
 							}
 
-							if (!change.ChangeType.HasFlag(TFS.ChangeType.Add))
+							var previousVersion = vcs.GetItem(change.Item.ItemId, changesetId - 1, true);
+							if (previousVersion != null)
 							{
-								var previousVersion = vcs.GetItem(change.Item.ItemId, changesetId - 1, true);
 								using (var previousVersionStreamreader = new StreamReader(previousVersion.DownloadFile()))
 								{
 									changedFile.OldVersion = previousVersionStreamreader.ReadToEnd();
@@ -119,9 +119,10 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 		{
 			if (change.ChangeType.HasFlag(TFS.ChangeType.Add))
 				changedFile.ChangeType = Interface.ChangeType.Added;
-			if (change.ChangeType.HasFlag(TFS.ChangeType.Delete))
+			else if (change.ChangeType.HasFlag(TFS.ChangeType.Delete))
 				changedFile.ChangeType = Interface.ChangeType.Deleted;
-			if (change.ChangeType.HasFlag(TFS.ChangeType.Edit))
+			//if (change.ChangeType.HasFlag(TFS.ChangeType.Edit))
+			else
 				changedFile.ChangeType = Interface.ChangeType.Modified;
 		}
 
