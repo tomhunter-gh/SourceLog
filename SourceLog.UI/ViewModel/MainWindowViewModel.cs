@@ -9,11 +9,11 @@ namespace SourceLog.ViewModel
 {
 	public class MainWindowViewModel : INotifyPropertyChanged
 	{
-		private readonly LogSubscriptionManager _logSubscriptionManager;
+		public static readonly LogSubscriptionManager LogSubscriptionManager = new LogSubscriptionManager();
 
 		public ObservableCollection<LogSubscription> LogSubscriptions
 		{
-			get { return _logSubscriptionManager.LogSubscriptions; }
+			get { return LogSubscriptionManager.LogSubscriptions; }
 		}
 
 		private LogSubscription _selectedLogSubscription;
@@ -80,8 +80,7 @@ namespace SourceLog.ViewModel
 
 		public MainWindowViewModel()
 		{
-			_logSubscriptionManager = new LogSubscriptionManager();
-			SelectedLogSubscription = _logSubscriptionManager.LogSubscriptions.FirstOrDefault();
+			SelectedLogSubscription = LogSubscriptionManager.LogSubscriptions.FirstOrDefault();
 		}
 
 		public void MarkEntryRead(LogEntry readItem)
@@ -89,7 +88,7 @@ namespace SourceLog.ViewModel
 			if (!readItem.Read)
 			{
 				readItem.Read = true;
-				LogSubscriptionManager.SaveChanges();
+				readItem.MarkAsReadAndSave();
 			}
 		}
 
