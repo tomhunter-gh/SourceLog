@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Windows.Documents;
 using System.Windows.Markup;
 using SourceLog.Interface;
@@ -77,13 +78,21 @@ namespace SourceLog.Model
 
 		private FlowDocument _rightFlowDocument;
 
-		private static byte[] FlowDocumentToByteArray(FlowDocument value)
+		private static byte[] FlowDocumentToByteArray(FlowDocument flowDocument)
 		{
-			
-			var stream = new MemoryStream();
-			XamlWriter.Save(value, stream);
-			stream.Position = 0;
-			return stream.ToArray();
+			using (var stream = new MemoryStream())
+			{
+				XamlWriter.Save(flowDocument, stream);
+				stream.Position = 0;
+				using (var compressedStream = new MemoryStream())
+				{
+					using (var gZipCompressor = new GZipStream(compressedStream, CompressionMode.Compress))
+					{
+						stream.CopyTo(gZipCompressor);
+					}
+					return compressedStream.ToArray();
+				}
+			}
 		}
 
 		private static FlowDocument GetFlowDocument(byte[] flowDocumentData)
@@ -91,8 +100,16 @@ namespace SourceLog.Model
 			FlowDocument flowDocument;
 			try
 			{
-				var stream = new MemoryStream(flowDocumentData) { Position = 0 };
-				flowDocument = (FlowDocument)XamlReader.Load(stream);
+				using (var compressedStream = new MemoryStream(flowDocumentData))
+				using (var uncompressedStream = new MemoryStream())
+				{
+					using (var gZipDecompressor = new GZipStream(compressedStream, CompressionMode.Decompress))
+					{
+						gZipDecompressor.CopyTo(uncompressedStream);
+					}
+					uncompressedStream.Position = 0;
+					flowDocument = (FlowDocument)XamlReader.Load(uncompressedStream);
+				}
 			}
 			catch (Exception exception)
 			{
@@ -104,34 +121,4 @@ namespace SourceLog.Model
 
 		public double FirstModifiedLineVerticalOffset { get; set; }
 	}
-
-	//public class ChangeTypeWrapper
-	//{
-	//    private ChangeType _value;
-
-	//    public string Value
-	//    {
-	//        get { return _value.ToString(); }
-	//        set
-	//        {
-	//            _value = (ChangeType)Enum.Parse(typeof(ChangeType), value);
-	//        }
-	//    }
-
-	//    public ChangeType EnumValue
-	//    {
-	//        get { return _value; }
-	//        set { _value = value; }
-	//    }
-
-	//    public static implicit operator ChangeTypeWrapper(ChangeType changeType)
-	//    {
-	//        return new ChangeTypeWrapper { EnumValue = changeType };
-	//    }
-
-	//    public static implicit operator ChangeType(ChangeTypeWrapper changeTypeWrapper)
-	//    {
-	//        return changeTypeWrapper.EnumValue;
-	//    }
-	//}
 }
