@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Windows;
 using System.Windows.Documents;
@@ -75,56 +76,95 @@ namespace SourceLog.Model
 		{
 			var flowDocument = new FlowDocument();
 			var lineWidths = new List<double>();
+			
+			var stringBuilder = new StringBuilder();
+			bool isFirstLine = true;
+			ChangeType? previousLineType = null;
+			DiffPiece previousLine = null;
 			foreach (var line in diffPaneModel.Lines)
 			{
-				Run run;
-				Paragraph paragraph = null;
-
-				switch (line.Type)
+				if (line.Type != ChangeType.Modified && isFirstLine)
 				{
-					case ChangeType.Unchanged:
-						run = new Run { Text = line.Text };
-						paragraph = new Paragraph(run);
-						break;
-					case ChangeType.Modified:
-						paragraph = RenderDiffWords(line);
-						paragraph.Background = _modifiedFillColor;
-						break;
-					case ChangeType.Deleted:
-						run = new Run { Text = line.Text };
-						paragraph = new Paragraph(run) { Background = _deletedFillColor };
-						break;
-					case ChangeType.Inserted:
-						run = new Run { Text = line.Text };
-						paragraph = new Paragraph(run) { Background = _insertedFillColor };
-						break;
-					case ChangeType.Imaginary:
-						run = new Run { Text = line.Text ?? String.Empty };
-						paragraph = new Paragraph(run) { Background = _imaginaryFillColor };
-						break;
+					stringBuilder.Append(line.Text);
 				}
-
-				if (paragraph == null) continue;
-				paragraph.FontFamily = _fontFamily;
-				paragraph.FontSize = FontSize;
-				paragraph.Margin = _zeroThickness;
-
-				lineWidths.Add(CalculateParagraphWidth(paragraph));
-
-				flowDocument.Blocks.Add(paragraph);
+				else if (line.Type != ChangeType.Modified && line.Type == previousLineType)
+				{
+					stringBuilder.Append(Environment.NewLine + line.Text);
+				}
+				else if (!isFirstLine && (line.Type != previousLineType || previousLineType == ChangeType.Modified))
+				{
+					Paragraph paragraph = GetParagraph(stringBuilder, previousLineType, previousLine);
+					flowDocument.Blocks.Add(paragraph);
+					
+					stringBuilder.Clear();
+					stringBuilder.Append(line.Text);
+				}
+				
+				isFirstLine = false;
+				previousLineType = line.Type;
+				previousLine = line;
+				lineWidths.Add(CalculateLineWidth(line.Text));
 			}
 
+			// process last line
+			if (previousLine != null)
+			{
+				Paragraph lastParagraph = GetParagraph(stringBuilder, previousLineType, previousLine);
+				flowDocument.Blocks.Add(lastParagraph);
+			}
+			
 			flowDocument.PagePadding = _zeroThickness;
 			flowDocument.PageWidth = lineWidths.DefaultIfEmpty(0).Max();
 			return flowDocument;
 		}
 
-		private double CalculateParagraphWidth(Paragraph paragraph)
+		private Paragraph GetParagraph(StringBuilder stringBuilder, ChangeType? lineType, DiffPiece line)
 		{
-			return paragraph.Inlines.OfType<Run>().Sum(r =>
-					r.Text.Where(c => c == '\t').Count()*_tabWidth
-					+ r.Text.Where(c => c != '\t').Count()*_characterWidth
-				);
+			Run run;
+			Paragraph paragraph = null;
+
+			switch (lineType)
+			{
+				case ChangeType.Unchanged:
+
+					run = new Run {Text = stringBuilder.ToString()};
+					paragraph = new Paragraph(run);
+					break;
+				case ChangeType.Modified:
+					paragraph = RenderDiffWords(line);
+					paragraph.Background = _modifiedFillColor;
+					break;
+				case ChangeType.Deleted:
+					run = new Run { Text = stringBuilder.ToString() };
+					paragraph = new Paragraph(run) {Background = _deletedFillColor};
+					break;
+				case ChangeType.Inserted:
+					run = new Run { Text = stringBuilder.ToString() };
+					paragraph = new Paragraph(run) {Background = _insertedFillColor};
+					break;
+				case ChangeType.Imaginary:
+					run = new Run { Text = stringBuilder.ToString() };
+					paragraph = new Paragraph(run) {Background = _imaginaryFillColor};
+					break;
+			}
+
+			if (paragraph != null)
+			{
+				paragraph.FontFamily = _fontFamily;
+				paragraph.FontSize = FontSize;
+				paragraph.Margin = _zeroThickness;
+			}
+			
+			return paragraph;
+		}
+
+		private double CalculateLineWidth(string line)
+		{
+			if (line == null)
+				return 0;
+
+			return line.Where(c => c == '\t').Count()*_tabWidth
+					+ line.Where(c => c != '\t').Count()*_characterWidth;
 		}
 
 		private Paragraph RenderDiffWords(DiffPiece line)
