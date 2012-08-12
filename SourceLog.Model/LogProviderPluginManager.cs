@@ -31,7 +31,7 @@ namespace SourceLog.Model
 
 		private static Dictionary<string, Type> LoadLogProviderPluginTypeList()
 		{
-			AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+			AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 			
 			var logProviderPluginTypeList = new Dictionary<string, Type>();
 

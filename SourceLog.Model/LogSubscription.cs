@@ -48,17 +48,18 @@ namespace SourceLog.Model
 			LogProvider.Initialise();
 		}
 
-		void AddNewLogEntry(object sender, NewLogEntryEventArgs<ChangedFile> e)
+		public void AddNewLogEntry(object sender, NewLogEntryEventArgs<ChangedFile> e)
 		{
 			GenerateFlowDocuments(e.LogEntry);
-			
-			using (var db = new SourceLogContext())
-			{
-				db.LogSubscriptions.First(s => s.LogSubscriptionId == LogSubscriptionId).Log.Add((LogEntry)e.LogEntry);
-				db.SaveChanges();
-			}
 
-			_uiThread.Post(entry => Log.Add((LogEntry)entry), e.LogEntry);
+			var db = SourceLogContext.ThreadStaticContext;
+			db.LogSubscriptions.First(s => s.LogSubscriptionId == LogSubscriptionId).Log.Add((LogEntry)e.LogEntry);
+			db.SaveChanges();
+
+			if (_uiThread != null)
+			{
+				_uiThread.Post(entry => Log.Add((LogEntry)entry), e.LogEntry);
+			}
 		}
 
 		private static void GenerateFlowDocuments(ILogEntry<ChangedFile> logEntry)
@@ -87,11 +88,11 @@ namespace SourceLog.Model
 			return s;
 		}
 
-		public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;
-		public bool NewLogEntryWired
-		{
-			get { return NewLogEntry != null; }
-		}
+		//public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;
+		//public bool NewLogEntryWired
+		//{
+		//    get { return NewLogEntry != null; }
+		//}
 
 	}
 }
