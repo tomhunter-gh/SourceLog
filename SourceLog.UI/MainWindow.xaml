@@ -17,7 +17,7 @@
 			<!--Toolbar-->
 			<RowDefinition Height="Auto" />
 			<!--DataGrid-->
-			<RowDefinition Height="*" />
+			<RowDefinition Height="2*" />
 			<!--GridSplitter-->
 			<RowDefinition Height="Auto" />
 			<!--Message-->
@@ -29,7 +29,7 @@
 			<!--GridSplitter-->
 			<RowDefinition Height="Auto" />
 			<!--Diff viewer-->
-			<RowDefinition Height="*" />
+			<RowDefinition Height="2*" />
 		</Grid.RowDefinitions>
 
 		<StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal">
