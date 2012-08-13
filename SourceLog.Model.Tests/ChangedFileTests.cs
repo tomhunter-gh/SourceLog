@@ -22,7 +22,7 @@ namespace SourceLog.Model.Tests
 			var logSubscription = new LogSubscription
 				{
 					LogSubscriptionId = 1,
-					Log = new ObservableCollection<LogEntry>()
+					Log = new TrulyObservableCollection<LogEntry>()
 				};
 
 			var fakeLogSubscriptionDbSet = new FakeDbSet<LogSubscription> { logSubscription };

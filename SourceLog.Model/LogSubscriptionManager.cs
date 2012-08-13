@@ -66,7 +66,7 @@ namespace SourceLog.Model
 		public void AddLogSubscription(string name, string logProviderTypeName, string url)
 		{
 			var logSubscription = new LogSubscription(name, logProviderTypeName, url)
-				{Log = new ObservableCollection<LogEntry>()};
+				{Log = new TrulyObservableCollection<LogEntry>()};
 			using (var db = new SourceLogContext())
 			{
 				db.LogSubscriptions.Add(logSubscription);

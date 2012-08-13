@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Threading;
@@ -8,17 +10,26 @@ using System.Linq;
 
 namespace SourceLog.Model
 {
-	public class LogSubscription
+	public class LogSubscription : INotifyPropertyChanged
 	{
 		public int LogSubscriptionId { get; set; }
 		public string Name { get; set; }
 		public string Url { get; set; }
 		public string LogProviderTypeName { get; set; }
-		public virtual ObservableCollection<LogEntry> Log { get; set; }
+		private TrulyObservableCollection<LogEntry> _log;
+		public virtual TrulyObservableCollection<LogEntry> Log
+		{
+			get { return _log; } 
+			set
+			{
+				_log = value;
+				_log.CollectionChanged += (s,e) => NotifyPropertyChanged("Log");
+			}
+		}
 
 		public ILogProvider<ChangedFile> LogProvider { get; set; }
 		private readonly SynchronizationContext _uiThread;
-		
+
 		//[NotMapped]
 		//public int UnreadLogEntryCount
 		//{
@@ -29,6 +40,12 @@ namespace SourceLog.Model
 		{
 			_uiThread = SynchronizationContext.Current;
 		}
+
+		//void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		//{
+		//    NotifyCollectionChangedEventArgs a = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+		//    OnCollectionChanged(a);
+		//}
 
 		public LogSubscription(string name, string vcsLogProviderName, string url)
 			: this()
@@ -65,7 +82,11 @@ namespace SourceLog.Model
 
 			if (_uiThread != null)
 			{
-				_uiThread.Post(entry => Log.Add((LogEntry)entry), e.LogEntry);
+				_uiThread.Post(entry =>
+					{
+						Log.Add((LogEntry)entry);
+						NotifyPropertyChanged("Log");
+					}, e.LogEntry);
 			}
 		}
 
@@ -95,5 +116,14 @@ namespace SourceLog.Model
 			return s;
 		}
 
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public void NotifyPropertyChanged(string property)
+		{
+			if (PropertyChanged != null)
+			{
+				PropertyChanged(this, new PropertyChangedEventArgs(property));
+			}
+		}
 	}
 }

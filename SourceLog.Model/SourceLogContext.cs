@@ -10,7 +10,14 @@ namespace SourceLog.Model
 
 		public static ISourceLogContext ThreadStaticContext
 		{
-			get { return _threadStaticContext ?? (_threadStaticContext = new SourceLogContext()); }
+			get
+			{
+				if (_threadStaticContext == null)
+				{
+					_threadStaticContext = new SourceLogContext();
+				}
+				return _threadStaticContext;
+			}
 			set { _threadStaticContext = value; }
 		}
 

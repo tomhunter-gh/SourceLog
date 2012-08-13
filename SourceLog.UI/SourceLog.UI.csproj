@@ -81,6 +81,7 @@
     </ApplicationDefinition>
     <Compile Include="CustomFlowDocumentScrollViewer.cs" />
     <Compile Include="FontInfo.cs" />
+    <Compile Include="LogToHasUnreadEntriesFlagConverter.cs" />
     <Compile Include="Migrations\201207032049298_Migration1.cs" />
     <Compile Include="Migrations\201207032049298_Migration1.Designer.cs">
       <DependentUpon>201207032049298_Migration1.cs</DependentUpon>

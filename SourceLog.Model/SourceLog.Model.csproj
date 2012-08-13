@@ -61,6 +61,7 @@
     <Compile Include="LogSubscription.cs" />
     <Compile Include="LogSubscriptionManager.cs" />
     <Compile Include="SideBySideFlowDocumentDiffGenerator.cs" />
+    <Compile Include="TrulyObservableCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SourceLog.Interface\SourceLog.Interface.csproj">

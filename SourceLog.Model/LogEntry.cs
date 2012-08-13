@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Threading.Tasks;
 using SourceLog.Interface;
 
 namespace SourceLog.Model
@@ -47,11 +50,17 @@ namespace SourceLog.Model
 
 		public void MarkAsReadAndSave()
 		{
-			using (var db = new SourceLogContext())
-			{
-				db.Entry(this).Entity.Read = true;
-				db.SaveChanges();
-			}
+			Task.Factory.StartNew(() =>
+				{
+					var db = (SourceLogContext)SourceLogContext.ThreadStaticContext;
+					//db.Entry(this).Entity.Read = true;
+					// TODO: there must be a better way..
+					db.LogSubscriptions.ToList().ForEach(s => s.Log.Where(e => e.LogEntryId == LogEntryId).ToList().ForEach(e => e.Read = true));
+					//db.Entry(this).Entity._read = true;
+					//((IObjectContextAdapter)db).ObjectContext.Attach(db.Entry(this));
+					db.SaveChanges();
+				});
+			
 		}
 	}
 }
