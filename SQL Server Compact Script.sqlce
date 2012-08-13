@@ -25,5 +25,12 @@ WHERE [ChangeTypeValue] <> 'Added'
 --SET [ChangeTypeValue] = 'Modified'
 --WHERE [ChangeTypeValue] = 'Modify'
 
---DELETE FROM [ChangedFiles] WHERE [LogEntry_LogEntryId] > 3569
---DELETE FROM [LogEntries] WHERE [LogSubscription_LogSubscriptionId] = 27 AND [LogEntryId] > 3569
+DELETE FROM [ChangedFiles]
+DELETE FROM [LogEntries]
+
+
+select Revision, count(*)
+from [LogEntries] le
+inner join [ChangedFiles] cf
+ on cf.[LogEntry_LogEntryId] = le.[LogEntryId]
+group by Revision

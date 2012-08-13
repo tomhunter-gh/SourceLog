@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Threading;
 using SourceLog.Interface;
@@ -13,10 +14,16 @@ namespace SourceLog.Model
 		public string Name { get; set; }
 		public string Url { get; set; }
 		public string LogProviderTypeName { get; set; }
-		public ILogProvider<ChangedFile> LogProvider { get; set; }
 		public virtual ObservableCollection<LogEntry> Log { get; set; }
 
+		public ILogProvider<ChangedFile> LogProvider { get; set; }
 		private readonly SynchronizationContext _uiThread;
+		
+		//[NotMapped]
+		//public int UnreadLogEntryCount
+		//{
+		//    get { return Log.Count(le => !le.Read); }
+		//}
 
 		public LogSubscription()
 		{
@@ -87,12 +94,6 @@ namespace SourceLog.Model
 			}
 			return s;
 		}
-
-		//public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;
-		//public bool NewLogEntryWired
-		//{
-		//    get { return NewLogEntry != null; }
-		//}
 
 	}
 }

@@ -52,10 +52,10 @@ namespace SourceLog.Model.Tests
 			logSubscription.AddNewLogEntry(this, new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry });
 
 
-			Assert.IsTrue(changedFile.LeftFlowDocumentData.Length <= 6716,
+			Assert.IsTrue(changedFile.LeftFlowDocumentData.Length <= 5219,
 				"changedFile.LeftFlowDocumentData.Length: " + changedFile.LeftFlowDocumentData.Length);
 
-			Assert.IsTrue(changedFile.RightFlowDocumentData.Length <= 6708,
+			Assert.IsTrue(changedFile.RightFlowDocumentData.Length <= 5224,
 				"changedFile.RightFlowDocumentData.Length: " + changedFile.RightFlowDocumentData.Length);
 		}
 	}
