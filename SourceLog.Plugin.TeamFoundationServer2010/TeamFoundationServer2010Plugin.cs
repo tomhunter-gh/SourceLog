@@ -80,9 +80,16 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 								continue;
 							}
 
-							using (var streamreader = new StreamReader(change.Item.DownloadFile()))
+							if (change.ChangeType.HasFlag(TFS.ChangeType.Delete))
 							{
-								changedFile.NewVersion = streamreader.ReadToEnd();
+								changedFile.NewVersion = String.Empty;
+							}
+							else
+							{
+								using (var streamreader = new StreamReader(change.Item.DownloadFile()))
+								{
+									changedFile.NewVersion = streamreader.ReadToEnd();
+								}
 							}
 
 							var previousVersion = vcs.GetItem(change.Item.ItemId, changesetId - 1, true);
