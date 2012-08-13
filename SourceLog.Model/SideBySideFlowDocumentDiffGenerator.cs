@@ -97,7 +97,10 @@ namespace SourceLog.Model
 					flowDocument.Blocks.Add(paragraph);
 					
 					stringBuilder.Clear();
-					stringBuilder.Append(line.Text);
+					if (line.Type != ChangeType.Modified)
+					{
+						stringBuilder.Append(line.Text);
+					}
 				}
 				
 				isFirstLine = false;
