@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.Perforce", "SourceLog.Plugin.Perforce\SourceLog.Plugin.Perforce.csproj", "{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = SourceLog.vsmdi
@@ -105,6 +107,16 @@ Global
 		{41F2B842-1CA5-4403-BDD1-8150FA2C31C8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{41F2B842-1CA5-4403-BDD1-8150FA2C31C8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{41F2B842-1CA5-4403-BDD1-8150FA2C31C8}.Release|x86.ActiveCfg = Release|Any CPU
+		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
