@@ -65,9 +65,12 @@ namespace SourceLog
 			{
 				ViewModel.MarkEntryRead(readItem);
 			}
-			var selectedLogEntry = e.AddedItems.Cast<LogEntry>().Last();
-			ViewModel.SelectedLogEntry = selectedLogEntry;
-			lstChangedFiles.SelectedItem = selectedLogEntry.ChangedFiles.FirstOrDefault();
+			if (e.AddedItems.Count > 0)
+			{
+				var selectedLogEntry = e.AddedItems.Cast<LogEntry>().Last();
+				ViewModel.SelectedLogEntry = selectedLogEntry;
+				lstChangedFiles.SelectedItem = selectedLogEntry.ChangedFiles.FirstOrDefault();
+			}
 		}
 
 		private void LstChangedFilesSelectionChanged(object sender, SelectionChangedEventArgs e)
