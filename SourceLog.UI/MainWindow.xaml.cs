@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Diagnostics;
+﻿using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using DiffPlex;
-using DiffPlex.DiffBuilder;
-using DiffPlex.DiffBuilder.Model;
+using System.Windows.Input;
 using SourceLog.Model;
 using SourceLog.ViewModel;
 
@@ -47,10 +38,10 @@ namespace SourceLog
 		{
 			// fix for datagrid clearing the sort order each time the ItemsSource is rebound
 			ViewModel.LogSubscriptions.ToList().ForEach(s =>
-				{
-					CollectionViewSource.GetDefaultView(s.Log).SortDescriptions.Add(
-						new SortDescription("LogEntryId", ListSortDirection.Descending));
-				});
+				CollectionViewSource.GetDefaultView(s.Log).SortDescriptions.Add(
+					new SortDescription("LogEntryId", ListSortDirection.Descending)
+				)
+			);
 		}
 
 		private void ButtonClick(object sender, RoutedEventArgs e)
@@ -79,23 +70,9 @@ namespace SourceLog
 			{
 				var changedFile = e.AddedItems.Cast<ChangedFile>().Last();
 
-				//var left = changedFile.OldVersion;
-				//var right = changedFile.NewVersion;
-
-				////var stopWatch = new Stopwatch();
-				////stopWatch.Start();
-				//AddImaginaryLines(ref left, ref right);
-				////stopWatch.Stop();
-				////Debug.WriteLine("AddImaginaryLines");
-
-				//var diffRenderer = new TextBoxDiffRenderer(left, right, LeftDiffGrid, RightDiffGrid, CurrentFont);
-
-				//LeftBox.Document = StringToFlowDocument(left);
-				//RightBox.Document = StringToFlowDocument(right);
 				LeftBox.Document = changedFile.LeftFlowDocument;
 				RightBox.Document = changedFile.RightFlowDocument;
 
-				//diffRenderer.GenerateDiffView();
 				ScrollFirstChangeIntoView(changedFile.FirstModifiedLineVerticalOffset);
 			}
 			else
@@ -104,100 +81,6 @@ namespace SourceLog
 				RightBox.Document = new FlowDocument();
 			}
 		}
-
-		//static readonly FontInfo CurrentFont = new FontInfo(new FontFamily("Courier New"), 12);
-
-		//private static FlowDocument StringToFlowDocument(string text)
-		//{
-		//    var flowDocument = new FlowDocument
-		//        {
-		//            PageWidth = GetMaxLineLength(text) + 50, 
-		//            PagePadding = new Thickness(0)
-		//        };
-		//    var run = new Run
-		//        {
-		//            Text = text,
-		//            FontFamily = CurrentFont.FontFamily,
-		//            FontSize = CurrentFont.Size
-		//    };
-		//    flowDocument.Blocks.Add(new Paragraph(run));
-		//    return flowDocument;
-		//}
-
-		//private static double GetMaxLineLength(string text)
-		//{
-		//    var formattedSpace = new FormattedText(
-		//        " ",
-		//        Thread.CurrentThread.CurrentCulture,
-		//        FlowDirection.LeftToRight,
-		//        new Typeface(CurrentFont.FontFamily.Source),
-		//        CurrentFont.Size,
-		//        Brushes.Black
-		//    );
-
-		//    var formattedTab = new FormattedText(
-		//        "\t",
-		//        Thread.CurrentThread.CurrentCulture,
-		//        FlowDirection.LeftToRight,
-		//        new Typeface(CurrentFont.FontFamily.Source),
-		//        CurrentFont.Size,
-		//        Brushes.Black
-		//    );
-
-		//    return text.Split('\n').Max(
-		//        l =>
-		//            l.Where(c => c == '\t').Count() * formattedTab.WidthIncludingTrailingWhitespace
-		//            + l.Where(c => c != '\t').Count() * formattedSpace.WidthIncludingTrailingWhitespace
-		//    );
-		//}
-
-		//private static void AddImaginaryLines(ref string left, ref string right)
-		//{
-		//    left = StripImaginaryLinesAndCharacters(left);
-		//    right = StripImaginaryLinesAndCharacters(right);
-
-		//    var differ = new SideBySideDiffBuilder(new Differ());
-		//    var diffRes = differ.BuildDiffModel(left, right);
-
-		//    left = AddImaginaryLinesToText(diffRes.OldText, left);
-		//    right = AddImaginaryLinesToText(diffRes.NewText, right);
-		//}
-
-		//private const char ImaginaryLineCharacter = '\u202B';
-
-		//private static string StripImaginaryLinesAndCharacters(string text)
-		//{
-		//    var lines = text.Split('\r').Where(x => !x.Equals(ImaginaryLineCharacter.ToString()));
-		//    var aggregatedLines = lines.Count() == 0 ? String.Empty : String.Join("\r", lines);
-
-		//    return aggregatedLines.Replace(ImaginaryLineCharacter.ToString(), String.Empty);
-		//}
-
-		//private static string AddImaginaryLinesToText(DiffPaneModel diffModel, string text)
-		//{
-		//    var lines = new List<string>();
-		//    if (!String.IsNullOrEmpty(text))
-		//    {
-		//        lines = text.Split('\r').ToList();
-		//    }
-
-		//    var lineNumber = 0;
-		//    foreach (var line in diffModel.Lines)
-		//    {
-		//        if (line.Type == ChangeType.Imaginary)
-		//        {
-		//            lines.Insert(lineNumber, ImaginaryLineCharacter.ToString());
-		//        }
-		//        lineNumber++;
-		//    }
-
-		//    if (lines.Count > 1)
-		//    {
-		//        return String.Join("\r", lines);
-		//    }
-		//    return lines.DefaultIfEmpty(String.Empty).First();
-		//}
-
 
 		private void ScrollFirstChangeIntoView(double firstModifiedLineVerticalOffset)
 		{
@@ -222,6 +105,18 @@ namespace SourceLog
 			{
 				LeftScroller.ScrollToVerticalOffset(scrollViewer.VerticalOffset);
 				LeftScroller.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset);
+			}
+		}
+
+		private void PassDiffPaneMouseWheelToParent(object sender, MouseWheelEventArgs e)
+		{
+			if (!e.Handled)
+			{
+				e.Handled = true;
+				var eventArg = new MouseWheelEventArgs(
+					e.MouseDevice, e.Timestamp, e.Delta) {RoutedEvent = MouseWheelEvent, Source = sender};
+				var parent = ((Control)sender).Parent as UIElement;
+				if (parent != null) parent.RaiseEvent(eventArg);
 			}
 		}
 	}
