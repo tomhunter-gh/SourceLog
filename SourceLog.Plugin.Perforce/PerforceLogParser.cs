@@ -43,6 +43,22 @@ namespace SourceLog.Plugin.Perforce
 			if (match.Success)
 			{
 				changedFile.FileName = match.Groups["filename"].Value;
+				switch (match.Groups["action"].Value)
+				{
+					case "add" :
+						changedFile.ChangeType = Interface.ChangeType.Added;
+						break;
+					case "edit" :
+						changedFile.ChangeType = Interface.ChangeType.Modified;
+						break;
+					case "delete" :
+						changedFile.ChangeType = Interface.ChangeType.Deleted;
+						break;
+					case "branch" :
+						changedFile.ChangeType = Interface.ChangeType.Copied;
+						break;
+				}
+
 			}
 
 			return changedFile;

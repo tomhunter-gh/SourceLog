@@ -43,15 +43,35 @@ namespace SourceLog.Plugin.Perforce
 
 					foreach (var logEntry in logEntries.OrderBy(le => le.CommittedDate))
 					{
+						ChangedFile changedFile;
+
 						// grab changed files
 						var p4files = p4.run("files @=" + logEntry.Revision);
 						foreach (string file in p4files)
 						{
-							ChangedFile changedFile = PerforceLogParser.ParseP4File(file);
+							changedFile = PerforceLogParser.ParseP4File(file);
+							if (changedFile.ChangeType == ChangeType.Added
+								|| changedFile.ChangeType == ChangeType.Copied
+								|| changedFile.ChangeType == ChangeType.Modified
+								|| changedFile.ChangeType == ChangeType.Moved)
+							{
+								changedFile.NewVersion = String.Join(Environment.NewLine, p4.run("print " + changedFile.FileName + "@" + logEntry.Revision));
+							}
+
+							if (changedFile.ChangeType == ChangeType.Copied
+								|| changedFile.ChangeType == ChangeType.Deleted
+								|| changedFile.ChangeType == ChangeType.Modified
+								|| changedFile.ChangeType == ChangeType.Moved)
+							{
+								changedFile.OldVersion = String.Join(Environment.NewLine, p4.run("print " + changedFile.FileName + "@" + (Int32.Parse(logEntry.Revision) - 1)));
+							}
 						}
 
-						// send to Model
+						var args = new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry };
+						NewLogEntry(this, args);
 					}
+
+					MaxDateTimeRetrieved = logEntries.Max(x => x.CommittedDate);
 				}
 				finally
 				{
@@ -60,6 +80,6 @@ namespace SourceLog.Plugin.Perforce
 			}
 		}
 
-		public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;		
+		public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;
 	}
 }

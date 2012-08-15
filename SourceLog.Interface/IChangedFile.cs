@@ -12,6 +12,8 @@
 	{
 		Added,
 		Modified,
-		Deleted
+		Deleted,
+		Copied,
+		Moved
 	}
 }
