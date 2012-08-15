@@ -53,11 +53,7 @@ namespace SourceLog.Model
 			Task.Factory.StartNew(() =>
 				{
 					var db = (SourceLogContext)SourceLogContext.ThreadStaticContext;
-					//db.Entry(this).Entity.Read = true;
-					// TODO: there must be a better way..
-					db.LogSubscriptions.ToList().ForEach(s => s.Log.Where(e => e.LogEntryId == LogEntryId).ToList().ForEach(e => e.Read = true));
-					//db.Entry(this).Entity._read = true;
-					//((IObjectContextAdapter)db).ObjectContext.Attach(db.Entry(this));
+					db.Set<LogEntry>().Find(LogEntryId).Read = true;
 					db.SaveChanges();
 				});
 			
