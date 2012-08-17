@@ -117,7 +117,7 @@ namespace SourceLog.Model
 			}
 			
 			flowDocument.PagePadding = _zeroThickness;
-			flowDocument.PageWidth = lineWidths.DefaultIfEmpty(0).Max();
+			flowDocument.PageWidth = Math.Min(lineWidths.DefaultIfEmpty(0).Max(), 1000000); // Throws an ArgumentException if value is too big. I think the maximum allowed is 1 million.
 			return flowDocument;
 		}
 

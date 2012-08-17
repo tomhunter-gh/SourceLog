@@ -50,7 +50,7 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 						user: null,
 						versionFrom: null,
 						versionTo: null,
-						maxCount: 100,
+						maxCount: 30,
 						includeChanges: true,
 						slotMode: false
 					).Cast<Changeset>();

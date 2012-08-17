@@ -123,7 +123,7 @@
 						</Style>
 					</DataGridTextColumn.ElementStyle>
 				</DataGridTextColumn>
-				<DataGridTextColumn Header="Date" Binding="{Binding Path=CommittedDate, StringFormat={}\{0:hh:mm:ss dd MMMM yyyy\}}" />
+				<DataGridTextColumn Header="Date" Binding="{Binding Path=CommittedDate, StringFormat={}\{0:HH:mm:ss dd MMMM yyyy\}}" />
 				<DataGridTextColumn Header="Author" Binding="{Binding Path=Author}" />
 				<DataGridTextColumn Header="Message" Binding="{Binding Path=Message, Converter={StaticResource SingleLineTextConverter}}" Width="500" />
 				<!--<DataGridTemplateColumn Header="Message">
