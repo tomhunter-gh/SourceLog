@@ -35,8 +35,6 @@ namespace SourceLog.Model.Tests
 
 			logSubscription.AddNewLogEntry(this, new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry });
 
-			ChangedFile.ExploreFlowDocument(changedFile.LeftFlowDocument);
-
 			var textRange = new TextRange(changedFile.LeftFlowDocument.ContentStart, changedFile.LeftFlowDocument.ContentEnd);
 			Assert.IsTrue(textRange.Text.StartsWith("\t"));
 		}
