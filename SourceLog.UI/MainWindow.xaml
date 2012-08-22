@@ -1,7 +1,9 @@
 ﻿<Window x:Class="SourceLog.MainWindow"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:SourceLog"
-		Title="SourceLog" Height="700" Width="900" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+		Title="SourceLog" Height="700" Width="900"
+		Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+		TextOptions.TextFormattingMode="Display">
 	<Window.Resources>
 		<local:SingleLineTextConverter x:Key="SingleLineTextConverter" />
 		<local:SubscriptionLabelConverter x:Key="SubscriptionLabelConverter" />
