@@ -85,7 +85,7 @@ namespace SourceLog
 		private void ScrollFirstChangeIntoView(double firstModifiedLineVerticalOffset)
 		{
 			LeftScroller.UpdateLayout();
-			LeftScroller.ScrollToVerticalOffset(firstModifiedLineVerticalOffset - 30);
+			LeftScroller.ScrollToVerticalOffset(firstModifiedLineVerticalOffset - (LeftScroller.ViewportHeight / 2));
 		}
 
 		private void LeftScrollerScrollChanged(object sender, ScrollChangedEventArgs e)

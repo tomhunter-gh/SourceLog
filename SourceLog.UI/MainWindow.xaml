@@ -31,7 +31,7 @@
 			<!--GridSplitter-->
 			<RowDefinition Height="Auto" />
 			<!--Diff viewer-->
-			<RowDefinition Height="2*" />
+			<RowDefinition Height="4*" />
 		</Grid.RowDefinitions>
 
 		<StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal">

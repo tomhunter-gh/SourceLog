@@ -72,7 +72,7 @@ namespace SourceLog.Model
 		readonly SolidColorBrush _imaginaryFillColor = new SolidColorBrush(Color.FromArgb(255, 200, 200, 200));
 		readonly SolidColorBrush _deletedWordFillColor = new SolidColorBrush(Color.FromArgb(255, 200, 100, 100));
 		readonly SolidColorBrush _insertedWordFillColor = new SolidColorBrush(Color.FromArgb(255, 255, 255, 150));
-		readonly SolidColorBrush _unchangedWordFillColor = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+		readonly SolidColorBrush _unchangedWordFillColor = new SolidColorBrush(Color.FromArgb(0, 255, 255, 255));
 
 		private FlowDocument GenerateFlowDocument(DiffPaneModel diffPaneModel)
 		{
@@ -117,7 +117,8 @@ namespace SourceLog.Model
 				Paragraph lastParagraph = GetParagraph(stringBuilder, previousLineType, previousLine);
 				flowDocument.Blocks.Add(lastParagraph);
 			}
-			
+
+			flowDocument.LineStackingStrategy = LineStackingStrategy.BlockLineHeight;
 			flowDocument.PagePadding = _zeroThickness;
 			flowDocument.PageWidth = Math.Min(lineWidths.DefaultIfEmpty(0).Max(), 1000000); // Throws an ArgumentException if value is too big. I think the maximum allowed is 1 million.
 			return flowDocument;
@@ -158,6 +159,7 @@ namespace SourceLog.Model
 				paragraph.FontFamily = _fontFamily;
 				paragraph.FontSize = FontSize;
 				paragraph.Margin = _zeroThickness;
+				paragraph.LineHeight = _lineHeight;
 			}
 			
 			return paragraph;
