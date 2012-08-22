@@ -9,6 +9,7 @@ using System.Windows.Media;
 using DiffPlex;
 using DiffPlex.DiffBuilder;
 using DiffPlex.DiffBuilder.Model;
+using System.Diagnostics;
 
 namespace SourceLog.Model
 {
@@ -71,6 +72,7 @@ namespace SourceLog.Model
 		readonly SolidColorBrush _imaginaryFillColor = new SolidColorBrush(Color.FromArgb(255, 200, 200, 200));
 		readonly SolidColorBrush _deletedWordFillColor = new SolidColorBrush(Color.FromArgb(255, 200, 100, 100));
 		readonly SolidColorBrush _insertedWordFillColor = new SolidColorBrush(Color.FromArgb(255, 255, 255, 150));
+		readonly SolidColorBrush _unchangedWordFillColor = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
 
 		private FlowDocument GenerateFlowDocument(DiffPaneModel diffPaneModel)
 		{
@@ -175,6 +177,7 @@ namespace SourceLog.Model
 			var paragraph = new Paragraph();
 			foreach (var word in line.SubPieces)
 			{
+				if (word.Type == ChangeType.Imaginary) continue;
 				var run = new Run(word.Text);
 				switch (word.Type)
 				{
@@ -183,6 +186,9 @@ namespace SourceLog.Model
 						break;
 					case ChangeType.Inserted:
 						run.Background = _insertedWordFillColor;
+						break;
+					default :
+						run.Background = _unchangedWordFillColor;
 						break;
 				}
 				paragraph.Inlines.Add(run);
