@@ -37,7 +37,7 @@ namespace SourceLog.Plugin.Perforce
 		internal static ChangedFile ParseP4File(string file)
 		{
 			var changedFile = new ChangedFile();
-			string pattern = @"(?<filename>[^#]*)#(?<revision>\d+)\s-\s(?<action>\w)\schange\s(?<changeNumber>\d+)\s\((?<filetype>\w+)\)";
+			string pattern = @"(?<filename>[^#]*)#(?<revision>\d+)\s-\s(?<action>\w+)\schange\s(?<changeNumber>\d+)\s\((?<filetype>\w+)\)";
 			Regex r = new Regex(pattern);
 			Match match = r.Match(file);
 			if (match.Success)

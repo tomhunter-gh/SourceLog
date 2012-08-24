@@ -5,6 +5,8 @@ using System.Text;
 using SourceLog.Interface;
 using SourceLog.Model;
 using System.Threading;
+using P4COM;
+using System.IO;
 
 namespace SourceLog.Plugin.Perforce
 {
@@ -32,7 +34,8 @@ namespace SourceLog.Plugin.Perforce
 					List<LogEntry> logEntries = new List<LogEntry>();
 					P4COM.p4 p4 = new P4COM.p4();
 					p4.Connect();
-					var p4changes = p4.run("changes -t -l -s submitted -m 30 \"//depot/trunk/...\"");
+					var p4changes = p4.run("changes -t -l -s submitted -m 30 \"" + SettingsXml + "\"");
+					//p4.Disconnect();
 					foreach (string changeset in p4changes)
 					{
 						var logEntry = PerforceLogParser.Parse(changeset);
@@ -43,6 +46,7 @@ namespace SourceLog.Plugin.Perforce
 
 					foreach (var logEntry in logEntries.OrderBy(le => le.CommittedDate))
 					{
+						logEntry.ChangedFiles = new List<ChangedFile>();
 						ChangedFile changedFile;
 
 						// grab changed files
@@ -55,23 +59,51 @@ namespace SourceLog.Plugin.Perforce
 								|| changedFile.ChangeType == ChangeType.Modified
 								|| changedFile.ChangeType == ChangeType.Moved)
 							{
-								changedFile.NewVersion = String.Join(Environment.NewLine, p4.run("print " + changedFile.FileName + "@" + logEntry.Revision));
+								//p4 p4Print = new p4();
+								//p4Print.Connect();
+								var p4fileLines = p4.run("print \"" + changedFile.FileName + "@" + logEntry.Revision + "\"");
+								using (var streamReader = new StreamReader(((dynamic)p4).TempFilename))
+								{
+									changedFile.NewVersion = streamReader.ReadToEnd();
+								}
+								//p4Print.Disconnect();
+								//changedFile.NewVersion = String.Join(Environment.NewLine, p4fileLines);
+							}
+							else
+							{
+								changedFile.NewVersion = String.Empty;
 							}
 
-							if (changedFile.ChangeType == ChangeType.Copied
-								|| changedFile.ChangeType == ChangeType.Deleted
-								|| changedFile.ChangeType == ChangeType.Modified
-								|| changedFile.ChangeType == ChangeType.Moved)
+							if (changedFile.ChangeType == ChangeType.Deleted
+								|| changedFile.ChangeType == ChangeType.Modified)
 							{
-								changedFile.OldVersion = String.Join(Environment.NewLine, p4.run("print " + changedFile.FileName + "@" + (Int32.Parse(logEntry.Revision) - 1)));
+								var p4fileLines = p4.run("print \"" + changedFile.FileName + "@" + (Int32.Parse(logEntry.Revision) - 1) + "\"");
+								using (var streamReader = new StreamReader(((dynamic)p4).TempFilename))
+								{
+									changedFile.OldVersion = streamReader.ReadToEnd();
+								}
+								//changedFile.OldVersion = String.Join(Environment.NewLine, );
 							}
+							else
+							{
+								changedFile.OldVersion = String.Empty;
+							}
+
+							// changedFile.ChangeType == ChangeType.Copied
+							// changedFile.ChangeType == ChangeType.Moved
+
+							logEntry.ChangedFiles.Add(changedFile);
 						}
 
 						var args = new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry };
 						NewLogEntry(this, args);
 					}
 
-					MaxDateTimeRetrieved = logEntries.Max(x => x.CommittedDate);
+					p4.Disconnect();
+					if (logEntries.Count > 0)
+					{
+						MaxDateTimeRetrieved = logEntries.Max(x => x.CommittedDate);
+					}
 				}
 				finally
 				{
