@@ -9,7 +9,7 @@ using SharpSvn;
 using SourceLog.Interface;
 using SourceLog.Model;
 
-namespace SourceLog.Subversion
+namespace SourceLog.Plugin.Subversion
 {
 	public class SubversionPlugin : ILogProvider<ChangedFile>
 	{
@@ -36,7 +36,7 @@ namespace SourceLog.Subversion
 					{
 						var uri = new Uri(SettingsXml);
 						Collection<SvnLogEventArgs> svnLogEntries;
-						if (svnClient.GetLog(uri, out svnLogEntries))
+						if (svnClient.GetLog(uri, new SvnLogArgs {Limit = 30}, out svnLogEntries))
 						{
 							var q = svnLogEntries
 								.Where(e => e.Time > MaxDateTimeRetrieved)
@@ -77,7 +77,7 @@ namespace SourceLog.Subversion
 			svnLogEntry.ChangedPaths.AsParallel().WithDegreeOfParallelism(10).ForAll(changedPath =>
 			{
 				//var debugStartTime = DateTime.Now;
-				Debug.WriteLine("  Processing path " + changedPath.Path);
+				Debug.WriteLine("  [SubversionPlugin] Processing path " + changedPath.Path);
 				using (var parallelSvnClient = new SvnClient())
 				{
 					var changedFile = new ChangedFile { FileName = changedPath.Path };

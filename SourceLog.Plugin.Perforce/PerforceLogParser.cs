@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using SourceLog.Model;
 using System.Text.RegularExpressions;
 
@@ -13,16 +10,16 @@ namespace SourceLog.Plugin.Perforce
 		{
 			var logEntry = new LogEntry();
 
-			string pattern = @"Change\s(?<revision>\d+)\son\s(?<datetime>\d{4}/\d{2}/\d{2}\s\d{2}:\d{2}:\d{2})\sby\s(?<author>\w+)@\w+\n\n\t(?<message>.*)";
-			Regex r = new Regex(pattern);
-			Match match = r.Match(changesetString);
+			const string pattern = @"Change\s(?<revision>\d+)\son\s(?<datetime>\d{4}/\d{2}/\d{2}\s\d{2}:\d{2}:\d{2})\sby\s(?<author>\w+)@\w+\n\n\t(?<message>.*)";
+			var r = new Regex(pattern);
+			var match = r.Match(changesetString);
 			if (match.Success)
 			{
-				int revision = 0;
+				int revision;
 				if (Int32.TryParse(match.Groups["revision"].Value, out revision))
 					logEntry.Revision = revision.ToString();
 
-				DateTime datetime = DateTime.MinValue;
+				DateTime datetime;
 				if (DateTime.TryParse(match.Groups["datetime"].Value, out datetime))
 					logEntry.CommittedDate = datetime;
 
@@ -37,9 +34,9 @@ namespace SourceLog.Plugin.Perforce
 		internal static ChangedFile ParseP4File(string file)
 		{
 			var changedFile = new ChangedFile();
-			string pattern = @"(?<filename>[^#]*)#(?<revision>\d+)\s-\s(?<action>\w+)\schange\s(?<changeNumber>\d+)\s\((?<filetype>\w+)\)";
-			Regex r = new Regex(pattern);
-			Match match = r.Match(file);
+			const string pattern = @"(?<filename>[^#]*)#(?<revision>\d+)\s-\s(?<action>\w+)\schange\s(?<changeNumber>\d+)\s\((?<filetype>\w+)\)";
+			var r = new Regex(pattern);
+			var match = r.Match(file);
 			if (match.Success)
 			{
 				changedFile.FileName = match.Groups["filename"].Value;

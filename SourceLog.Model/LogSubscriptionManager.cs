@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using SourceLog.Interface;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace SourceLog.Model
 {
