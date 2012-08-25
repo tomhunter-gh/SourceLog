@@ -7,7 +7,7 @@ SELECT [LogSubscriptionId]
 GO
 
 SELECT [LogEntryId], [Revision], [CommittedDate],  [Author]
-FROM [LogEntries] WHERE [LogSubscription_LogSubscriptionId] = 27
+FROM [LogEntries] WHERE [LogSubscription_LogSubscriptionId] = 5
 
 SELECT [LogEntry_LogEntryId], [ChangedFileId], [ChangeTypeValue], [FileName] 
 FROM [ChangedFiles]
@@ -25,8 +25,8 @@ WHERE [ChangeTypeValue] <> 'Added'
 --SET [ChangeTypeValue] = 'Modified'
 --WHERE [ChangeTypeValue] = 'Modify'
 
-DELETE FROM [ChangedFiles]
-DELETE FROM [LogEntries]
+DELETE FROM [ChangedFiles] where LogEntry_LogEntryId > 695
+DELETE FROM [LogEntries] where logentryid > 695
 
 
 select Revision, count(*)
@@ -34,3 +34,4 @@ from [LogEntries] le
 inner join [ChangedFiles] cf
  on cf.[LogEntry_LogEntryId] = le.[LogEntryId]
 group by Revision
+
