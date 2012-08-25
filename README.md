@@ -20,3 +20,7 @@ Status
 ------
 
 The application is currently a work in progress and the current focus is on a [version 1](https://github.com/tomhunter-gh/SourceLog/issues?milestone=1) release.
+
+- - -
+
+SourceLog is inspired by [CommitMonitor](http://tools.tortoisesvn.net/CommitMonitor.html).
