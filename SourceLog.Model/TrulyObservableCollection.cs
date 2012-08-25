@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Threading;
+using System.Windows;
 
 namespace SourceLog.Model
 {
@@ -36,7 +37,7 @@ namespace SourceLog.Model
 			var a = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
 
 			// TODO: remove reference to System.Windows.Threading.Dispatcher?
-			if (Thread.CurrentThread.ManagedThreadId == Dispatcher.CurrentDispatcher.Thread.ManagedThreadId)
+			if (Thread.CurrentThread.ManagedThreadId == Application.Current.Dispatcher.Thread.ManagedThreadId)
 			{
 				OnCollectionChanged(a);
 			}
