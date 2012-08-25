@@ -32,9 +32,11 @@ namespace SourceLog
 			ViewModel.SelectedLogSubscription = e.AddedItems.Cast<LogSubscription>().First();
 			FixDataGridSorting();
 			
-			//ViewModel.SelectedLogEntry = ViewModel.SelectedLogSubscription.Log.Last();
-			dgLog.SelectedItem = ViewModel.SelectedLogSubscription.Log.Last();
-			lstChangedFiles.SelectedItem = ViewModel.SelectedLogEntry.ChangedFiles.FirstOrDefault();
+			if (ViewModel.SelectedLogSubscription.Log.Count > 0)
+			{
+				dgLog.SelectedItem = ViewModel.SelectedLogSubscription.Log.Last();
+				lstChangedFiles.SelectedItem = ViewModel.SelectedLogEntry.ChangedFiles.FirstOrDefault();
+			}
 		}
 
 		private void FixDataGridSorting()
@@ -76,7 +78,8 @@ namespace SourceLog
 				LeftBox.Document = changedFile.LeftFlowDocument;
 				RightBox.Document = changedFile.RightFlowDocument;
 
-				ScrollFirstChangeIntoView(changedFile.FirstModifiedLineVerticalOffset);
+				RightBox.Document.Loaded += (o, x) => ScrollFirstChangeIntoView(
+					((ChangedFile)lstChangedFiles.SelectedItem).FirstModifiedLineVerticalOffset);
 			}
 			else
 			{
@@ -87,7 +90,7 @@ namespace SourceLog
 
 		private void ScrollFirstChangeIntoView(double firstModifiedLineVerticalOffset)
 		{
-			LeftScroller.UpdateLayout();
+			//LeftScroller.UpdateLayout();
 			LeftScroller.ScrollToVerticalOffset(firstModifiedLineVerticalOffset - (LeftScroller.ViewportHeight / 2));
 		}
 
