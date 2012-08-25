@@ -7,6 +7,7 @@ using SourceLog.Model;
 using System.Threading;
 using P4COM;
 using System.IO;
+using System.Diagnostics;
 
 namespace SourceLog.Plugin.Perforce
 {
@@ -59,15 +60,28 @@ namespace SourceLog.Plugin.Perforce
 								|| changedFile.ChangeType == ChangeType.Modified
 								|| changedFile.ChangeType == ChangeType.Moved)
 							{
-								//p4 p4Print = new p4();
-								//p4Print.Connect();
-								var p4fileLines = p4.run("print \"" + changedFile.FileName + "@" + logEntry.Revision + "\"");
-								using (var streamReader = new StreamReader(((dynamic)p4).TempFilename))
+								if (changedFile.ChangeType == ChangeType.Copied
+									|| changedFile.ChangeType == ChangeType.Moved)
 								{
-									changedFile.NewVersion = streamReader.ReadToEnd();
+									// Add new path to top of NewVersion
+									changedFile.NewVersion = String.Empty;
 								}
-								//p4Print.Disconnect();
-								//changedFile.NewVersion = String.Join(Environment.NewLine, p4fileLines);
+								else
+								{
+									changedFile.NewVersion = String.Empty;
+								}
+								
+								// Always create a new p4 object otherwise TempFilename doesn't always update
+								p4 p4Print = new p4();
+								p4Print.Connect();
+								p4Print.run("print \"" + changedFile.FileName + "@" + logEntry.Revision + "\"");
+								string tempFilename = ((dynamic)p4Print).TempFilename;
+								Debug.WriteLine(" " + DateTime.Now.ToString("HH:mm:ss.fff tt") + " - [PerforcePlugin] changedFile.FileName: " + changedFile.FileName + "; tempFilename: " + tempFilename);
+								using (var streamReader = new StreamReader(tempFilename))
+								{
+									changedFile.NewVersion += streamReader.ReadToEnd();
+								}
+								p4Print.Disconnect();
 							}
 							else
 							{
@@ -77,20 +91,27 @@ namespace SourceLog.Plugin.Perforce
 							if (changedFile.ChangeType == ChangeType.Deleted
 								|| changedFile.ChangeType == ChangeType.Modified)
 							{
-								var p4fileLines = p4.run("print \"" + changedFile.FileName + "@" + (Int32.Parse(logEntry.Revision) - 1) + "\"");
-								using (var streamReader = new StreamReader(((dynamic)p4).TempFilename))
+								p4 p4Print = new p4();
+								p4Print.Connect();
+								p4Print.run("print \"" + changedFile.FileName + "@" + (Int32.Parse(logEntry.Revision) - 1) + "\"");
+								using (var streamReader = new StreamReader(((dynamic)p4Print).TempFilename))
 								{
 									changedFile.OldVersion = streamReader.ReadToEnd();
 								}
-								//changedFile.OldVersion = String.Join(Environment.NewLine, );
+								p4Print.Disconnect();
+							}
+							else if (changedFile.ChangeType == ChangeType.Copied
+								|| changedFile.ChangeType == ChangeType.Moved)
+							{
+								// TODO: get previous path and contents and put both in OldVersion
+								changedFile.OldVersion = String.Empty;
 							}
 							else
 							{
 								changedFile.OldVersion = String.Empty;
 							}
 
-							// changedFile.ChangeType == ChangeType.Copied
-							// changedFile.ChangeType == ChangeType.Moved
+							
 
 							logEntry.ChangedFiles.Add(changedFile);
 						}
