@@ -82,6 +82,8 @@ namespace SourceLog.Plugin.Perforce
 									changedFile.NewVersion += streamReader.ReadToEnd();
 								}
 								p4Print.Disconnect();
+								File.SetAttributes(tempFilename, FileAttributes.Normal);
+								File.Delete(tempFilename);
 							}
 							else
 							{
@@ -94,11 +96,14 @@ namespace SourceLog.Plugin.Perforce
 								p4 p4Print = new p4();
 								p4Print.Connect();
 								p4Print.run("print \"" + changedFile.FileName + "@" + (Int32.Parse(logEntry.Revision) - 1) + "\"");
-								using (var streamReader = new StreamReader(((dynamic)p4Print).TempFilename))
+								string tempFilename = ((dynamic)p4Print).TempFilename;
+								using (var streamReader = new StreamReader(tempFilename))
 								{
 									changedFile.OldVersion = streamReader.ReadToEnd();
 								}
 								p4Print.Disconnect();
+								File.SetAttributes(tempFilename, FileAttributes.Normal);
+								File.Delete(tempFilename);
 							}
 							else if (changedFile.ChangeType == ChangeType.Copied
 								|| changedFile.ChangeType == ChangeType.Moved)
