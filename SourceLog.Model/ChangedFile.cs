@@ -23,9 +23,11 @@ namespace SourceLog.Model
 
 		public string FileName { get; set; }
 
-		[MaxLength]
+		//[MaxLength]
+		[NotMapped]
 		public string OldVersion { get; set; }
-		[MaxLength]
+		//[MaxLength]
+		[NotMapped]
 		public string NewVersion { get; set; }
 
 		[Column(TypeName = "image")]
