@@ -95,38 +95,50 @@ namespace SourceLog.Plugin.GitHub
 								var changedFile = new ChangedFile
 									{
 										FileName = file.filename,
-										NewVersion = GitHubApiGet(file.raw_url),
-										ChangeType = ChangeType.Modified
+										//NewVersion = GitHubApiGet(file.raw_url),
+										//ChangeType = ChangeType.Modified
 									};
 
-								// get the previous version
-								// first get the list of commits for the file
-								var fileLog = JsonConvert.DeserializeObject<RepoLog>(
-									GitHubApiGet(
-										"https://api.github.com/repos/" + _username + "/"
-										+ _reponame + "/commits?path=" + file.filename
-										)
-									);
-
-								// get most recent commit before this one
-								var previousCommit = fileLog.Where(f => DateTime.Parse(f.commit.committer.date) < logEntry.CommittedDate)
-									.OrderByDescending(f => DateTime.Parse(f.commit.committer.date))
-									.FirstOrDefault();
-
-								if (previousCommit != null)
+								if (file.status == "removed")
 								{
-									// get the raw contents of the path at the previous commit sha
-									changedFile.OldVersion = GitHubApiGet(
+									changedFile.ChangeType = ChangeType.Deleted;
+									changedFile.OldVersion = GitHubApiGet(file.raw_url);
+									changedFile.NewVersion = String.Empty;
+								}
+								else
+								{
+									changedFile.ChangeType = ChangeType.Modified;
+									changedFile.NewVersion = GitHubApiGet(file.raw_url);
+
+									// get the previous version
+									// first get the list of commits for the file
+									var fileLog = JsonConvert.DeserializeObject<RepoLog>(
+										GitHubApiGet(
+											"https://api.github.com/repos/" + _username + "/"
+											+ _reponame + "/commits?path=" + file.filename
+											)
+										);
+
+									// get most recent commit before this one
+									var previousCommit = fileLog.Where(f => DateTime.Parse(f.commit.committer.date) < logEntry.CommittedDate)
+										.OrderByDescending(f => DateTime.Parse(f.commit.committer.date))
+										.FirstOrDefault();
+
+									if (previousCommit != null)
+									{
+										// get the raw contents of the path at the previous commit sha
+										changedFile.OldVersion = GitHubApiGet(
 											"https://github.com/" + _username + "/"
 											+ _reponame + "/raw/"
 											+ previousCommit.sha + "/"
 											+ changedFile.FileName
-										);
-								}
-								else
-								{
-									changedFile.OldVersion = String.Empty;
-									changedFile.ChangeType = ChangeType.Added;
+											);
+									}
+									else
+									{
+										changedFile.OldVersion = String.Empty;
+										changedFile.ChangeType = ChangeType.Added;
+									}
 								}
 
 								logEntry.ChangedFiles.Add(changedFile);
@@ -188,6 +200,7 @@ namespace SourceLog.Plugin.GitHub
 	public class GitHubFile
 	{
 		public string filename { get; set; }
+		public string status { get; set; }
 		public string raw_url { get; set; }
 	}
 }
