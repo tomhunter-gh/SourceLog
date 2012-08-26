@@ -37,10 +37,10 @@ namespace SourceLog.Model
 			var a = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
 
 			// TODO: remove reference to System.Windows.Threading.Dispatcher?
-			if (Thread.CurrentThread.ManagedThreadId == Application.Current.Dispatcher.Thread.ManagedThreadId)
-			{
+			//if (Thread.CurrentThread.ManagedThreadId == Application.Current.Dispatcher.Thread.ManagedThreadId)
+			//{
 				OnCollectionChanged(a);
-			}
+			//}
 		}
 	}
 }

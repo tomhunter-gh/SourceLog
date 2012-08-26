@@ -7,7 +7,6 @@ namespace SourceLog.Model
 	{
 		[ThreadStatic]
 		private static ISourceLogContext _threadStaticContext;
-
 		public static ISourceLogContext ThreadStaticContext
 		{
 			get
@@ -19,6 +18,22 @@ namespace SourceLog.Model
 				return _threadStaticContext;
 			}
 			set { _threadStaticContext = value; }
+		}
+
+		// Background context used to avoid getting a reference to objects added to a UI collection
+		[ThreadStatic]
+		private static ISourceLogContext _threadStaticContextBackground;
+		public static ISourceLogContext ThreadStaticContextBackground
+		{
+			get
+			{
+				if (_threadStaticContextBackground == null)
+				{
+					_threadStaticContextBackground = new SourceLogContext();
+				}
+				return _threadStaticContextBackground;
+			}
+			set { _threadStaticContextBackground = value; }
 		}
 
 		public IDbSet<LogSubscription> LogSubscriptions { get; set; }

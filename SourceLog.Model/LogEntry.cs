@@ -49,7 +49,7 @@ namespace SourceLog.Model
 		{
 			Task.Factory.StartNew(() =>
 				{
-					var db = (SourceLogContext)SourceLogContext.ThreadStaticContext;
+					var db = (SourceLogContext)SourceLogContext.ThreadStaticContextBackground;
 					db.Set<LogEntry>().Find(LogEntryId).Read = true;
 					db.SaveChanges();
 				});
