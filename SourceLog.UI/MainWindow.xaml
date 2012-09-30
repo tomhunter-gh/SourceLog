@@ -127,7 +127,7 @@
 				</DataGridTextColumn>
 				<DataGridTextColumn Header="Date" Binding="{Binding Path=CommittedDate, StringFormat={}\{0:HH:mm:ss dd MMMM yyyy\}}" />
 				<DataGridTextColumn Header="Author" Binding="{Binding Path=Author}" />
-				<DataGridTextColumn Header="Message" Binding="{Binding Path=Message, Converter={StaticResource SingleLineTextConverter}}" Width="500" />
+				<DataGridTextColumn Header="Message" Binding="{Binding Path=Message, Converter={StaticResource SingleLineTextConverter}}" Width="*" />
 				<!--<DataGridTemplateColumn Header="Message">
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>

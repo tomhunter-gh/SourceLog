@@ -35,5 +35,10 @@ namespace SourceLog
 			vm.AddSubscription(LogSubscriptionNameTextBox.Text, (string)LogProviderPluginDropDown.SelectedValue, UrlTextBox.Text);
 			Close();
 		}
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
 	}
 }
