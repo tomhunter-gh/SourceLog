@@ -37,5 +37,10 @@ namespace SourceLog.Model
 		}
 
 		public IDbSet<LogSubscription> LogSubscriptions { get; set; }
+
+		public SourceLogContext()
+		{
+			Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SourceLogContext>());
+		}
 	}
 }

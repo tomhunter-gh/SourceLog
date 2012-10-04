@@ -11,6 +11,7 @@ using SourceLog.Model;
 		public Configuration()
 		{
 			AutomaticMigrationsEnabled = true;
+			AutomaticMigrationDataLossAllowed = true;
 		}
 
 		protected override void Seed(SourceLogContext context)

@@ -82,37 +82,9 @@
     <Compile Include="CustomFlowDocumentScrollViewer.cs" />
     <Compile Include="FontInfo.cs" />
     <Compile Include="LogToHasUnreadEntriesFlagConverter.cs" />
-    <Compile Include="Migrations\201207032049298_Migration1.cs" />
-    <Compile Include="Migrations\201207032049298_Migration1.Designer.cs">
-      <DependentUpon>201207032049298_Migration1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201207101900158_Migration3.cs" />
-    <Compile Include="Migrations\201207101900158_Migration3.Designer.cs">
-      <DependentUpon>201207101900158_Migration3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201207102046271_Migration4.cs" />
-    <Compile Include="Migrations\201207102046271_Migration4.Designer.cs">
-      <DependentUpon>201207102046271_Migration4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201207241929441_Migration5.cs" />
-    <Compile Include="Migrations\201207241929441_Migration5.Designer.cs">
-      <DependentUpon>201207241929441_Migration5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201207281521365_Migration6.cs" />
-    <Compile Include="Migrations\201207281521365_Migration6.Designer.cs">
-      <DependentUpon>201207281521365_Migration6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201207292051463_Migration7.cs" />
-    <Compile Include="Migrations\201207292051463_Migration7.Designer.cs">
-      <DependentUpon>201207292051463_Migration7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201208022223188_Migration8.cs" />
-    <Compile Include="Migrations\201208022223188_Migration8.Designer.cs">
-      <DependentUpon>201208022223188_Migration8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201208041912317_Migration9.cs" />
-    <Compile Include="Migrations\201208041912317_Migration9.Designer.cs">
-      <DependentUpon>201208041912317_Migration9.cs</DependentUpon>
+    <Compile Include="Migrations\201208280821049_Migration10.cs" />
+    <Compile Include="Migrations\201208280821049_Migration10.Designer.cs">
+      <DependentUpon>201208280821049_Migration10.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NewSubscriptionWindow.xaml.cs">
