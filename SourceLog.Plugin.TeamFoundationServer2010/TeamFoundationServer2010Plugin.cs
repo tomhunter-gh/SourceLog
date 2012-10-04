@@ -53,7 +53,9 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 						maxCount: 30,
 						includeChanges: true,
 						slotMode: false
-					).Cast<Changeset>();
+					)
+					.Cast<Changeset>()
+					.ToList();
 
 					foreach (var changeset in
 						history.Where(c => c.CreationDate > MaxDateTimeRetrieved).OrderBy(c => c.CreationDate))

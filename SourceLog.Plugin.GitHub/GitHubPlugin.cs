@@ -74,7 +74,7 @@ namespace SourceLog.Plugin.GitHub
 						{
 							var logEntry = new LogEntry
 								{
-									Revision = commitEntry.sha.Substring(0,7),
+									Revision = commitEntry.sha.Substring(0, 7),
 									Author = commitEntry.commit.committer.name,
 									CommittedDate = DateTime.Parse(commitEntry.commit.committer.date),
 									Message = commitEntry.commit.message,
@@ -88,7 +88,7 @@ namespace SourceLog.Plugin.GitHub
 									+ commitEntry.sha
 								)
 							);
-							
+
 							// process changed files in parallel
 							fullCommitEntry.files.AsParallel().ForAll(file =>
 							{
@@ -150,6 +150,10 @@ namespace SourceLog.Plugin.GitHub
 						}
 						MaxDateTimeRetrieved = repoLog.Max(x => DateTime.Parse(x.commit.committer.date));
 					}
+				}
+				catch (Exception e)
+				{
+					Debug.WriteLine(e);
 				}
 				finally
 				{
