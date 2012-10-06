@@ -2,6 +2,7 @@ SourceLog.5.1.ReSharper.user
 _ReSharper*
 *.suo
 *.user
+Thumbs.db
 
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 bin
