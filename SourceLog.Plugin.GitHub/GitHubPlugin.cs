@@ -54,6 +54,7 @@ namespace SourceLog.Plugin.GitHub
 
 
 		public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;
+		public event LogProviderExceptionEventHandler LogProviderException;
 
 		private void CheckForNewLogEntries(object state)
 		{
@@ -151,9 +152,10 @@ namespace SourceLog.Plugin.GitHub
 						MaxDateTimeRetrieved = repoLog.Max(x => DateTime.Parse(x.commit.committer.date));
 					}
 				}
-				catch (Exception e)
+				catch (Exception ex)
 				{
-					Debug.WriteLine(e);
+					var args = new LogProviderExceptionEventArgs { Exception = ex };
+					LogProviderException(this, args);
 				}
 				finally
 				{

@@ -117,6 +117,11 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 					}
 					MaxDateTimeRetrieved = history.Max(c => c.CreationDate);
 				}
+				catch (Exception ex)
+				{
+					var args = new LogProviderExceptionEventArgs {Exception = ex};
+					LogProviderException(this, args);
+				}
 				finally
 				{
 					Monitor.Exit(_lockObject);
@@ -136,5 +141,6 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 		}
 
 		public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;
+		public event LogProviderExceptionEventHandler LogProviderException;
 	}
 }

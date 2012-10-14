@@ -65,6 +65,11 @@ namespace SourceLog.Plugin.Subversion
 						}
 					}
 				}
+				catch (Exception ex)
+				{
+					var args = new LogProviderExceptionEventArgs { Exception = ex };
+					LogProviderException(this, args);
+				}
 				finally
 				{
 					Monitor.Exit(_lockObject);
@@ -174,5 +179,6 @@ namespace SourceLog.Plugin.Subversion
 		}
 
 		public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;
+		public event LogProviderExceptionEventHandler LogProviderException;
 	}
 }

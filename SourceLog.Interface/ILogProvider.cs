@@ -2,13 +2,6 @@
 
 namespace SourceLog.Interface
 {
-	public class NewLogEntryEventArgs<T> : EventArgs where T : IChangedFile
-	{
-		public ILogEntry<T> LogEntry { get; set; }
-	}
-
-	public delegate void NewLogEntryEventHandler<T>(object sender, NewLogEntryEventArgs<T> e) where T : IChangedFile;
-
 	public interface ILogProvider<T> where T : IChangedFile
 	{
 		/// <summary>
@@ -25,5 +18,11 @@ namespace SourceLog.Interface
 		void Initialise();
 
 		event NewLogEntryEventHandler<T> NewLogEntry;
+
+		event LogProviderExceptionEventHandler LogProviderException;
 	}
+
+	public delegate void NewLogEntryEventHandler<T>(object sender, NewLogEntryEventArgs<T> e) where T : IChangedFile;
+
+	public delegate void LogProviderExceptionEventHandler(object sender, LogProviderExceptionEventArgs args);
 }
