@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Threading;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -30,22 +31,10 @@ namespace SourceLog.Model
 		public ILogProvider<ChangedFile> LogProvider { get; set; }
 		private readonly SynchronizationContext _uiThread;
 
-		//[NotMapped]
-		//public int UnreadLogEntryCount
-		//{
-		//    get { return Log.Count(le => !le.Read); }
-		//}
-
 		public LogSubscription()
 		{
 			_uiThread = SynchronizationContext.Current;
 		}
-
-		//void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
-		//{
-		//    NotifyCollectionChangedEventArgs a = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-		//    OnCollectionChanged(a);
-		//}
 
 		public LogSubscription(string name, string vcsLogProviderName, string url)
 			: this()
@@ -62,6 +51,7 @@ namespace SourceLog.Model
 			Type type = LogProviderPluginManager.LogProviderPluginTypes[LogProviderTypeName];
 			LogProvider = Activator.CreateInstance(type) as ILogProvider<ChangedFile>;
 			LogProvider.NewLogEntry += AddNewLogEntry;
+			LogProvider.LogProviderException += LogProviderLogProviderException;
 			LogProvider.SettingsXml = Url;
 			DateTime maxDateTimeRetrieved = DateTime.MinValue;
 			if (Log != null && Log.Count > 0)
@@ -70,6 +60,17 @@ namespace SourceLog.Model
 			}
 			LogProvider.MaxDateTimeRetrieved = maxDateTimeRetrieved;
 			LogProvider.Initialise();
+		}
+
+		static void LogProviderLogProviderException(object sender, LogProviderExceptionEventArgs args)
+		{
+			var logEntry =
+				new Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
+					{
+						Severity = TraceEventType.Error,
+						Message = args.Exception.ToString()
+					};
+			Logger.Write(logEntry);
 		}
 
 		public void AddNewLogEntry(object sender, NewLogEntryEventArgs<ChangedFile> e)

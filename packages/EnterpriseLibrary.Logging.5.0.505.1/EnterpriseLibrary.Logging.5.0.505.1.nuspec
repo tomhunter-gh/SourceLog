@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>EnterpriseLibrary.Logging</id>
+    <version>5.0.505.1</version>
+    <title>Enterprise Library 5.0 - Logging Application Block</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <licenseUrl>http://www.opensource.org/licenses/ms-pl</licenseUrl>
+    <projectUrl>http://msdn.microsoft.com/en-us/library/ff664569(PandP.50).aspx</projectUrl>
+    <iconUrl>http://nuget.org/Media/Default/Packages/Unity/2.0/entlib_new_icon_100x100.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>The Enterprise Library Logging Application Block simplifies logging to various destinations (file, database, event log, MSMQ etc.) and tracing.</description>
+    <summary>The Enterprise Library Logging Application Block simplifies logging to various destinations (file, database, event log, MSMQ etc.) and tracing.</summary>
+    <copyright>© 2011 Microsoft Corporation</copyright>
+    <tags>entlib Enterprise Library logging lab tracing LOB</tags>
+    <dependencies>
+      <dependency id="EnterpriseLibrary.Common" version="5.0" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="mscorlib" targetFramework=".NETFramework3.5, .NETFramework4.0, Silverlight4.0" />
+    </frameworkAssemblies>
+  </metadata>
+</package>
