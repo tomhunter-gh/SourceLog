@@ -24,6 +24,11 @@ namespace SourceLog.ViewModel
 			{
 				_selectedLogSubscription = value;
 				RaisePropertyChanged("Log");
+
+				SelectedLogEntry = value.Log.Count > 0 ? value.Log.Last() : null;
+
+				SelectedChangedFile = SelectedLogEntry != null ? SelectedLogEntry.ChangedFiles.FirstOrDefault() : null;
+				
 			}
 		}
 
@@ -77,6 +82,18 @@ namespace SourceLog.ViewModel
 				return null;
 			}
 		}
+
+		private ChangedFile _selectedChangedFile;
+		public ChangedFile SelectedChangedFile
+		{
+			get { return _selectedChangedFile; }
+			set
+			{
+				_selectedChangedFile = value;
+				RaisePropertyChanged("SelectedChangedFile");
+			}
+		}
+
 
 		public MainWindowViewModel()
 		{

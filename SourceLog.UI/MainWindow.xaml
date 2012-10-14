@@ -40,7 +40,7 @@
 
 
 		<ListBox x:Name="lstSubscriptions" Grid.Row="1" Grid.RowSpan="5" ItemsSource="{Binding LogSubscriptions}" 
-			SelectionChanged="LstSubscriptionsSelectionChanged">
+			SelectionChanged="LstSubscriptionsSelectionChanged" SelectedItem="{Binding SelectedLogSubscription}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<TextBlock>
@@ -149,7 +149,7 @@
 			ShowsPreview="False" />
 
 		<ListBox x:Name="lstChangedFiles" Grid.Row="5" Grid.Column="2" ItemsSource="{Binding SelectedLogEntryChangedFiles}"
-			SelectionChanged="LstChangedFilesSelectionChanged">
+			SelectionChanged="LstChangedFilesSelectionChanged" SelectedItem="{Binding SelectedChangedFile}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<!--<TextBlock Text="{Binding FileName}" />-->
