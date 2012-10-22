@@ -130,6 +130,12 @@ namespace SourceLog.Plugin.Subversion
 								Debug.WriteLine(e.Message);
 								changedFile.OldVersion = String.Empty;
 							}
+							catch (SvnFileSystemException ex)
+							{
+								// http://stackoverflow.com/questions/12939642/sharpsvn-getinfo-lastchangerevision-is-wrong
+								Debug.WriteLine(ex);
+								changedFile.OldVersion = String.Empty;
+							}
 						}
 						else
 						{
