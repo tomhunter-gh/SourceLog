@@ -54,6 +54,9 @@ namespace SourceLog.Plugin.Perforce
 					case "branch" :
 						changedFile.ChangeType = Interface.ChangeType.Copied;
 						break;
+					case "integrate" :
+						changedFile.ChangeType = Interface.ChangeType.Modified;
+						break;
 				}
 
 			}

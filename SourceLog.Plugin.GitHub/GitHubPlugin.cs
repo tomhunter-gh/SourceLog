@@ -49,7 +49,7 @@ namespace SourceLog.Plugin.GitHub
 			}
 
 			_timer = new Timer(CheckForNewLogEntries);
-			_timer.Change(0, 15000);
+			_timer.Change(0, 60000);
 		}
 
 
@@ -152,6 +152,11 @@ namespace SourceLog.Plugin.GitHub
 						MaxDateTimeRetrieved = repoLog.Max(x => DateTime.Parse(x.commit.committer.date));
 					}
 				}
+				catch (GitHubApiRateLimitException)
+				{
+					Debug.WriteLine("[GitHubPlugin] GitHubApiRateLimitException - sleeping for 1 hr");
+					Thread.Sleep(TimeSpan.FromHours(1));
+				}
 				catch (Exception ex)
 				{
 					var args = new LogProviderExceptionEventArgs { Exception = ex };
@@ -170,14 +175,25 @@ namespace SourceLog.Plugin.GitHub
 		{
 			Debug.WriteLine(" [GitHubPlugin] GitHubApiGet: " + uri);
 			var request = WebRequest.Create(uri);
-			using (var response = request.GetResponse())
+			try
 			{
-				using (var reader = new StreamReader(response.GetResponseStream()))
+				using (var response = request.GetResponse())
 				{
-					return reader.ReadToEnd();
+					using (var reader = new StreamReader(response.GetResponseStream()))
+					{
+						return reader.ReadToEnd();
+					}
 				}
 			}
-
+			catch (WebException ex)
+			{
+				if (ex.Response.Headers["X-RateLimit-Remaining"] == "0")
+				{
+					throw new GitHubApiRateLimitException("RateLimit-Remaining = 0", ex);
+				}
+				else
+					throw;
+			}
 		}
 	}
 
@@ -208,5 +224,12 @@ namespace SourceLog.Plugin.GitHub
 		public string filename { get; set; }
 		public string status { get; set; }
 		public string raw_url { get; set; }
+	}
+
+	public class GitHubApiRateLimitException : Exception
+	{
+		public GitHubApiRateLimitException(string message, Exception innerException)
+			: base(message, innerException)
+		{ }
 	}
 }
