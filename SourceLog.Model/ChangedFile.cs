@@ -23,12 +23,34 @@ namespace SourceLog.Model
 
 		public string FileName { get; set; }
 
-		//[MaxLength]
+		public double FirstModifiedLineVerticalOffset { get; set; }
+
+		private string _oldVersion;
 		[NotMapped]
-		public string OldVersion { get; set; }
-		//[MaxLength]
+		public string OldVersion
+		{
+			get
+			{
+				return _oldVersion;
+			}
+			set
+			{
+				_oldVersion = CheckForBinary(value);
+			}
+		}
+
+		private string _newVersion;
 		[NotMapped]
-		public string NewVersion { get; set; }
+		public string NewVersion {
+			get
+			{
+				return _newVersion;
+			}
+			set
+			{
+				_newVersion = CheckForBinary(value);
+			}
+		}
 
 		[Column(TypeName = "image")]
 		[MaxLength]
@@ -70,14 +92,13 @@ namespace SourceLog.Model
 			set
 			{
 				//_rightFlowDocument = value;
-				var stopwatch = new Stopwatch();
-				stopwatch.Start();
+				//var stopwatch = new Stopwatch();
+				//stopwatch.Start();
 				RightFlowDocumentData = FlowDocumentToByteArray(value);
-				stopwatch.Stop();
-				Debug.WriteLine("    FlowDocumentToByteArray() took " + stopwatch.ElapsedMilliseconds + "ms");
+				//stopwatch.Stop();
+				//Debug.WriteLine("    FlowDocumentToByteArray() took " + stopwatch.ElapsedMilliseconds + "ms");
 			}
 		}
-
 		private FlowDocument _rightFlowDocument;
 
 		private static byte[] FlowDocumentToByteArray(FlowDocument flowDocument)
@@ -121,6 +142,15 @@ namespace SourceLog.Model
 			return flowDocument;
 		}
 
-		public double FirstModifiedLineVerticalOffset { get; set; }
+
+		private static string CheckForBinary(string s)
+		{
+			if (s.Contains("\0\0\0\0"))
+			{
+				Debug.WriteLine("    [Binary]");
+				return "[Binary]";
+			}
+			return s;
+		}
 	}
 }

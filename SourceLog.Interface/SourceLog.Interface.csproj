@@ -43,7 +43,6 @@
     <Compile Include="IChangedFile.cs" />
     <Compile Include="ILogEntry.cs" />
     <Compile Include="ILogProvider.cs" />
-    <Compile Include="ILogConsumer.cs" />
     <Compile Include="LogProviderExceptionEventArgs.cs" />
     <Compile Include="NewLogEntryEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Windows.Documents;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SourceLog.Interface;
-using System.Diagnostics;
 
 namespace SourceLog.Model.Tests
 {
@@ -22,21 +19,28 @@ namespace SourceLog.Model.Tests
 
 			var logEntry = new LogEntry { ChangedFiles = new List<ChangedFile> { changedFile } };
 
-			var logSubscription = new LogSubscription
+			var mockContext = new Mock<ISourceLogContext>();
+			var logSubscription = new LogSubscription(() => mockContext.Object)
 			{
 				LogSubscriptionId = 1,
 				Log = new TrulyObservableCollection<LogEntry>()
 			};
-			var fakeLogSubscriptionDbSet = new FakeDbSet<LogSubscription> { logSubscription };
 
-			var mockContext = new Mock<ISourceLogContext>();
+			var fakeLogSubscriptionDbSet = new FakeLogSubscriptionDbSet { logSubscription };
 			mockContext.Setup(m => m.LogSubscriptions).Returns(fakeLogSubscriptionDbSet);
-			SourceLogContext.ThreadStaticContext = mockContext.Object;
 
 			logSubscription.AddNewLogEntry(this, new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry });
 
 			var textRange = new TextRange(changedFile.LeftFlowDocument.ContentStart, changedFile.LeftFlowDocument.ContentEnd);
 			Assert.IsTrue(textRange.Text.StartsWith("\t"));
+		}
+	}
+
+	public class FakeLogSubscriptionDbSet : FakeDbSet<LogSubscription>
+	{
+		public override LogSubscription Find(params object[] keyValues)
+		{
+			return this.Single(ls => ls.LogSubscriptionId == (int)(keyValues[0]));
 		}
 	}
 }

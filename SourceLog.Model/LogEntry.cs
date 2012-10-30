@@ -8,11 +8,7 @@ namespace SourceLog.Model
 {
 	public class LogEntry : ILogEntry<ChangedFile>, INotifyPropertyChanged
 	{
-		public int LogEntryId
-		{
-			get;
-			set;
-		}
+		public int LogEntryId { get; set; }
 		public string Revision { get; set; }
 		public DateTime CommittedDate { get; set; }
 		public string Message { get; set; }
@@ -29,11 +25,7 @@ namespace SourceLog.Model
 			}
 		}
 
-		public virtual List<ChangedFile> ChangedFiles
-		{
-			get;
-			set;
-		}
+		public virtual List<ChangedFile> ChangedFiles { get; set; }
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -49,11 +41,26 @@ namespace SourceLog.Model
 		{
 			Task.Factory.StartNew(() =>
 				{
-					var db = (SourceLogContext)SourceLogContext.ThreadStaticContextBackground;
-					db.Set<LogEntry>().Find(LogEntryId).Read = true;
-					db.SaveChanges();
+					using (var db = new SourceLogContext())
+					{
+						db.LogEntries.Find(LogEntryId).Read = true;
+						db.SaveChanges();
+					}
 				});
-			
+		}
+
+		public void UnloadChangedFiles()
+		{
+			ChangedFiles = null;
+		}
+
+		public void LoadChangedFiles()
+		{
+			using (var db = new SourceLogContext())
+			{
+				db.LogEntries.Attach(this);
+				db.Entry(this).Collection(c => c.ChangedFiles).Load();
+			}
 		}
 	}
 }

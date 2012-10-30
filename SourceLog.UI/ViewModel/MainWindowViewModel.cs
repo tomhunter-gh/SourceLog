@@ -53,7 +53,14 @@ namespace SourceLog.ViewModel
 			}
 			set
 			{
+				if (_selectedLogEntry != null)
+					_selectedLogEntry.UnloadChangedFiles();
+
 				_selectedLogEntry = value;
+
+				if (_selectedLogEntry != null)
+					_selectedLogEntry.LoadChangedFiles();
+
 				RaisePropertyChanged("SelectedLogEntryChangedFiles");
 				RaisePropertyChanged("SelectedLogEntryMessage");
 			}

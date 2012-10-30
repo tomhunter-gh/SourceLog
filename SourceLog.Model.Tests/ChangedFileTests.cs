@@ -19,18 +19,16 @@ namespace SourceLog.Model.Tests
 		[DeploymentItem(@"TestData\jquery.signalR.core.js.newversion")]
 		public void OldNewVersionTextStorageSizeThreshold()
 		{
-			var logSubscription = new LogSubscription
+			var mockContext = new Mock<ISourceLogContext>();
+			
+			var logSubscription = new LogSubscription (() => mockContext.Object)
 				{
 					LogSubscriptionId = 1,
 					Log = new TrulyObservableCollection<LogEntry>()
 				};
 
-			var fakeLogSubscriptionDbSet = new FakeDbSet<LogSubscription> { logSubscription };
-
-			var mockContext = new Mock<ISourceLogContext>();
+			var fakeLogSubscriptionDbSet = new FakeLogSubscriptionDbSet { logSubscription };
 			mockContext.Setup(m => m.LogSubscriptions).Returns(fakeLogSubscriptionDbSet);
-
-			SourceLogContext.ThreadStaticContext = mockContext.Object;
 
 			var changedFile = new ChangedFile();
 

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
-using SourceLog.Model;
-using SourceLog.Interface;
 using Newtonsoft.Json;
+using SourceLog.Interface;
+using SourceLog.Model;
 
 namespace SourceLog.Plugin.GitHub
 {
@@ -38,7 +38,6 @@ namespace SourceLog.Plugin.GitHub
 
 			//https://github.com/tomhunter-gh/SourceLog
 
-			//const string pattern = @"Change\s(?<revision>\d+)\son\s(?<datetime>\d{4}/\d{2}/\d{2}\s\d{2}:\d{2}:\d{2})\sby\s(?<author>\w+)@\w+\n\n\t(?<message>.*)";
 			const string pattern = @"https://github.com/(?<username>[^/]+)/(?<reponame>[^/]+)/?";
 			var r = new Regex(pattern);
 			var match = r.Match(SettingsXml);

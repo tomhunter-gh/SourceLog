@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace SourceLog.Model
 {
@@ -20,20 +17,28 @@ namespace SourceLog.Model
 		private TrulyObservableCollection<LogEntry> _log;
 		public virtual TrulyObservableCollection<LogEntry> Log
 		{
-			get { return _log; } 
+			get { return _log; }
 			set
 			{
 				_log = value;
-				_log.CollectionChanged += (s,e) => NotifyPropertyChanged("Log");
+				_log.CollectionChanged += (s, e) => NotifyPropertyChanged("Log");
 			}
 		}
 
 		public ILogProvider<ChangedFile> LogProvider { get; set; }
 		private readonly SynchronizationContext _uiThread;
+		private Func<ISourceLogContext> SourceLogContextProvider { get; set; }
 
 		public LogSubscription()
 		{
 			_uiThread = SynchronizationContext.Current;
+			SourceLogContextProvider = () => new SourceLogContext();
+		}
+
+		public LogSubscription(Func<ISourceLogContext> sourceLogContextProvider)
+			: this()
+		{
+			SourceLogContextProvider = sourceLogContextProvider;
 		}
 
 		public LogSubscription(string name, string vcsLogProviderName, string url)
@@ -77,9 +82,11 @@ namespace SourceLog.Model
 		{
 			GenerateFlowDocuments(e.LogEntry);
 
-			var db = SourceLogContext.ThreadStaticContext;
-			db.LogSubscriptions.First(s => s.LogSubscriptionId == LogSubscriptionId).Log.Add((LogEntry)e.LogEntry);
-			db.SaveChanges();
+			using (var db = SourceLogContextProvider())
+			{
+				db.LogSubscriptions.Find(LogSubscriptionId).Log.Add((LogEntry)e.LogEntry);
+				db.SaveChanges();
+			}
 
 			if (_uiThread != null)
 			{
@@ -97,24 +104,11 @@ namespace SourceLog.Model
 			{
 				Debug.WriteLine("   GeneratingFlowDocument: " + changedFile.FileName);
 
-				changedFile.OldVersion = CheckForBinary(changedFile.OldVersion);
-				changedFile.NewVersion = CheckForBinary(changedFile.NewVersion);
-
 				var diff = new SideBySideFlowDocumentDiffGenerator(changedFile.OldVersion, changedFile.NewVersion);
 				changedFile.LeftFlowDocument = diff.LeftDocument;
 				changedFile.RightFlowDocument = diff.RightDocument;
 				changedFile.FirstModifiedLineVerticalOffset = diff.FirstModifiedLineVerticalOffset;
 			});
-		}
-
-		private static string CheckForBinary(string s)
-		{
-			if (s.Contains("\0\0\0\0"))
-			{
-				Debug.WriteLine("    [Binary]");
-				return "[Binary]";
-			}
-			return s;
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;

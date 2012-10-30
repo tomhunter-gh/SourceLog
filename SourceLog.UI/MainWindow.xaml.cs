@@ -31,12 +31,6 @@ namespace SourceLog
 		{
 			ViewModel.SelectedLogSubscription = e.AddedItems.Cast<LogSubscription>().First();
 			FixDataGridSorting();
-			
-			//if (ViewModel.SelectedLogSubscription.Log.Count > 0)
-			//{
-			//    dgLog.SelectedItem = ViewModel.SelectedLogSubscription.Log.Last();
-			//    lstChangedFiles.SelectedItem = ViewModel.SelectedLogEntry.ChangedFiles.FirstOrDefault();
-			//}
 		}
 
 		private void FixDataGridSorting()
