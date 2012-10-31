@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
+using System.Data.Entity;
 
 namespace SourceLog.Model
 {
@@ -84,7 +85,8 @@ namespace SourceLog.Model
 
 			using (var db = SourceLogContextProvider())
 			{
-				db.LogSubscriptions.Find(LogSubscriptionId).Log.Add((LogEntry)e.LogEntry);
+				((LogEntry)e.LogEntry).LogSubscription = db.LogSubscriptions.Find(LogSubscriptionId);
+				db.LogEntries.Add((LogEntry)e.LogEntry);
 				db.SaveChanges();
 			}
 

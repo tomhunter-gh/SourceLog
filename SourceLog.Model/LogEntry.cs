@@ -9,6 +9,7 @@ namespace SourceLog.Model
 	public class LogEntry : ILogEntry<ChangedFile>, INotifyPropertyChanged
 	{
 		public int LogEntryId { get; set; }
+		public LogSubscription LogSubscription { get; set; }
 		public string Revision { get; set; }
 		public DateTime CommittedDate { get; set; }
 		public string Message { get; set; }
