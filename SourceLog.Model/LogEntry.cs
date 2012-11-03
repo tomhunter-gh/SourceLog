@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using SourceLog.Interface;
+using System.Data.Entity;
+using System.Linq;
 
 namespace SourceLog.Model
 {
@@ -26,7 +28,7 @@ namespace SourceLog.Model
 			}
 		}
 
-		public virtual List<ChangedFile> ChangedFiles { get; set; }
+		public List<ChangedFile> ChangedFiles { get; set; }
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -59,8 +61,7 @@ namespace SourceLog.Model
 		{
 			using (var db = new SourceLogContext())
 			{
-				db.LogEntries.Attach(this);
-				db.Entry(this).Collection(c => c.ChangedFiles).Load();
+				ChangedFiles = db.LogEntries.Where(x => x.LogEntryId == LogEntryId).Include(x => x.ChangedFiles).Single().ChangedFiles;
 			}
 		}
 	}

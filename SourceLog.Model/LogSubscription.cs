@@ -16,7 +16,7 @@ namespace SourceLog.Model
 		public string Url { get; set; }
 		public string LogProviderTypeName { get; set; }
 		private TrulyObservableCollection<LogEntry> _log;
-		public virtual TrulyObservableCollection<LogEntry> Log
+		public TrulyObservableCollection<LogEntry> Log
 		{
 			get { return _log; }
 			set
