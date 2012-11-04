@@ -58,6 +58,9 @@
     <Reference Include="EntityFramework, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification">
+      <HintPath>..\Lib\NotifyIconWpf\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
       <HintPath>..\packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
@@ -111,6 +114,7 @@
     <Compile Include="NewSubscriptionWindow.xaml.cs">
       <DependentUpon>NewSubscriptionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ShowWindowCommand.cs" />
     <Compile Include="SingleLineTextConverter .cs" />
     <Compile Include="SubscriptionLabelConverter.cs" />
     <Compile Include="TextBoxDiffRenderer.cs" />

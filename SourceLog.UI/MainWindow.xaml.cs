@@ -25,6 +25,13 @@ namespace SourceLog
 			DataContext = ViewModel;
 
 			FixDataGridSorting();
+
+			StateChanged += MainWindowStateChanged;
+		}
+
+		void MainWindowStateChanged(object sender, System.EventArgs e)
+		{
+			ShowInTaskbar = WindowState != WindowState.Minimized;
 		}
 
 		private void LstSubscriptionsSelectionChanged(object sender, SelectionChangedEventArgs e)
