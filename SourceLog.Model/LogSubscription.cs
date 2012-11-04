@@ -81,12 +81,14 @@ namespace SourceLog.Model
 
 		public void AddNewLogEntry(object sender, NewLogEntryEventArgs<ChangedFile> e)
 		{
+			var logEntry = (LogEntry)e.LogEntry;
+
 			GenerateFlowDocuments(e.LogEntry);
 
 			using (var db = SourceLogContextProvider())
 			{
-				((LogEntry)e.LogEntry).LogSubscription = db.LogSubscriptions.Find(LogSubscriptionId);
-				db.LogEntries.Add((LogEntry)e.LogEntry);
+				logEntry.LogSubscription = db.LogSubscriptions.Find(LogSubscriptionId);
+				db.LogEntries.Add(logEntry);
 				db.SaveChanges();
 			}
 
@@ -96,7 +98,7 @@ namespace SourceLog.Model
 					{
 						Log.Add((LogEntry)entry);
 						NotifyPropertyChanged("Log");
-					}, e.LogEntry);
+					}, logEntry);
 			}
 		}
 
