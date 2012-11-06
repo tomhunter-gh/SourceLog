@@ -21,7 +21,8 @@ namespace SourceLog.Plugin.CrashTestDummy
 												{
 													Content = new CrashTestDummyWindow(this),
 													Height = 100,
-													Width = 200
+													Width = 200,
+													Title = "CrashTestDummy"
 												};
 											window.Show();
 											window.Closed += (s, e) => window.Dispatcher.InvokeShutdown();

@@ -42,7 +42,7 @@ namespace SourceLog.Model
 				db.LogSubscriptions.Add(logSubscription);
 				db.SaveChanges();
 			}
-
+			logSubscription.NewLogEntry += (o, e) => NewLogEntry(o, e);
 			LogSubscriptions.Add(logSubscription);
 		}
 
