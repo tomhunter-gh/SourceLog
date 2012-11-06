@@ -98,8 +98,16 @@ namespace SourceLog.Model
 					{
 						Log.Add((LogEntry)entry);
 						NotifyPropertyChanged("Log");
+						var logEntryInfo = new NewLogEntryInfoEventHandlerArgs
+							{
+								LogSubscriptionName = Name,
+								Author = ((LogEntry) entry).Author,
+								Message = ((LogEntry) entry).Message
+							};
+						NewLogEntry(this, logEntryInfo);
 					}, logEntry);
 			}
+			
 		}
 
 		private static void GenerateFlowDocuments(ILogEntry<ChangedFile> logEntry)
@@ -124,5 +132,7 @@ namespace SourceLog.Model
 				PropertyChanged(this, new PropertyChangedEventArgs(property));
 			}
 		}
+
+		public event NewLogEntryInfoEventHandler NewLogEntry;
 	}
 }

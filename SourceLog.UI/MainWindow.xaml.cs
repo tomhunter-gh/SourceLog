@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -27,6 +28,15 @@ namespace SourceLog
 			FixDataGridSorting();
 
 			StateChanged += MainWindowStateChanged;
+
+			ViewModel.NewLogEntry += ViewModelNewLogEntry;
+		}
+
+		void ViewModelNewLogEntry(object sender, NewLogEntryInfoEventHandlerArgs e)
+		{
+			var balloon = new NewLogEntryBalloon(e.LogSubscriptionName, e.Author, e.Message);
+
+			NotifyIcon.ShowCustomBalloon(balloon, PopupAnimation.Fade, 5000);
 		}
 
 		void MainWindowStateChanged(object sender, System.EventArgs e)

@@ -111,6 +111,9 @@
       <DependentUpon>201208280821049_Migration10.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="NewLogEntryBalloon.xaml.cs">
+      <DependentUpon>NewLogEntryBalloon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NewSubscriptionWindow.xaml.cs">
       <DependentUpon>NewSubscriptionWindow.xaml</DependentUpon>
     </Compile>
@@ -132,6 +135,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NewLogEntryBalloon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NewSubscriptionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

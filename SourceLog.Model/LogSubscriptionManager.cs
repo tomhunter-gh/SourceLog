@@ -17,7 +17,7 @@ namespace SourceLog.Model
 					using (var db = new SourceLogContext())
 					{
 						db.LogSubscriptions.Include(s => s.Log).ToList().ForEach(EnsureInitialised);
-						_logSubscriptions = db.LogSubscriptions.Local;
+						_logSubscriptions = new ObservableCollection<LogSubscription>(db.LogSubscriptions.ToList());
 					}
 				}
 
@@ -25,11 +25,12 @@ namespace SourceLog.Model
 			}
 		}
 
-		private static void EnsureInitialised(LogSubscription s)
+		private void EnsureInitialised(LogSubscription s)
 		{
 			if (s.LogProvider == null)
 			{
 				s.LoadLogProviderPlugin();
+				s.NewLogEntry += (o, e) => NewLogEntry(o, e);
 			}
 		}
 
@@ -44,5 +45,7 @@ namespace SourceLog.Model
 
 			LogSubscriptions.Add(logSubscription);
 		}
+
+		public event NewLogEntryInfoEventHandler NewLogEntry;
 	}
 }
