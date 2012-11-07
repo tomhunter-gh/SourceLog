@@ -59,9 +59,12 @@ namespace SourceLog.Model
 
 		public void LoadChangedFiles()
 		{
-			using (var db = new SourceLogContext())
+			if (ChangedFiles == null)
 			{
-				ChangedFiles = db.LogEntries.Where(x => x.LogEntryId == LogEntryId).Include(x => x.ChangedFiles).Single().ChangedFiles;
+				using (var db = new SourceLogContext())
+				{
+					ChangedFiles = db.LogEntries.Where(x => x.LogEntryId == LogEntryId).Include(x => x.ChangedFiles).Single().ChangedFiles;
+				}
 			}
 		}
 	}
