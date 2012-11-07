@@ -25,10 +25,12 @@ namespace SourceLog.ViewModel
 				_selectedLogSubscription = value;
 				RaisePropertyChanged("Log");
 
-				SelectedLogEntry = value.Log.Count > 0 ? value.Log.Last() : null;
+				if (value != null)
+				{
+					SelectedLogEntry = value.Log.Count > 0 ? value.Log.Last() : null;
 
-				SelectedChangedFile = SelectedLogEntry != null ? SelectedLogEntry.ChangedFiles.FirstOrDefault() : null;
-				
+					SelectedChangedFile = SelectedLogEntry != null ? SelectedLogEntry.ChangedFiles.FirstOrDefault() : null;
+				}
 			}
 		}
 
@@ -105,6 +107,7 @@ namespace SourceLog.ViewModel
 		public MainWindowViewModel()
 		{
 			SelectedLogSubscription = LogSubscriptionManager.LogSubscriptions.FirstOrDefault();
+			LogSubscriptionManager.NewLogEntry += (o, e) => NewLogEntry(o, e);
 		}
 
 		public void MarkEntryRead(LogEntry readItem)
@@ -125,5 +128,7 @@ namespace SourceLog.ViewModel
 				PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+
+		public event NewLogEntryInfoEventHandler NewLogEntry;
 	}
 }

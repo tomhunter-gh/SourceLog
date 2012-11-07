@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.Perforce", "SourceLog.Plugin.Perforce\SourceLog.Plugin.Perforce.csproj", "{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.CrashTestDummy", "SourceLog.Plugin.DummyTestPlugin\SourceLog.Plugin.CrashTestDummy.csproj", "{619E918E-6259-44F3-B33F-69E7801AC512}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = SourceLog.vsmdi
@@ -117,6 +119,16 @@ Global
 		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}.Release|x86.ActiveCfg = Release|Any CPU
+		{619E918E-6259-44F3-B33F-69E7801AC512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{619E918E-6259-44F3-B33F-69E7801AC512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{619E918E-6259-44F3-B33F-69E7801AC512}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{619E918E-6259-44F3-B33F-69E7801AC512}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{619E918E-6259-44F3-B33F-69E7801AC512}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{619E918E-6259-44F3-B33F-69E7801AC512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{619E918E-6259-44F3-B33F-69E7801AC512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{619E918E-6259-44F3-B33F-69E7801AC512}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{619E918E-6259-44F3-B33F-69E7801AC512}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{619E918E-6259-44F3-B33F-69E7801AC512}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
