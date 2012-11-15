@@ -29,6 +29,8 @@ namespace SourceLog.Model.Tests
 			var fakeLogSubscriptionDbSet = new FakeLogSubscriptionDbSet { logSubscription };
 			mockContext.Setup(m => m.LogSubscriptions).Returns(fakeLogSubscriptionDbSet);
 
+			mockContext.Setup(m => m.LogEntries).Returns(new FakeDbSet<LogEntry>());
+
 			logSubscription.AddNewLogEntry(this, new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry });
 
 			var textRange = new TextRange(changedFile.LeftFlowDocument.ContentStart, changedFile.LeftFlowDocument.ContentEnd);

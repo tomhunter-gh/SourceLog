@@ -30,6 +30,8 @@ namespace SourceLog.Model.Tests
 			var fakeLogSubscriptionDbSet = new FakeLogSubscriptionDbSet { logSubscription };
 			mockContext.Setup(m => m.LogSubscriptions).Returns(fakeLogSubscriptionDbSet);
 
+			mockContext.Setup(m => m.LogEntries).Returns(new FakeDbSet<LogEntry>());
+
 			var changedFile = new ChangedFile();
 
 			using (var reader = new StreamReader("jquery.signalR.core.js.oldversion"))
