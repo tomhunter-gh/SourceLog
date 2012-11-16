@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>EntityFramework</id>
+    <version>4.1.10331.0</version>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <licenseUrl>http://go.microsoft.com/fwlink/?LinkID=211010</licenseUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>DbContext API and Code First workflow for ADO.NET Entity Framework.</description>
+    <summary>DbContext API and Code First workflow for ADO.NET Entity Framework.</summary>
+    <language>en-US</language>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Data.Entity" targetFramework="" />
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="" />
+    </frameworkAssemblies>
+  </metadata>
+</package>
