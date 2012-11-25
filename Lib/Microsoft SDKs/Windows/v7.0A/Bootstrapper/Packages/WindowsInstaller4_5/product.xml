@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- Windows Installer 4.5 VS Bootstrapper : product.xml : Language neutral information -->
+<Product
+	xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+	ProductCode="Microsoft.Windows.Installer.4.5">
+  <!-- The package does not contain an IncludesProduct element for Windows Installer 3.1. -->
+  <!-- This ommision is by design in order to achive a specific sequencing of bootstrapper packages -->
+  <!-- to reduce the number of potential reboots under certain conditions. -->
+
+  <!-- Defines list of files to be copied on build -->
+  <PackageFiles CopyAllPackageFiles="false">
+    <PackageFile Name="WindowsXP-KB942288-v3-x86.exe" HomeSite="Msi45XPx86exe"
+                 PublicKey="3082010a0282010100a2db0a8dcfc2c1499bcdaa3a34ad23596bdb6cbe2122b794c8eaaebfc6d526c232118bbcda5d2cfb36561e152bae8f0ddd14a36e284c7f163f41ac8d40b146880dd98194ad9706d05744765ceaf1fc0ee27f74a333cb74e5efe361a17e03b745ffd53e12d5b0ca5e0dd07bf2b7130dfc606a2885758cb7adbc85e817b490bef516b6625ded11df3aee215b8baf8073c345e3958977609be7ad77c1378d33142f13db62c9ae1aa94f9867add420393071e08d6746e2c61cf40d5074412fe805246a216b49b092c4b239c742a56d5c184aab8fd78e833e780a47d8a4b28423c3e2f27b66b14a74bd26414b9c6114604e30c882f3d00b707cee554d77d2085576810203010001"/>
+    <PackageFile Name="WindowsXP-KB958655-v2-x86-ENU.exe" HomeSite="Msi45UpdateXPx86exe"
+                 PublicKey="3082010a0282010100a2db0a8dcfc2c1499bcdaa3a34ad23596bdb6cbe2122b794c8eaaebfc6d526c232118bbcda5d2cfb36561e152bae8f0ddd14a36e284c7f163f41ac8d40b146880dd98194ad9706d05744765ceaf1fc0ee27f74a333cb74e5efe361a17e03b745ffd53e12d5b0ca5e0dd07bf2b7130dfc606a2885758cb7adbc85e817b490bef516b6625ded11df3aee215b8baf8073c345e3958977609be7ad77c1378d33142f13db62c9ae1aa94f9867add420393071e08d6746e2c61cf40d5074412fe805246a216b49b092c4b239c742a56d5c184aab8fd78e833e780a47d8a4b28423c3e2f27b66b14a74bd26414b9c6114604e30c882f3d00b707cee554d77d2085576810203010001"/>
+    <PackageFile Name="WindowsServer2003-KB942288-v4-x86.exe" HomeSite="Msi452K3x86exe"
+                 PublicKey="3082010a0282010100a2db0a8dcfc2c1499bcdaa3a34ad23596bdb6cbe2122b794c8eaaebfc6d526c232118bbcda5d2cfb36561e152bae8f0ddd14a36e284c7f163f41ac8d40b146880dd98194ad9706d05744765ceaf1fc0ee27f74a333cb74e5efe361a17e03b745ffd53e12d5b0ca5e0dd07bf2b7130dfc606a2885758cb7adbc85e817b490bef516b6625ded11df3aee215b8baf8073c345e3958977609be7ad77c1378d33142f13db62c9ae1aa94f9867add420393071e08d6746e2c61cf40d5074412fe805246a216b49b092c4b239c742a56d5c184aab8fd78e833e780a47d8a4b28423c3e2f27b66b14a74bd26414b9c6114604e30c882f3d00b707cee554d77d2085576810203010001"/>
+    <PackageFile Name="WindowsServer2003-KB958655-v2-x86-ENU.exe" HomeSite="Msi45Update2K3x86exe"
+                 PublicKey="3082010a0282010100a2db0a8dcfc2c1499bcdaa3a34ad23596bdb6cbe2122b794c8eaaebfc6d526c232118bbcda5d2cfb36561e152bae8f0ddd14a36e284c7f163f41ac8d40b146880dd98194ad9706d05744765ceaf1fc0ee27f74a333cb74e5efe361a17e03b745ffd53e12d5b0ca5e0dd07bf2b7130dfc606a2885758cb7adbc85e817b490bef516b6625ded11df3aee215b8baf8073c345e3958977609be7ad77c1378d33142f13db62c9ae1aa94f9867add420393071e08d6746e2c61cf40d5074412fe805246a216b49b092c4b239c742a56d5c184aab8fd78e833e780a47d8a4b28423c3e2f27b66b14a74bd26414b9c6114604e30c882f3d00b707cee554d77d2085576810203010001"/>
+    <PackageFile Name="WindowsServer2003-KB942288-v4-x64.exe" HomeSite="Msi45XP2K3x64exe"
+                 PublicKey="3082010a0282010100a2db0a8dcfc2c1499bcdaa3a34ad23596bdb6cbe2122b794c8eaaebfc6d526c232118bbcda5d2cfb36561e152bae8f0ddd14a36e284c7f163f41ac8d40b146880dd98194ad9706d05744765ceaf1fc0ee27f74a333cb74e5efe361a17e03b745ffd53e12d5b0ca5e0dd07bf2b7130dfc606a2885758cb7adbc85e817b490bef516b6625ded11df3aee215b8baf8073c345e3958977609be7ad77c1378d33142f13db62c9ae1aa94f9867add420393071e08d6746e2c61cf40d5074412fe805246a216b49b092c4b239c742a56d5c184aab8fd78e833e780a47d8a4b28423c3e2f27b66b14a74bd26414b9c6114604e30c882f3d00b707cee554d77d2085576810203010001"/>
+    <PackageFile Name="WindowsServer2003.WindowsXP-KB958655-v2-x64-ENU.exe" HomeSite="Msi45UpdateXP2K3x64exe"
+                 PublicKey="3082010a0282010100a2db0a8dcfc2c1499bcdaa3a34ad23596bdb6cbe2122b794c8eaaebfc6d526c232118bbcda5d2cfb36561e152bae8f0ddd14a36e284c7f163f41ac8d40b146880dd98194ad9706d05744765ceaf1fc0ee27f74a333cb74e5efe361a17e03b745ffd53e12d5b0ca5e0dd07bf2b7130dfc606a2885758cb7adbc85e817b490bef516b6625ded11df3aee215b8baf8073c345e3958977609be7ad77c1378d33142f13db62c9ae1aa94f9867add420393071e08d6746e2c61cf40d5074412fe805246a216b49b092c4b239c742a56d5c184aab8fd78e833e780a47d8a4b28423c3e2f27b66b14a74bd26414b9c6114604e30c882f3d00b707cee554d77d2085576810203010001"/>
+    <PackageFile Name="Windows6.0-KB958655-v2-x86.MSU" HomeSite="Msi45Vistax86msu"
+                 PublicKey="3082010a0282010100bd3fd09234a458fda782a9fe41d4ba38708cf6307f3aa5780711ae2441263938cf7b39608fc5bf6b62cb70b5c933f3dd5de42ed7ba6739a4eeb784ee293a4e2e80d161e99a33b71a44d92ac78423059e42c50d77a92ac932bdd5cd4d47809ca376716519ff1e9eff947b20b1079ccd5d837469cd9ddf9504c24270fd8ad8db20f255c4f436c0c4f6a365b2dac139a35644f6e763149c4d43d952d2fbb44bb04d13f370289a7be16c27b9bfdfdd16905d60f8fe2744d9a4bc89d272c73fcd41cf8269926a511f43e5159294f0f5e471c6d90f4b79d04d832012590c9334205c629dd9e45c601a0cf9c802f7a184861d62847ae87cd6c6474fc7ed79837faa12f90203010001"/>
+    <PackageFile Name="Windows6.0-KB958655-v2-x64.MSU" HomeSite="Msi45Vistax64msu"
+                 PublicKey="3082010a0282010100bd3fd09234a458fda782a9fe41d4ba38708cf6307f3aa5780711ae2441263938cf7b39608fc5bf6b62cb70b5c933f3dd5de42ed7ba6739a4eeb784ee293a4e2e80d161e99a33b71a44d92ac78423059e42c50d77a92ac932bdd5cd4d47809ca376716519ff1e9eff947b20b1079ccd5d837469cd9ddf9504c24270fd8ad8db20f255c4f436c0c4f6a365b2dac139a35644f6e763149c4d43d952d2fbb44bb04d13f370289a7be16c27b9bfdfdd16905d60f8fe2744d9a4bc89d272c73fcd41cf8269926a511f43e5159294f0f5e471c6d90f4b79d04d832012590c9334205c629dd9e45c601a0cf9c802f7a184861d62847ae87cd6c6474fc7ed79837faa12f90203010001"/>
+  </PackageFiles>
+
+  <InstallChecks>
+    <FileCheck Property="VersionMsiDll" FileName="msi.dll" SearchPath="System32" SpecialFolder="WindowsFolder" />
+  </InstallChecks>
+  <!-- Defines how to invoke the setup for the Windows installer 4.5 redist -->
+  <Commands Reboot="Immediate">
+    <!-- Defines installation command for:
+				  Windows XP Service Pack 2 and later
+				  on x86 platform -->
+    <Command PackageFile="WindowsXP-KB942288-v3-x86.exe"
+             Arguments= "/quiet /norestart"
+             EstimatedInstalledBytes="3327000"
+             EstimatedInstallSeconds="120" >
+      <InstallConditions>
+        <BypassIf Property="VersionMsi" Compare="VersionGreaterThanOrEqualTo" Value="4.5" />
+        <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="Intel" />
+        <BypassIf Property="VersionNT" Compare="VersionGreaterThanOrEqualTo" Value="5.2.0" />
+        <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatform"/>
+        <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.1.2" String="InvalidPlatform"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <!-- Defer reboot until MSI 4.5 update below -->
+        <ExitCode Value="1641" Result="Success"/>
+        <ExitCode Value="3010" Result="Success"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+
+    <Command PackageFile="WindowsXP-KB958655-v2-x86-ENU.exe"
+             Arguments= "/quiet /norestart"
+             EstimatedInstalledBytes="1506160"
+             EstimatedInstallSeconds="120" >
+      <InstallConditions>
+        <BypassIf Property="VersionMsiDll" Compare="VersionGreaterThanOrEqualTo" Value="4.5.6001.22299" />
+        <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="Intel" />
+        <BypassIf Property="VersionNT" Compare="VersionGreaterThanOrEqualTo" Value="5.2.0" />
+        <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatform"/>
+        <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.1.2" String="InvalidPlatform"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <ExitCode Value="1641" Result="SuccessReboot"/>
+        <ExitCode Value="3010" Result="SuccessReboot"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+
+    <!-- Defines installation command for:
+				  Windows 2003 Service Pack 1 or later
+				  on x86 platform -->
+    <Command PackageFile="WindowsServer2003-KB942288-v4-x86.exe"
+             Arguments= "/quiet /norestart"
+             EstimatedInstalledBytes="3071512"
+             EstimatedInstallSeconds="120" >
+      <InstallConditions>
+        <BypassIf Property="VersionMsi" Compare="VersionGreaterThanOrEqualTo" Value="4.5" />
+        <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="Intel" />
+        <BypassIf Property="VersionNT" Compare="VersionLessThan" Value="5.2.0"/>
+        <BypassIf Property="VersionNT" Compare="VersionGreaterThanOrEqualTo" Value="6.0"/>
+        <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatform"/>
+        <FailIf Property="VersionNT" Compare="VersionEqualTo" Value="5.2.0" String="InvalidPlatform"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <!-- Defer reboot until MSI 4.5 update below -->
+        <ExitCode Value="1641" Result="Success"/>
+        <ExitCode Value="3010" Result="Success"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+
+    <Command PackageFile="WindowsServer2003-KB958655-v2-x86-ENU.exe"
+             Arguments= "/quiet /norestart"
+             EstimatedInstalledBytes="1502584"
+             EstimatedInstallSeconds="120" >
+      <InstallConditions>
+        <BypassIf Property="VersionMsiDll" Compare="VersionGreaterThanOrEqualTo" Value="4.5.6001.22299" />
+        <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="Intel" />
+        <BypassIf Property="VersionNT" Compare="VersionLessThan" Value="5.2.0"/>
+        <BypassIf Property="VersionNT" Compare="VersionGreaterThanOrEqualTo" Value="6.0"/>
+        <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatform"/>
+        <FailIf Property="VersionNT" Compare="VersionEqualTo" Value="5.2.0" String="InvalidPlatform"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <ExitCode Value="1641" Result="SuccessReboot"/>
+        <ExitCode Value="3010" Result="SuccessReboot"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+
+    <!-- Defines installation command for:
+				  Windows XP Service Pack 2 and later
+				  Windows 2003 Service Pack 1 or later
+				  on x64 platform -->
+    <Command PackageFile="WindowsServer2003-KB942288-v4-x64.exe"
+             Arguments= "/quiet /norestart"
+             EstimatedInstalledBytes="4691480"
+             EstimatedInstallSeconds="120" >
+      <InstallConditions>
+        <BypassIf Property="VersionMsi" Compare="VersionGreaterThanOrEqualTo" Value="4.5" />
+        <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="amd64" />
+        <BypassIf Property="VersionNT" Compare="VersionGreaterThanOrEqualTo" Value="6.0"/>
+        <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatform"/>
+        <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.1.2" String="InvalidPlatform"/>
+        <FailIf Property="VersionNT" Compare="VersionEqualTo" Value="5.2.0" String="InvalidPlatform"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <!-- Defer reboot until MSI 4.5 update below -->
+        <ExitCode Value="1641" Result="Success"/>
+        <ExitCode Value="3010" Result="Success"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+
+    <Command PackageFile="WindowsServer2003.WindowsXP-KB958655-v2-x64-ENU.exe"
+             Arguments= "/quiet /norestart"
+             EstimatedInstalledBytes="2904952"
+             EstimatedInstallSeconds="120" >
+      <InstallConditions>
+        <BypassIf Property="VersionMsiDll" Compare="VersionGreaterThanOrEqualTo" Value="4.5.6001.22299" />
+        <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="amd64" />
+        <BypassIf Property="VersionNT" Compare="VersionGreaterThanOrEqualTo" Value="6.0"/>
+        <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatform"/>
+        <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.1.2" String="InvalidPlatform"/>
+        <FailIf Property="VersionNT" Compare="VersionEqualTo" Value="5.2.0" String="InvalidPlatform"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <ExitCode Value="1641" Result="SuccessReboot"/>
+        <ExitCode Value="3010" Result="SuccessReboot"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+
+    <!-- Defines installation command for:
+				  Vista RTM and later
+				  Windows Server 2008 RTM and later
+				  on x86 platform -->
+    <Command PackageFile="Windows6.0-KB958655-v2-x86.MSU"
+             Arguments= "/quiet /norestart"
+             EstimatedInstalledBytes="1960465"
+             EstimatedInstallSeconds="120" >
+      <InstallConditions>
+        <BypassIf Property="VersionMsiDll" Compare="VersionGreaterThanOrEqualTo" Value="4.5.6001.22308" />
+        <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="Intel" />
+        <BypassIf Property="VersionNT" Compare="VersionLessThan" Value="6.0" />
+        <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatform"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <ExitCode Value="1641" Result="SuccessReboot"/>
+        <ExitCode Value="3010" Result="SuccessReboot"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+
+    <!-- Defines installation command for:
+				  Vista RTM and later
+				  Windows Server 2008 RTM and later
+				  on x64 platform -->
+    <Command PackageFile="Windows6.0-KB958655-v2-x64.MSU"
+             Arguments= "/quiet /norestart"
+             EstimatedInstalledBytes="3342348"
+             EstimatedInstallSeconds="120" >
+      <InstallConditions>
+        <BypassIf Property="VersionMsiDll" Compare="VersionGreaterThanOrEqualTo" Value="4.5.6001.22308" />
+        <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="amd64" />
+        <BypassIf Property="VersionNT" Compare="VersionLessThan" Value="6.0" />
+        <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatform"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <ExitCode Value="1641" Result="SuccessReboot"/>
+        <ExitCode Value="3010" Result="SuccessReboot"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+  </Commands>
+
+  <!-- Defines Homesite locations for each of the downloads -->
+  <Strings>
+    <String Name="Msi45XPx86exe">http://go.microsoft.com/fwlink/?LinkID=118633</String>
+    <String Name="Msi45UpdateXPx86exe">http://go.microsoft.com/fwlink/?LinkID=161053</String>
+    <String Name="Msi452K3x86exe">http://go.microsoft.com/fwlink/?LinkID=119115</String>
+    <String Name="Msi45Update2K3x86exe">http://go.microsoft.com/fwlink/?LinkID=161054</String>
+    <String Name="Msi45XP2K3x64exe">http://go.microsoft.com/fwlink/?LinkID=118636</String>
+    <String Name="Msi45UpdateXP2K3x64exe">http://go.microsoft.com/fwlink/?LinkID=161055</String>
+    <String Name="Msi45Vistax86msu">http://go.microsoft.com/fwlink/?LinkID=161056</String>
+    <String Name="Msi45Vistax64msu">http://go.microsoft.com/fwlink/?LinkID=161057</String>
+  </Strings>
+</Product>

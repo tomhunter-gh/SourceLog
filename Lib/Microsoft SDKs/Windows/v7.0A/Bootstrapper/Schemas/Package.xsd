@@ -1,0 +1,496 @@
+<?xml version="1.0"?>
+<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://schemas.microsoft.com/developer/2004/01/bootstrapper" xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="Product">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="PackageFiles" minOccurs="0" maxOccurs="1" type="PackageFilesType" />
+                <xs:element name="InstallChecks" minOccurs="0" maxOccurs="1" type="InstallChecksType" />
+                <xs:element name="Commands" minOccurs="0" maxOccurs="1" type="CommandsType" />
+                <xs:element name="Strings" minOccurs="0" maxOccurs="1" type="StringsType"/>
+                <xs:element name="Schedules" minOccurs="0" maxOccurs="1" type="SchedulesType"/>
+                <xs:element name="RelatedProducts" minOccurs="0" maxOccurs="1" type="RelatedProductsType"/>
+            </xs:all>
+            <xs:attribute name="ProductCode" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Package">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="Strings" minOccurs="0" maxOccurs="1" type="StringsType" />
+                <xs:element name="PackageFiles" minOccurs="0" maxOccurs="1" type="PackageFilesType" />
+                <xs:element name="InstallChecks" minOccurs="0" maxOccurs="1" type="InstallChecksType" />
+                <xs:element name="Commands" minOccurs="0" maxOccurs="1" type="CommandsType" />
+                <xs:element name="Schedules" minOccurs="0" maxOccurs="1" type="SchedulesType" />
+            </xs:all>
+            <xs:attribute name="Name" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="Culture" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="LicenseAgreement" type="xs:string" use="optional" />
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="CommandsType">
+        <xs:sequence>
+            <xs:element name="Command" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="ExitCodes" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="ExitCode" minOccurs="0" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:choice minOccurs="0" maxOccurs="unbounded" />
+                                            <xs:attribute name="Result" type="ExitCodeResultType" use="required" />
+                                            <xs:attribute name="Value" type="xs:int" use="required" />
+                                            <xs:attribute name="String" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                    <xs:element name="DefaultExitCode" minOccurs="0" maxOccurs="1">
+                                        <xs:complexType>
+                                            <xs:choice minOccurs="0" maxOccurs="unbounded" />
+                                            <xs:attribute name="Result" type="ExitCodeResultType" use="required" />
+                                            <xs:attribute name="FormatMessageFromSystem" type="xs:boolean" use="optional" />
+                                            <xs:attribute name="String" type="xs:string" use="optional" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="InstallConditions" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                                    <xs:element name="BypassIf">
+                                        <xs:complexType>
+                                            <xs:sequence />
+                                            <xs:attribute name="Property" use="required">
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                       <xs:minLength value="1" />
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:attribute>
+                                            <xs:attribute name="Value" type="xs:string" use="optional" />
+                                            <xs:attribute name="Schedule" type="xs:string" use="optional" />
+                                            <xs:attribute name="Compare" type="CompareType" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                    <xs:element name="FailIf">
+                                        <xs:complexType>
+                                            <xs:sequence />
+                                            <xs:attribute name="Property" use="required">
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                       <xs:minLength value="1" />
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:attribute>
+                                            <xs:attribute name="Value" type="xs:string" use="optional" />
+                                            <xs:attribute name="String" use="required">
+                                                <xs:simpleType>
+                                                    <xs:restriction base="xs:string">
+                                                        <xs:minLength value="1" />
+                                                    </xs:restriction>
+                                                </xs:simpleType>
+                                            </xs:attribute>
+                                            <xs:attribute name="Schedule" type="xs:string" use="optional" />
+                                            <xs:attribute name="Compare" type="CompareType" use="required" />
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:choice>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="PackageFile" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="Arguments" type="xs:string" use="optional" />
+                    <xs:attribute name="EstimatedInstallSeconds" type="xs:nonNegativeInteger" use="optional" default="0" />
+                    <xs:attribute name="EstimatedInstalledBytes" type="xs:nonNegativeInteger" use="optional" default="0" />
+                    <xs:attribute name="EstimatedTempBytes" type="xs:nonNegativeInteger" use="optional" default="0" />
+                    <xs:attribute name="Log" type="xs:string" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="Reboot" type="RebootType" use="optional" default="Immediate" />
+    </xs:complexType>
+    <xs:complexType name="StringsType">
+        <xs:sequence>
+            <xs:element name="String" nillable="true" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="Name" form="unqualified" use="required">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                             </xs:attribute>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PackageFilesType">
+        <xs:sequence>
+            <xs:element name="PackageFile" type="FileType" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="CopyAllPackageFiles" type="CopyAllFilesType" use="optional" default="true"/>
+    </xs:complexType>
+    <xs:complexType name="InstallChecksType">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="AssemblyCheck" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence />
+                    <xs:attribute name="Name" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="PublicKeyToken" type="PublicKeyTokenType" use="required" />
+                    <xs:attribute name="Version" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="Culture" type="xs:string" use="optional" default="neutral" />
+                    <xs:attribute name="ProcessorArchitecture" type="ProcessorArchitectureType" use="optional" />
+                    <xs:attribute name="Property" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="FileCheck" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence />
+                    <xs:attribute name="FileName" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="SearchPath" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="SpecialFolder" type="xs:string" use="optional" />
+                    <xs:attribute name="SearchDepth" type="xs:nonNegativeInteger" use="optional" />
+                    <xs:attribute name="Property" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ExternalCheck" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence />
+                    <xs:attribute name="Property" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="Arguments" type="xs:string" use="optional" />
+                    <xs:attribute name="PackageFile" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="Log" type="xs:string" use="optional" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RegistryCheck" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence />
+                    <xs:attribute name="Property" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="Value" type="xs:string" use="optional" />
+                    <xs:attribute name="Key" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="RegistryFileCheck" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence />
+                    <xs:attribute name="Property" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="Key" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="Value" type="xs:string" use="optional" />
+                    <xs:attribute name="FileName" type="xs:string" use="optional" />
+                    <xs:attribute name="SearchDepth" type="xs:nonNegativeInteger" use="optional" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="MsiProductCheck" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence />
+                    <xs:attribute name="Property" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="Product" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                    <xs:attribute name="Feature" type="xs:string" use="optional" />
+                </xs:complexType>
+            </xs:element> 
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="SchedulesType">
+        <xs:sequence>
+            <xs:element name="Schedule" nillable="true" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:all>
+                        <xs:element name="BuildList" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence />
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="BeforePackage" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence />
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="AfterPackage" minOccurs="0" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:sequence />
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:all>
+                    <xs:attribute name="Name" form="unqualified" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:minLength value="1" />
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RelatedProductsType">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="DependsOnProduct" nillable="true" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="Code" form="unqualified" use="required">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="EitherProducts" minOccurs="0" maxOccurs="1" type="EitherProductsType"/>
+            <xs:element name="IncludesProduct" nillable="true" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="Code" form="unqualified" use="required">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="EitherProductsType">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="DependsOnProduct" nillable="true" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="Code" form="unqualified" use="required">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:minLength value="1" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="FileType">
+        <xs:sequence />
+        <xs:attribute name="Name" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="HomeSite" use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="PublicKey" use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="Hash" use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="CopyOnBuild" use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:simpleType name="CopyAllFilesType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="true" />
+            <xs:enumeration value="false" />
+            <xs:enumeration value="IfNotHomeSite" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CompareType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ValueEqualTo" />
+            <xs:enumeration value="ValueNotEqualTo" />
+            <xs:enumeration value="ValueLessThan" />
+            <xs:enumeration value="ValueLessThanOrEqualTo" />
+            <xs:enumeration value="ValueGreaterThan" />
+            <xs:enumeration value="ValueGreaterThanOrEqualTo" />
+            <xs:enumeration value="VersionEqualTo" />
+            <xs:enumeration value="VersionNotEqualTo" />
+            <xs:enumeration value="VersionLessThan" />
+            <xs:enumeration value="VersionLessThanOrEqualTo" />
+            <xs:enumeration value="VersionGreaterThan" />
+            <xs:enumeration value="VersionGreaterThanOrEqualTo" />
+            <xs:enumeration value="ValueExists" />
+            <xs:enumeration value="ValueNotExists" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="RebootType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Defer" />
+            <xs:enumeration value="Immediate" />
+            <xs:enumeration value="Force" />
+            <xs:enumeration value="None" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ExitCodeResultType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Success" />
+            <xs:enumeration value="SuccessReboot" />
+            <xs:enumeration value="Fail" />
+            <xs:enumeration value="FailReboot" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ProcessorArchitectureType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="msil" />
+            <xs:enumeration value="x86" />
+            <xs:enumeration value="ia64" />
+            <xs:enumeration value="amd64" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PublicKeyTokenType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([0-9]|[a-f]|[A-F]){16}" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="SpecialFolderType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AppDataFolder" />
+            <xs:enumeration value="CommonAppDataFolder" />
+            <xs:enumeration value="CommonFilesFolder" />
+            <xs:enumeration value="LocalAppDataFolder" />
+            <xs:enumeration value="ProgramFilesFolder" />
+            <xs:enumeration value="StartupFolder" />
+            <xs:enumeration value="SystemFolder" />
+            <xs:enumeration value="WindowsFolder" />
+            <xs:enumeration value="WindowsVolume" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

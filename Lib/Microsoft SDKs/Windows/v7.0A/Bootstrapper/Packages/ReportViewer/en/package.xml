@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Package
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  Name="DisplayName"
+  Culture="Culture"
+  LicenseAgreement="eula.rtf"
+>
+
+    <PackageFiles>
+        <PackageFile Name="eula.rtf"/>
+    </PackageFiles>
+
+    <!-- Defines a localizable string table for error messages-->
+    <Strings>
+        <String Name="DisplayName">Microsoft Visual Studio 2010 Report Viewer</String>
+        <String Name="Culture">en</String>
+        <String Name="AdminRequired">Administrator permissions are required to install Microsoft Visual Studio 2010 Report Viewer. Contact your administrator.</String>
+        <String Name="DotNetFxRequired">Installation of Microsoft Visual Studio 2010 Report Viewer requires Microsoft .NET Framework 3.5. Contact your application vendor.</String>
+        <String Name="WindowsInstallerImproperInstall">Due to an error with Windows Installer, the installation of Microsoft Visual Studio 2010 Report Viewer cannot proceed.</String>
+        <String Name="AnotherInstanceRunning">Another instance of setup is already running. The running instance must complete before this setup can proceed.</String>
+        <String Name="BetaProductFailure">A beta version of Microsoft Visual Studio 2010 Report Viewer was detected on the computer. Uninstall any previous beta versions of Microsoft Visual Studio 2010 Report Viewer before continuing.</String>
+        <String Name="GeneralFailure">A failure occurred attempting to install Microsoft Visual Studio 2010 Report Viewer.</String>
+        <String Name="ReportViewerExe">http://go.microsoft.com/fwlink/?LinkID=203462</String>
+    </Strings>
+
+</Package>

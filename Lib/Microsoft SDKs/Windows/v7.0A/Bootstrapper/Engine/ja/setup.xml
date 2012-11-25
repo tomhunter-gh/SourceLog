@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Resources Culture="Culture">
+<Strings>
+<String Name="Culture">ja</String>
+<String Name="1000">キャンセル(&amp;C)</String>
+<String Name="1001">続行(&amp;O)</String>
+<String Name="1002">閉じる(&amp;L)</String>
+<String Name="1003">詳細(&amp;D) &gt;&gt;</String>
+<String Name="1004">詳細(&amp;D) &lt;&lt;</String>
+<String Name="1005">はい</String>
+<String Name="1006">いいえ</String>
+<String Name="1008">今すぐ再起動するには [はい] を選択してください。後から手動で再起動するには [いいえ] を選択してください。</String>
+<String Name="1009">システムの更新が完了する前に、コンピューターを再起動する必要があります。</String>
+<String Name="1010">必要なファイルをコピーしています...</String>
+<String Name="1011">必要なファイルをダウンロードしています...</String>
+<String Name="1012">%1 セットアップ</String>
+<String Name="1013">%1 をインストールしています...</String>
+<String Name="1016">%1 のシステム コンポーネントのインストール中にエラーが発生しました。すべてのシステム コンポーネントが正常にインストールされるまで、セットアップは続行できません。</String>
+<String Name="1017">%1 のシステム コンポーネントのインストール中にエラーが発生しました。すべてのシステム コンポーネントが正常にインストールされるまで、セットアップは続行できません。システム コンポーネントが更新されているため、再起動が必要です。</String>
+<String Name="1018">使い方:\r\n   -? または -h または -help :  このダイアログを表示します。\r\n   -url または -componentsurl :  保存された URL および このセットアップのコンポーネント URL を表示します。\r\n   -url=&lt;場所&gt; : 指定された場所に URL ソースを設定します。\r\n   -componentsurl=&lt;場所&gt; : 指定された場所にコンポーネント URL を設定します。\r\n   -homesite=&lt;true または false&gt; : true に設定されている場合、コンポーネント URL をオーバーライドして、開発元の Web サイトからコンポーネントをダウンロードします。\r\n\r\n   コマンド ラインの残りの引数はすべてアプリケーションのインストールに渡されます。</String>
+<String Name="1019">url=%1\r\ncomponentsurl=%2</String>
+<String Name="1020">(なし)</String>
+<String Name="1021">この操作は Windows 2000 かそれ以降のバージョンを必要とします。</String>
+<String Name="1023">\r\n</String>
+<String Name="1025">コンポーネント %1 のインストールに失敗しました。</String>
+<String Name="1026">コンポーネント %1 のインストールに失敗し、次のエラー メッセージが生成されました:\r\n"%2"</String>
+<String Name="1028">詳細については、'%1' にあるセットアップ ログ ファイルを参照してください。</String>
+<String Name="1029">これによりインストールが中止されます。キャンセルしますか?</String>
+<String Name="1030">現在のコンポーネントのインストールが完了したら、セットアップは停止します。キャンセルされる前にインストールを完了したコンポーネントは削除されません。キャンセルしますか?</String>
+<String Name="1031">ダウンロードしています...(%1!d!/%2!d!)</String>
+<String Name="1032">ユーザーによりセットアップがキャンセルされました。システム コンポーネントが更新されているため、再起動が必要です。</String>
+<String Name="1033">続行する前に再起動してください。</String>
+<String Name="1034">システム コンポーネント '%1' の前提条件の確認に失敗しました。</String>
+<String Name="1035">%1 に対するすべての前提条件を満たすことができません。すべてのシステム コンポーネントが正常にインストールされるまで、セットアップは続行できません。</String>
+<String Name="1036">セットアップ</String>
+<String Name="1037">コンポーネントを初期化しています...</String>
+<String Name="1038">セットアップがキャンセルされました。</String>
+<String Name="1039">アプリケーション ファイルをダウンロードしています...</String>
+<String Name="1041">セットアップを続行する前に、コンポーネント %1 では再起動が必要です。</String>
+<String Name="1042">次のコンポーネントは正常にインストールされました:</String>
+<String Name="1043">次のコンポーネントは正常にインストールされましたが再起動が必要です:</String>
+<String Name="1044">次のコンポーネントはインストールされませんでした:</String>
+<String Name="1045">次のコンポーネントは再起動の後インストールされます:</String>
+<String Name="1046">次のコンポーネントをインストールできませんでした:</String>
+<String Name="1047"></String>
+<String Name="1048">コンポーネント</String>
+<String Name="1049">%1 をインストールしようとしてエラーが発生しました。</String>
+<String Name="1050">url=%1\r\ncomponentsurl=%2\r\nコンポーネントは開発元の Web サイトからダウンロードされます。</String>
+<String Name="1051">再試行(&amp;R)</String>
+<String Name="1052">サポートに関しては、ここをクリックしてください。</String>
+<String Name="1053">日付: %1</String>
+<String Name="1054">システム コンポーネント %1 の前提条件の確認に失敗し、次のエラー メッセージが生成されました:\r\n"%2"</String>
+<String Name="1055">詳細</String>
+<String Name="1057">セットアップには、ハード ドライブ上に %1!d! MB のディスク空き領域が必要ですが、現在 %2!d! MB のみが使用可能です。インストールを続行するには [OK] をクリックし、中止するには [キャンセル] をクリックしてください。</String>
+<String Name="1058">%1 ダウンロードを再実行するには [OK] を、セットアップを中止するには [キャンセル] をクリックしてください。</String>
+<String Name="1200">インストールするコンポーネント:</String>
+<String Name="1201">次のライセンス条項をお読みください。PageDown キーを使ってスクロールしてください。</String>
+<String Name="1202">印刷用のライセンス条項 (MSLT) を表示する</String>
+<String Name="1203">ライセンス条項に同意しますか?</String>
+<String Name="1204">[同意しない] を選ぶとインストールを中止します。インストールするには、この契約に同意してください。</String>
+<String Name="1205">同意する(&amp;A)</String>
+<String Name="1206">同意しない(&amp;D)</String>
+<String Name="1207">次のコンポーネントがコンピューターにインストールされます:</String>
+<String Name="1208">このコンポーネント用のライセンス条項はありません。</String>
+<String Name="1209">これらのコンポーネントをインストールしますか?</String>
+<String Name="1210">[キャンセル] を選ぶとセットアップを中止します。</String>
+<String Name="1211">インストール(&amp;I)</String>
+<String Name="1212">キャンセル(&amp;C)</String>
+<String Name="1213">%1 セットアップ</String>
+<String Name="1400">%1 に必要なコンポーネントのダウンロード中にエラーが発生しました。すべてのコンポーネントが正常にインストールされるまで、セットアップは続行できません。</String>
+<String Name="1401">'%1' をダウンロードしようとしてエラーが発生しました。</String>
+<String Name="1402">ダウンロードは HRESULT = %1!x! を返しました。</String>
+<String Name="1405">次のパッケージ ファイルが見つかりませんでした:\r\n%1</String>
+<String Name="1416">この操作を完了するために利用できるメモリが不足しています。</String>
+<String Name="1420">ファイル '%1' を '%2' にコピーできませんでした。</String>
+<String Name="1423">ファイル '%1' を '%2' にコピーできませんでした。</String>
+<String Name="1424">パッケージ '%2' のファイル '%1' が見つかりません。</String>
+<String Name="1425">ファイル '%1' は最初に発行されて以来変更されているか、または壊れている可能性があります。</String>
+<String Name="1426">初期化中にエラーが発生しました。\r\n\r\n。セットアップを終了します。</String>
+<String Name="1427">必要なファイルのダウンロード中にエラーが発生しました。ファイルのダウンロードを再度実行するか、またはセットアップを中止してください。</String>
+<String Name="1429">セットアップに必要なファイル '%1' が見つかりません。</String>
+<String Name="1430">アプリケーション '%1' のセットアップには Internet Explorer 3.0 以降が必要です。</String>
+<String Name="1432">別のインストールで再起動が必要なため、セットアップを続行できません。今すぐ再起動しますか?</String>
+<String Name="1433">別のインストールで再起動が必要なため、セットアップを続行できません。管理者に問い合わせてください。</String>
+<String Name="1435">アプリケーション ファイル '%1' が見つかりません。</String>
+<String Name="1436">ライセンス条項 (MSLT) に同意しないように選択しました。\r\nインストールは終了します。</String>
+<String Name="1437">インストールしないように選択しました。\r\nインストールは終了します。</String>
+<String Name="1438">参照用のライセンス条項 (MSLT) をディスクに書き込めません。</String>
+<String Name="1442">ファイル '%1' の発行者を確認できません。</String>
+<String Name="1443">ファイル '%1' は最初に発行されて以来変更されています。</String>
+<String Name="1444">次のリソースのダウンロード中にエラーが発生しました:</String>
+<String Name="1446">'%1' をインストールしようとして次のエラーが発生しました:\r\n"%2"</String>
+<String Name="1447">ネットワークへの接続がないため、'%1' からアプリケーションをインストールできません。後でもう一度インストールを実行してください。</String>
+<String Name="1448">'%1' を変更できません。ファイルが読み取り専用か、またはロックされている可能性があります。</String>
+<String Name="1449">この製品は %1 プラットフォーム用に設計されていますが、%2 にインストールしようとしています。製造元から正しいセットアップを入手してください。</String>
+</Strings>
+<Fonts>
+<Font Name="BaseFont">
+      <FontName> MS UI Gothic</FontName>
+      <CharSet>128</CharSet>
+      <Height>-11</Height>
+      <Weight>128</Weight>
+    </Font>
+<Font Name="BoldFont">
+      <FontName> MS UI Gothic</FontName>
+      <CharSet>128</CharSet>
+      <Height>-11</Height>
+      <Weight>700</Weight>
+    </Font>
+</Fonts>
+</Resources>

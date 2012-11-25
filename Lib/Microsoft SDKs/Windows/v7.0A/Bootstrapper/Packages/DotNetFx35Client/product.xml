@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Product
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  ProductCode="Microsoft.Net.Client.3.5"
+>
+  <!-- Defines list of files to be copied on build -->
+  <PackageFiles CopyAllPackageFiles="false">
+    <PackageFile Name="DotNetFx35ClientSetup.exe"
+                 HomeSite="DotNetFXClient35Exe"
+                 PublicKey="30818902818100D2175E1E2701F9D085118E4D76B94C42CB420D264370572E5E4582A96A2C48E4C9F09923A45435B4A08D487A9984C83092ADE21353A87F3165B85D835AF59BE81DD3A889317A969E598E957FB63DAD39F85F10ABAA7BF30FE2F8C8BE6BA0CF999BB49DE675FB838012D97922193EC0813FF1B0C65DF5044470B198A7DC4037F90203010001" />
+  </PackageFiles>
+
+  <RelatedProducts>
+    <DependsOnProduct Code="Microsoft.Windows.Installer.3.1" />
+  </RelatedProducts>
+
+</Product>

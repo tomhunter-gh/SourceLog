@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Product ProductCode="Microsoft.SQL.Server.Compact.3.5" xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper">
+
+  <RelatedProducts>
+    <EitherProducts>
+      <DependsOnProduct Code="Microsoft.Net.Framework.2.0" />
+      <DependsOnProduct Code="Microsoft.Net.Client.3.5" />
+      <DependsOnProduct Code="Microsoft.Net.Framework.3.5.SP1" />
+      <DependsOnProduct Code=".NETFramework,Version=v4.0,Profile=Full" />
+      <DependsOnProduct Code=".NETFramework,Version=v4.0,Profile=Client" />
+    </EitherProducts>
+  </RelatedProducts>
+
+</Product>
+

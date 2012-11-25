@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Product xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper" ProductCode="Microsoft.Sql.Server.Express.9.2">
+  <RelatedProducts>
+    <DependsOnProduct Code="Microsoft.Net.Framework.2.0" />
+    <DependsOnProduct Code="Microsoft.Windows.Installer.3.1" />
+    <IncludesProduct Code="Microsoft.Sql.Server.Express.1.0" />
+  </RelatedProducts>
+  <PackageFiles>
+    <PackageFile Name="SqlExpressChk.exe" />
+  </PackageFiles>
+  <InstallChecks>
+    <ExternalCheck Property="SQLExpressInstalled" PackageFile="SqlExpressChk.exe" />
+  </InstallChecks>
+</Product>

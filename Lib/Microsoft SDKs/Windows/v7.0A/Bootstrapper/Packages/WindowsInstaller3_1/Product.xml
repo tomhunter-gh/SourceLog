@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Product
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  ProductCode="Microsoft.Windows.Installer.3.1"
+>
+
+    <!-- Defines list of files to be copied on build -->
+    <PackageFiles CopyAllPackageFiles="false">
+        <PackageFile Name="WindowsInstaller-KB893803-v2-x86.exe" HomeSite="Msi31Exe" PublicKey="3082010A0282010100CF38F7E1A4275EF8F0CCAACEFB3ADE3B6231460546BBF5B6051AD3B3ACC29F0F4C670828C44310F53B75797F6A91F4D633C861BFFA9190007AF0791D5D6870F690B29877B5031D2F9B9D9B75892F4A01417C9E7CCB87439BF49674999E98C1CF40575816F6C0D59216E52485718F9949ED557C65C91F380023C53EAB11D6296CC69EA0705B7DD537D4677720C306CE85F84E3480A035C41C53320157EFB128BD6C01E3AD40BC80A90949DB36E337F41D49AA2AA76BD019D3CC8E9DD686467A134AD64519A553B3E2782F2E35976B4CC6E81AB0D3D1249069ABCEFC696E3E4CFB024162DC07985D7E5CA74C27316B564CE198D8E0D11D718D3D2AC07F714DFFCF0203010001"/>
+    </PackageFiles>
+
+    <!-- Defines how to invoke the setup for the Windows installer 3.1 redist -->
+    <Commands Reboot="Immediate">
+        <Command PackageFile="WindowsInstaller-KB893803-v2-x86.exe"
+                 Arguments= '/quiet /norestart' 
+                 EstimatedInstallSeconds="21" >
+            <InstallConditions>
+                <BypassIf Property="VersionMsi" Compare="VersionGreaterThanOrEqualTo" Value="3.1"/>
+                <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatform"/>
+                <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.0.3" String="InvalidPlatform"/>
+                <FailIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="Intel" String="InvalidPlatformArchitecture" />
+                <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+            </InstallConditions>
+            <ExitCodes>
+                <ExitCode Value="0" Result="Success"/>
+                <ExitCode Value="1641" Result="SuccessReboot"/>
+                <ExitCode Value="3010" Result="SuccessReboot"/>
+                <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+            </ExitCodes>
+        </Command>
+    </Commands>
+</Product>

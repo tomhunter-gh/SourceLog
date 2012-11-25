@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  Name="DisplayName"
+  Culture="Culture"
+  LicenseAgreement="eula.rtf"
+>
+  <!-- Defines list of files to be copied on build -->
+  <PackageFiles>
+    <PackageFile Name="eula.rtf" />
+  </PackageFiles>
+
+  <InstallChecks>
+    <!--TODO: we're using the same registry check for 20 and 35, which is dangerous if a user manually removes 35 but not 20.
+        Should we have a servicing key for 20? -->
+    <RegistryCheck Property="DotNetFxClient35InstallSuccess"
+                   Key="HKLM\SOFTWARE\Microsoft\NET Framework Setup\DotNetClient\v3.5"
+                   Value="Install" />
+  </InstallChecks>
+
+  <Commands Reboot="Defer">
+    <Command PackageFile="DotNetFx35ClientSetup.exe"
+             Arguments=' /lang:enu /passive /norestart'
+             EstimatedInstalledBytes="260000000"
+             EstimatedTempBytes="80000000">
+
+      <!-- These checks determine whether the package is to be installed -->
+      <InstallConditions>
+        <!-- This indicates the .Net Framework is already installed -->
+        <BypassIf Property="DotNetFxClient35InstallSuccess" Compare="ValueEqualTo" Value="1"/>
+
+        <!-- Block install if user does not have admin privileges -->
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+
+        <!-- Block install on Windows 95 -->
+        <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatformWin9x"/>
+
+        <!-- Block install on less than Windows XP SP2 -->
+        <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.1.2" String="InvalidPlatformWinNT"/>
+
+        <!-- Block install on W2K3 with no service pack -->
+        <FailIf Property="VersionNT" Compare="VersionEqualTo" Value="5.2.0" String="InvalidPlatformWinNT"/>
+
+        <!-- Block install on IA64 platform -->
+        <FailIf Property="ProcessorArchitecture" Compare="ValueEqualTo" Value="IA64" String="InvalidPlatformArchitecture" />
+      </InstallConditions>
+
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <ExitCode Value="1602" Result="Fail" String="UserCancelled"/>
+        <ExitCode Value="3010" Result="SuccessReboot"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+
+    </Command>
+  </Commands>
+
+  <!-- Defines a localizable string table for error messages-->
+  <Strings>
+    <String Name="DisplayName">.NET Framework 3.5 SP1 Client Profile</String>
+    <String Name="Culture">en</String>
+    <String Name="AdminRequired">Administrator permissions are required to install the .NET Framework 3.5 SP1 Client Profile. Contact your administrator.</String>
+    <String Name="InvalidPlatformWin9x">Installation of the .NET Framework 3.5 SP1 Client Profile is not supported on Windows 95. Contact your application vendor.</String>
+    <String Name="InvalidPlatformWinNT">Installation of the .NET Framework 3.5 SP1 Client Profile requires Windows XP SP2, Windows 2003 SP1, Windows Vista, or later. Contact your application vendor.</String>
+    <String Name="InvalidPlatformArchitecture">This version of the .NET Framework 3.5 SP1 Client Profile is not supported on an IA-64 operating system. Contact your application vendor.</String>
+    <String Name="UserCancelled">The user has cancelled the installation. The .NET Framework 3.5 SP1 Client Profile has not been installed.</String>
+    <String Name="GeneralFailure">A failure occurred attempting to install the .NET Framework 3.5 SP1 Client Profile.</String>
+    <String Name="DotNetFXClient35Exe">http://go.microsoft.com/fwlink/?LinkId=119637</String>
+  </Strings>
+
+</Package>

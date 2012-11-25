@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Product xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper" ProductCode="Microsoft.VisualBasic.PowerPacks.10.0">
+  <InstallChecks>
+    <AssemblyCheck Property="VBPowerPacksInstalled" Name="Microsoft.VisualBasic.PowerPacks.Vs" PublicKeyToken="b03f5f7f11d50a3a" Version="10.0.0.0" />
+  </InstallChecks>
+</Product>

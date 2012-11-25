@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Resources Culture="Culture">
+<Strings>
+<String Name="Culture">de</String>
+<String Name="1000">&amp;Abbrechen</String>
+<String Name="1001">&amp;Weiter</String>
+<String Name="1002">Sch&amp;ließen</String>
+<String Name="1003">&amp;Details &gt;&gt;</String>
+<String Name="1004">&amp;Details &lt;&lt;</String>
+<String Name="1005">Ja</String>
+<String Name="1006">Nein</String>
+<String Name="1008">Wählen Sie "Ja", um jetzt neu zu starten, oder "Nein", um später manuell neu zu starten.</String>
+<String Name="1009">Der Computer muss neu gestartet werden, damit das Systemupdate abgeschlossen werden kann.</String>
+<String Name="1010">Erforderliche Dateien werden kopiert...</String>
+<String Name="1011">Erforderliche Dateien werden heruntergeladen...</String>
+<String Name="1012">%1-Setup</String>
+<String Name="1013">%1 wird installiert...</String>
+<String Name="1016">Fehler beim Installieren der Systemkomponenten für %1. Setup kann erst fortgesetzt werden, wenn alle Systemkomponenten erfolgreich installiert wurden.</String>
+<String Name="1017">Fehler beim Installieren der Systemkomponenten für %1. Setup kann erst fortgesetzt werden, wenn alle Systemkomponenten erfolgreich installiert wurden. Ein Neustart ist erforderlich, da Systemkomponenten aktualisiert wurden.</String>
+<String Name="1018">Syntax:\r\n   -? oder -h oder -help: Dieses Dialogfeld anzeigen.\r\n   -url oder -componentsurl: Die gespeicherte URL und die Komponenten-URL für Setup anzeigen.\r\n   -url=&lt;Speicherort&gt;: Legt die URL-Quelle auf den angegebenen Speicherort fest.\r\n   -componentsurl=&lt;Speicherort&gt;: Legt die Komponenten-URL auf den angegebenen Speicherort fest.\r\n   -homesite=&lt;true oder false&gt;: Wenn auf "True" festgelegt, werden die Komponenten von der Herstellerwebsite heruntergeladen und die Komponenten-URL wird überschrieben.\r\n\r\n   Alle verbleibenden Befehlszeilenargumente werden an die Anwendungsinstallation übergeben.</String>
+<String Name="1019">url=%1\r\ncomponentsurl=%2</String>
+<String Name="1020">(kein)</String>
+<String Name="1021">Für diesen Vorgang ist Windows 2000 oder höher erforderlich.</String>
+<String Name="1023">\r\n</String>
+<String Name="1025">Fehler bei der Installation der Komponente %1.</String>
+<String Name="1026">Fehler bei der Installation der Komponente %1. Fehlermeldung:\r\n"%2"</String>
+<String Name="1028">Weitere Informationen finden Sie in der Setup-Protokolldatei unter "%1".</String>
+<String Name="1029">Dies beendet die Installation. Möchten Sie den Vorgang wirklich abbrechen?</String>
+<String Name="1030">Setup wird beendet, nachdem die Installation der aktuellen Komponente abgeschlossen ist. Komponenten, die vor dem Abbrechen installiert wurden, werden nicht deinstalliert. Möchten Sie den Vorgang wirklich abbrechen?</String>
+<String Name="1031">Datei %1!d! von %2!d! wird heruntergeladen...</String>
+<String Name="1032">Setup wurde vom Benutzer abgebrochen. Ein Neustart ist erforderlich, da Systemkomponenten aktualisiert wurden.</String>
+<String Name="1033">Der Computer muss neu gestartet werden, bevor Setup fortgesetzt werden kann.</String>
+<String Name="1034">Fehler bei der Überprüfung der erforderlichen Komponenten für Systemkomponente %1.</String>
+<String Name="1035">Es sind nicht alle erforderlichen Komponenten für %1 vorhanden. Setup kann erst fortgesetzt werden, wenn alle Systemkomponenten erfolgreich installiert wurden.</String>
+<String Name="1036">Setup</String>
+<String Name="1037">Setup initialisiert die Komponenten...</String>
+<String Name="1038">Setup wurde abgebrochen.</String>
+<String Name="1039">Anwendungsdateien werden heruntergeladen...</String>
+<String Name="1041">Für die Komponente %1 ist ein Neustart erforderlich, damit der Installationsvorgang fortgesetzt werden kann.</String>
+<String Name="1042">Die folgenden Komponenten wurden erfolgreich installiert:</String>
+<String Name="1043">Die folgenden Komponenten wurden erfolgreich installiert, jedoch ist ein Neustart erforderlich:</String>
+<String Name="1044">Die folgenden Komponenten wurden nicht installiert:</String>
+<String Name="1045">Die folgenden Komponenten werden nach einem Neustart installiert:</String>
+<String Name="1046">Fehler beim Installieren der folgenden Komponenten:</String>
+<String Name="1047"></String>
+<String Name="1048">Komponenten</String>
+<String Name="1049">Fehler bei der Installation von %1.</String>
+<String Name="1050">url=%1\r\ncomponentsurl=%2\r\nKomponenten werden von den Herstellerwebsites heruntergeladen.</String>
+<String Name="1051">&amp;Wiederholen</String>
+<String Name="1052">Klicken Sie hier, um Unterstützung zu erhalten.</String>
+<String Name="1053">Datum: %1</String>
+<String Name="1054">Fehler bei der Überprüfung der Systemkomponente %1. Fehlermeldung:\r\n"%2"</String>
+<String Name="1055">Details</String>
+<String Name="1057">Für Setup sind %1!d! MB Speicherplatz auf der Festplatte erforderlich, derzeit sind jedoch nur %2!d! MB verfügbar. Klicken Sie auf "OK", um die Installation fortzusetzen, oder auf "Abbrechen", um die Installation zu beenden.</String>
+<String Name="1058">%1 Klicken Sie auf "OK", um den Download zu wiederholen, oder auf "Abbrechen", um Setup zu beenden.</String>
+<String Name="1200">Für die folgenden Komponenten:</String>
+<String Name="1201">Lesen Sie den folgenden Lizenzvertrag. Verwenden Sie die BILD-AB-Taste, um den Rest des Vertrags anzuzeigen.</String>
+<String Name="1202">Druckansicht der Microsoft-Software-Lizenzbedingungen</String>
+<String Name="1203">Stimmen Sie den Bedingungen des Lizenzvertrags zu?</String>
+<String Name="1204">Wenn Sie auf "Ich stimme nicht zu" klicken, wird die Installation abgebrochen. Für die Installation müssen Sie zustimmen.</String>
+<String Name="1205">&amp;Ich stimme zu</String>
+<String Name="1206">Ich &amp;stimme nicht zu</String>
+<String Name="1207">Die folgenden Komponenten werden auf dem Computer installiert:</String>
+<String Name="1208">Für diese Komponente wurde kein Lizenzvertrag bereitgestellt.</String>
+<String Name="1209">Möchten Sie diese Komponenten installieren?</String>
+<String Name="1210">Wenn Sie "Abbrechen" wählen, wird Setup beendet.</String>
+<String Name="1211">&amp;Installieren</String>
+<String Name="1212">&amp;Abbrechen</String>
+<String Name="1213">%1-Setup</String>
+<String Name="1400">Fehler beim Herunterladen einer erforderlichen Komponente für %1. Setup kann erst fortgesetzt werden, wenn alle Komponenten heruntergeladen und erfolgreich installiert wurden.</String>
+<String Name="1401">Fehler beim Herunterladen von "%1".</String>
+<String Name="1402">Der Herunterladevorgang gab HRESULT = %1!x! zurück.</String>
+<String Name="1405">Die folgenden Paketdateien wurden nicht gefunden:\r\n%1</String>
+<String Name="1416">Es ist nicht genügend Arbeitsspeicher verfügbar, um diesen Vorgang abzuschließen.</String>
+<String Name="1420">Die Datei "%1" konnte nicht nach "%2" kopiert werden.</String>
+<String Name="1423">Die Datei "%1" konnte nicht nach "%2" kopiert werden.</String>
+<String Name="1424">Die Datei "%1" für Paket "%2" konnte nicht  gefunden werden.</String>
+<String Name="1425">Die Datei "%1" wurde entweder seit ihrer ersten Veröffentlichung geändert, oder sie ist beschädigt.</String>
+<String Name="1426">Fehler bei der Initialisierung.\r\n\r\nSetup wird jetzt beendet.</String>
+<String Name="1427">Fehler beim Herunterladen einer erforderlichen Datei. Sie können versuchen, die Datei erneut herunterzuladen, oder Setup abbrechen.</String>
+<String Name="1429">Die für die Installation erforderliche Datei "%1" kann nicht gefunden werden.</String>
+<String Name="1430">Für das Setup der Anwendung "%1" ist Internet Explorer 3.0 oder höher erforderlich.</String>
+<String Name="1432">Setup kann nicht fortgesetzt werden, da für eine andere Installation ein Neustart erforderlich ist. Möchten Sie jetzt neu starten?</String>
+<String Name="1433">Setup kann nicht fortgesetzt werden, da für eine andere Installation ein Neustart erforderlich ist. Wenden Sie sich an den Administrator.</String>
+<String Name="1435">Die Anwendungsdatei "%1" kann nicht gefunden werden.</String>
+<String Name="1436">Sie haben die Microsoft-Software-Lizenzbedingungen nicht akzeptiert.\r\nDie Installation wird jetzt beendet.</String>
+<String Name="1437">Sie haben sich entschieden, nicht zu installieren.\r\nDie Installation wird jetzt beendet.</String>
+<String Name="1438">Die Microsoft-Software-Lizenzbedingungen können zum Anzeigen nicht auf dem Datenträger gespeichert werden.</String>
+<String Name="1442">Der Herausgeber der Datei "%1" kann nicht verifiziert werden.</String>
+<String Name="1443">Die Datei "%1" wurde seit ihrer ersten Veröffentlichung geändert.</String>
+<String Name="1444">Fehler beim Herunterladen der folgenden Ressource:</String>
+<String Name="1446">Fehler bei der Installation von "%1":\r\n"%2"</String>
+<String Name="1447">Die Anwendung kann nicht von "%1" aus installiert werden, da keine Netzwerkkonnektivität vorhanden ist. Wiederholen Sie die Installation zu einem späteren Zeitpunkt.</String>
+<String Name="1448">"%1" kann nicht geändert werden. Die Datei ist möglicherweise schreibgeschützt oder gesperrt.</String>
+<String Name="1449">Dieses Produkt wurde für die %1-Plattform konzipiert, wird jedoch auf "%2" installiert. Wenden Sie sich an den Hersteller, um das richtige Setup zu erhalten.</String>
+</Strings>
+<Fonts>
+<Font Name="BaseFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>0</Weight>
+    </Font>
+<Font Name="BoldFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>700</Weight>
+    </Font>
+</Fonts>
+</Resources>

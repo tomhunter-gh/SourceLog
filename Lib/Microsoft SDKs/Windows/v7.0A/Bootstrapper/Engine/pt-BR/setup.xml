@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Resources Culture="Culture">
+<Strings>
+<String Name="Culture">pt-BR</String>
+<String Name="1000">&amp;Cancelar</String>
+<String Name="1001">C&amp;ontinuar</String>
+<String Name="1002">&amp;Fechar</String>
+<String Name="1003">&amp;Detalhes &gt;&gt;</String>
+<String Name="1004">&amp;Detalhes &lt;&lt;</String>
+<String Name="1005">Sim</String>
+<String Name="1006">Não</String>
+<String Name="1008">Escolha 'Sim' para reinicializar agora e 'Não' para reinicializar manualmente mais tarde.</String>
+<String Name="1009">O computador deve ser reinicializado para que a atualização do sistema possa ser concluída.</String>
+<String Name="1010">Copiando arquivos necessários...</String>
+<String Name="1011">Baixando arquivos necessários...</String>
+<String Name="1012">Instalação do %1</String>
+<String Name="1013">Instalando o %1...</String>
+<String Name="1016">Erro na instalação de componentes do sistema do %1. A instalação não pode continuar até que todos os componentes do sistema tenham sido instalados com êxito.</String>
+<String Name="1017">Erro na instalação de componentes do sistema do %1. A instalação não pode continuar até que todos os componentes do sistema tenham sido instalados com êxito. É necessário reinicializar porque os componentes do sistema foram atualizados.</String>
+<String Name="1018">Uso:\r\n   -? ou -h ou -help: mostrar este diálogo.\r\n   -url ou -componentsurl: mostrar a url armazenada e a componentsurl desta instalação.\r\n   -url=&lt;local&gt;: define a origem da url para o local especificado.\r\n   -componentsurl=&lt;local&gt;: define componentsurl para o local especificado.\r\n   -homesite=&lt;true ou false&gt;: quando true, baixa os componentes do site do fornecedor, substituindo componentsurl.\r\n\r\n   Todos os argumentos restantes da linha de comando serão passados para a instalação do aplicativo.</String>
+<String Name="1019">url=%1\r\ncomponentsurl=%2</String>
+<String Name="1020">(nenhum)</String>
+<String Name="1021">Esta operação requer o Windows 2000 ou superior.</String>
+<String Name="1023">\r\n</String>
+<String Name="1025">O componente %1 não foi instalado.</String>
+<String Name="1026">O componente %1 não foi instalado e apresenta a seguinte mensagem de erro:\r\n"%2"</String>
+<String Name="1028">Consulte o arquivo de log localizado em '%1' para obter mais informações.</String>
+<String Name="1029">Essa ação interromperá a instalação. Tem certeza de que deseja cancelar?</String>
+<String Name="1030">A instalação será interrompida após concluir a instalação do componente atual. Todos os componentes que foram instalados antes do cancelamento não serão desinstalados. Tem certeza de que deseja cancelar?</String>
+<String Name="1031">Baixando o arquivo %1!d! de %2!d!...</String>
+<String Name="1032">Instalação cancelada pelo usuário. É necessário reinicializar porque os componentes do sistema foram atualizados.</String>
+<String Name="1033">É necessário reinicializar para continuar.</String>
+<String Name="1034">Falha na verificação de pré-requisito do componente de sistema %1.</String>
+<String Name="1035">Não é possível satisfazer todos os pré-requisitos de %1. A instalação não pode continuar até que todos os componentes do sistema tenham sido instalados com êxito.</String>
+<String Name="1036">Instalação</String>
+<String Name="1037">Inicializando componentes...</String>
+<String Name="1038">Instalação canelada.</String>
+<String Name="1039">Baixando arquivos de aplicativo...</String>
+<String Name="1041">O componente %1 requer uma reinicialização para que a instalação possa continuar.</String>
+<String Name="1042">Os seguintes componentes foram instalados com êxito:</String>
+<String Name="1043">Os seguintes componentes foram instalados com êxito, porém é necessário reinicializar:</String>
+<String Name="1044">Os seguintes componentes não foram instalados:</String>
+<String Name="1045">Os seguintes componentes serão instalados após a reinicialização:</String>
+<String Name="1046">Os seguintes componentes não foram instalados:</String>
+<String Name="1047"></String>
+<String Name="1048">Componentes</String>
+<String Name="1049">Erro ao tentar instalar %1.</String>
+<String Name="1050">url=%1\r\ncomponentsurl=%2\r\nOs componentes serão baixados dos sites dos fornecedores.</String>
+<String Name="1051">&amp;Repetir</String>
+<String Name="1052">Clique aqui para obter suporte.</String>
+<String Name="1053">Data: %1</String>
+<String Name="1054">Falha na verificação de pré-requisito do componente de sistema %1, com a seguinte mensagem de erro:\r\n"%2"</String>
+<String Name="1055">Detalhes</String>
+<String Name="1057">A instalação requer %1!d! MB de espaço no disco rígido, mas só existem %2!d! MB disponíveis no momento. Clique em OK para continuar a instalação ou em Cancelar para interrompê-la.</String>
+<String Name="1058">%1 Clique em OK para repetir o download, ou em Cancelar para sair da instalação.</String>
+<String Name="1200">Para os seguintes componentes:</String>
+<String Name="1201">Leia o contrato de licença a seguir. Pressione a tecla Page Down para ver a continuação do contrato.</String>
+<String Name="1202">Exibir o EULA para impressão</String>
+<String Name="1203">Deseja aceitar os termos do Contrato de Licença pendente?</String>
+<String Name="1204">Se você escolher Não Aceito, a instalação será encerrada. Para instalar, você deve aceitar este contrato.</String>
+<String Name="1205">&amp;Aceito</String>
+<String Name="1206">&amp;Não Aceito</String>
+<String Name="1207">Os seguintes componentes serão instalados na sua máquina:</String>
+<String Name="1208">Nenhum contrato de licença foi fornecido para este componente.</String>
+<String Name="1209">Deseja instalar estes componentes?</String>
+<String Name="1210">Se você escolher Cancelar, a instalação será encerrada.</String>
+<String Name="1211">&amp;Instalar</String>
+<String Name="1212">&amp;Cancelar</String>
+<String Name="1213">Instalação do %1</String>
+<String Name="1400">Erro ao baixar um componente necessário do %1. Não é possível continuar até que todos os componentes tenham sido baixados e instalados com êxito.</String>
+<String Name="1401">Erro ao tentar baixar '%1'.</String>
+<String Name="1402">O download retornou HRESULT = %1!x!</String>
+<String Name="1405">Os seguintes arquivos de pacote não foram encontrados:\r\n%1</String>
+<String Name="1416">Memória insuficiente para concluir esta operação.</String>
+<String Name="1420">Não foi possível copiar o arquivo '%1' para '%2'.</String>
+<String Name="1423">Não foi possível copiar o arquivo '%1' para '%2'.</String>
+<String Name="1424">O arquivo '%1' do pacote %2' não foi localizado.</String>
+<String Name="1425">Foi detectado que o arquivo '%1' foi alterado desde a sua publicação inicial ou talvez esteja corrompido.</String>
+<String Name="1426">Erro ao inicializar.\r\n\r\nA instalação será encerrada.</String>
+<String Name="1427">Erro ao baixar um arquivo necessário. Você pode repetir o download do arquivo ou cancelar a instalação.</String>
+<String Name="1429">O arquivo '%1' necessário para a instalação não foi encontrado.</String>
+<String Name="1430">A instalação do aplicativo '%1' requer o Internet Explorer 3.0 ou superior.</String>
+<String Name="1432">A instalação não pode continuar porque outra instalação requer uma reinicialização. Deseja reinicializar agora?</String>
+<String Name="1433">A instalação não pode continuar porque outra instalação requer uma reinicialização. Contate o administrador.</String>
+<String Name="1435">O arquivo de aplicativo '%1' não foi localizado.</String>
+<String Name="1436">Você decidiu não aceitar o EULA.\r\nA instalação será encerrada agora.</String>
+<String Name="1437">Você decidiu não instalar.\r\nA instalação será encerrada agora.</String>
+<String Name="1438">Não é possível gravar o EULA no disco para visualização.</String>
+<String Name="1442">O editor do arquivo '%1' não pode ser verificado.</String>
+<String Name="1443">O arquivo '%1' foi alterado desde a sua publicação inicial.</String>
+<String Name="1444">Erro ao baixar o seguinte recurso:</String>
+<String Name="1446">Erro ao tentar instalar o '%1':\r\n"%2"</String>
+<String Name="1447">Não é possível instalar o aplicativo a partir de '%1' porque não há conectividade de rede. Tente instalar novamente mais tarde.</String>
+<String Name="1448">Não é possível modificar o '%1'. Talvez o arquivo seja somente leitura ou esteja bloqueado.</String>
+<String Name="1449">Este produto foi criado para a plataforma %1, mas está sendo instalado em %2. Obtenha a instalação correta do fabricante.</String>
+</Strings>
+<Fonts>
+<Font Name="BaseFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>0</Weight>
+    </Font>
+<Font Name="BoldFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>700</Weight>
+    </Font>
+</Fonts>
+</Resources>

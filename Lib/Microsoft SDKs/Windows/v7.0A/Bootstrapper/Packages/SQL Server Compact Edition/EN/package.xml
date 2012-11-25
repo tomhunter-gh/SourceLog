@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package Name="DisplayName" LicenseAgreement="SSCEEula-EN.rtf" Culture="Culture" xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper">
+
+  <InstallChecks>
+    <RegistryCheck Property="ENU_INST" Key="HKLM\SOFTWARE\Microsoft\Microsoft SQL Server Compact Edition\v3.5\ENU" Value="DesktopRuntimeVersion"/>
+    <RegistryCheck Property="ENU_INST_GAC" Key="HKLM\SOFTWARE\Microsoft\Microsoft SQL Server Compact Edition\v3.5\GAC" Value="System.Data.SqlServerCe.dll_ENU_x86"/>
+    <RegistryCheck Property="ENU_INST_64" Key="HKLM\SOFTWARE\Microsoft\Microsoft SQL Server Compact Edition\v3.5\ENU" Value="DesktopRuntimeVersion_x64"/>
+    <RegistryCheck Property="ENU_INST_GAC_64" Key="HKLM\SOFTWARE\Microsoft\Microsoft SQL Server Compact Edition\v3.5\GAC" Value="System.Data.SqlServerCe.dll_ENU_x64"/>
+  </InstallChecks>
+
+
+  <PackageFiles CopyAllPackageFiles="false">
+    <PackageFile Name="SSCEEula-EN.rtf" />
+    <PackageFile 
+      Name="SSCERuntime-ENU.msi" 
+      HomeSite="HomeSiteName_32"
+      PublicKey="3082010a0282010100bd3089fb4572a8536b9e894f0023c0bed41d3db1594038f373918226e696120053d91c820e3cce1dbbbdf7428d97d4fc381ae4b9f9e3ecd36103bfa0d3d6754d5c46a9ed5ef0d2e2695b1a73eab31c8d04cd2944a064592f1e985d6ec7ab18398265c4a7bcab758819ea87971426b37f2676a4d4383984e3b326d518f92be9d2c9165a5421f2978d878629fef4492ce68bf8043f7dcdcd9692860d7103e2d0fe0c4235ffd7b83fdd8e450a7df6d74bad5bf076721d77237d8935c41c5db250034b476d07a75588980680a681ad544ed881d6fabf42c031be550d99d553491230ebe5a5887c5ec47a5a148708b43769a0eb32248c08ebf9d414bae0fccdeaa4150203010001"
+     />
+    <PackageFile 
+      Name="SSCERuntime-ENU-x64.msi" 
+      HomeSite="HomeSiteName_64"
+      PublicKey="3082010a0282010100bd3089fb4572a8536b9e894f0023c0bed41d3db1594038f373918226e696120053d91c820e3cce1dbbbdf7428d97d4fc381ae4b9f9e3ecd36103bfa0d3d6754d5c46a9ed5ef0d2e2695b1a73eab31c8d04cd2944a064592f1e985d6ec7ab18398265c4a7bcab758819ea87971426b37f2676a4d4383984e3b326d518f92be9d2c9165a5421f2978d878629fef4492ce68bf8043f7dcdcd9692860d7103e2d0fe0c4235ffd7b83fdd8e450a7df6d74bad5bf076721d77237d8935c41c5db250034b476d07a75588980680a681ad544ed881d6fabf42c031be550d99d553491230ebe5a5887c5ec47a5a148708b43769a0eb32248c08ebf9d414bae0fccdeaa4150203010001"
+     />
+  </PackageFiles>
+  
+  <Commands Reboot="Defer">
+    <Command PackageFile="SSCERuntime-ENU.msi" Arguments=''>
+      <InstallConditions>
+        <BypassIf Property="ENU_INST" Compare="ValueGreaterThanOrEqualTo" Value="3.5.8080.0"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired" />
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success" />
+        <ExitCode Value="1641" Result="SuccessReboot" />
+        <ExitCode Value="3010" Result="SuccessReboot" />
+        <ExitCode Value="4123" Result="SuccessReboot" />
+        <DefaultExitCode Result="Fail" String="Anunexpected" FormatMessageFromSystem="true" />
+      </ExitCodes>
+    </Command>
+
+    <Command PackageFile="SSCERuntime-ENU.msi" Arguments=' REINSTALL=ALL '>
+      <InstallConditions>
+        <BypassIf Property="ENU_INST" Compare="ValueNotEqualTo" Value="3.5.8080.0"/>
+        <BypassIf Property="ENU_INST_GAC" Compare="ValueExists"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired" />
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success" />
+        <ExitCode Value="1641" Result="SuccessReboot" />
+        <ExitCode Value="3010" Result="SuccessReboot" />
+        <ExitCode Value="4123" Result="SuccessReboot" />
+        <DefaultExitCode Result="Fail" String="Anunexpected" FormatMessageFromSystem="true" />
+      </ExitCodes>
+    </Command>    
+
+    <Command PackageFile="SSCERuntime-ENU-x64.msi" Arguments=''>
+      <InstallConditions>
+        <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="AMD64"/>
+        <BypassIf Property="ENU_INST_64" Compare="ValueGreaterThanOrEqualTo" Value="3.5.8080.0"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired" />
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success" />
+        <ExitCode Value="1641" Result="SuccessReboot" />
+        <ExitCode Value="3010" Result="SuccessReboot" />
+        <ExitCode Value="4123" Result="SuccessReboot" />
+        <DefaultExitCode Result="Fail" String="Anunexpected" FormatMessageFromSystem="true" />
+      </ExitCodes>
+    </Command>
+
+    <Command PackageFile="SSCERuntime-ENU-x64.msi" Arguments=' REINSTALL=ALL '>
+      <InstallConditions>
+        <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="AMD64"/>
+        <BypassIf Property="ENU_INST_64" Compare="ValueNotEqualTo" Value="3.5.8080.0"/>
+        <BypassIf Property="ENU_INST_GAC_64" Compare="ValueExists"/>
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired" />
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success" />
+        <ExitCode Value="1641" Result="SuccessReboot" />
+        <ExitCode Value="3010" Result="SuccessReboot" />
+        <ExitCode Value="4123" Result="SuccessReboot" />
+        <DefaultExitCode Result="Fail" String="Anunexpected" FormatMessageFromSystem="true" />
+      </ExitCodes>
+    </Command>    
+
+  </Commands>
+  
+  <Strings>
+    <String Name="Culture">EN</String>
+    <String Name="DisplayName">SQL Server Compact 3.5 SP2</String>
+    <String Name="HomeSiteName_32">http://go.microsoft.com/fwlink/?LinkId=166085&amp;clcid=0x409</String>
+    <String Name="HomeSiteName_64">http://go.microsoft.com/fwlink/?LinkId=166086&amp;clcid=0x409</String>
+    <String Name="AdminRequired">You do not have the permissions required to install this application.  Please contact your administrator.</String>    
+    <String Name="Anunexpected">An unexpected exit code was returned from the installer. The installation failed.</String>
+  </Strings>
+  
+</Package>
+

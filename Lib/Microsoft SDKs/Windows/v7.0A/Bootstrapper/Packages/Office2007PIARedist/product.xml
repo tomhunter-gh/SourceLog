@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+***********************************************************************
+ 
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+ 
+ THIS CODE AND INFORMATION ARE PROVIDED AS IS WITHOUT WARRANTY OF ANY
+ KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+ PARTICULAR PURPOSE.
+***********************************************************************
+-->
+
+<Product
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  ProductCode="Microsoft.Office.PIARedist.2007">
+
+  <RelatedProducts>
+    <DependsOnProduct Code="Microsoft.Net.Client.3.5" />
+  </RelatedProducts>
+
+  <!-- Defines the list of files to be copied on build. -->
+  <PackageFiles>
+    <PackageFile Name="ComponentCheck.exe" />
+    <PackageFile Name="o2007pia.msi" />
+  </PackageFiles>
+
+  <InstallChecks>
+    <ExternalCheck Property="PIAInstallAction" PackageFile="ComponentCheck.exe" />
+  </InstallChecks>
+
+  <!-- Defines how to run the Setup package. -->
+  <Commands Reboot="Defer">
+    <Command
+      PackageFile="o2007pia.msi"
+      Arguments="/quiet"
+      EstimatedInstalledBytes="7000000"
+      EstimatedInstallSeconds="60">
+      <InstallConditions>
+        <BypassIf Property="PIAInstallAction" Compare="ValueNotEqualTo" Value="0" />
+        <!-- Requires the user to be an admin user when installing the prerequisite -->
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired" />
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success" />
+        <ExitCode Value="1641" Result="SuccessReboot" />
+        <ExitCode Value="3010" Result="SuccessReboot" />
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+  </Commands>
+</Product>

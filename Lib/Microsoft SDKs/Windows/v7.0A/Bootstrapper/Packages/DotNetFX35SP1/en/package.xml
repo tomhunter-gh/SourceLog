@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  Name="DisplayName"
+  Culture="Culture"
+  LicenseAgreement="eula.rtf"
+>
+    <!-- Defines list of files to be copied on build -->
+    <PackageFiles>
+        <PackageFile Name="eula.rtf"/>
+    </PackageFiles>
+
+    <InstallChecks>
+        <RegistryCheck Property="DotNet35SP" Key="HKLM\Software\Microsoft\NET Framework Setup\NDP\v3.5" Value="SP" />
+    </InstallChecks>
+
+    <!-- Defines how to invoke the setup for .NET Framework redist -->
+    <Commands Reboot="Defer">
+        <Command PackageFile="dotNetFx35setup.exe" 
+             Arguments=' /lang:enu /passive /norestart' 
+             EstimatedInstalledBytes="30000000" 
+             EstimatedTempBytes="30000000">
+
+            <!-- These checks determine whether the package is to be installed -->
+            <InstallConditions>
+                <!-- This indicates .NET Framework is already installed -->
+                <BypassIf Property="DotNet35SP" Compare="ValueGreaterThanOrEqualTo" Value="1"/>
+
+                <!-- Block install if user does not have admin privileges -->
+                <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+                <!-- Block install on less than Windows XP SP2 -->
+                <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.1.2" String="InvalidPlatformWinNT"/>
+
+                <!-- Block install on W2K3 with no service pack -->
+                <FailIf Property="VersionNT" Compare="VersionEqualTo" Value="5.2.0" String="InvalidPlatformWinNT"/>
+
+                <!-- Block install if the platform is IA-64 -->
+                <FailIf Property="ProcessorArchitecture" Compare="ValueEqualTo" Value="IA64" String="InvalidPlatformArchitecture" />
+            </InstallConditions>
+
+            <ExitCodes>
+                <ExitCode Value="0" Result="Success"/>
+                <ExitCode Value="1602" Result="Fail" String="UserCancelled"/>
+                <ExitCode Value="1603" Result="Fail" String="GeneralFailure"/>
+                <ExitCode Value="3010" Result="SuccessReboot"/>
+                <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+            </ExitCodes>
+
+        </Command>
+    </Commands>
+
+    <!-- Defines a localizable string table for error messages-->
+    <Strings>
+        <String Name="DisplayName">.NET Framework 3.5 SP1</String>
+        <String Name="Culture">en</String>
+        <String Name="AdminRequired">Administrator permissions are required to install .NET Framework 3.5 SP1. Contact your administrator.</String>
+        <String Name="InvalidPlatformWinNT">Installation of .NET Framework 3.5 SP1 requires Windows XP SP2, Windows 2003 SP1, Windows Vista, or later. Contact your application vendor.</String>
+        <String Name="InvalidPlatformArchitecture">This version of .NET Framework 3.5 SP1 is not supported on an IA-64 operating system. Contact your application vendor.</String>
+        <String Name="UserCancelled">The user has cancelled the installation. .NET Framework 3.5 SP1 has not been installed.</String>
+        <String Name="GeneralFailure">A failure occurred attempting to install .NET Framework 3.5 SP1.</String>
+        <String Name="DotNetFX35SP1Exe">http://go.microsoft.com/fwlink/?linkid=118076</String>
+    </Strings>
+
+</Package>

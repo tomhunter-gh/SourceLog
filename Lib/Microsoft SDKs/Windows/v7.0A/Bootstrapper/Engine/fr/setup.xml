@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Resources Culture="Culture">
+<Strings>
+<String Name="Culture">fr</String>
+<String Name="1000">&amp;Annuler</String>
+<String Name="1001">C&amp;ontinuer</String>
+<String Name="1002">&amp;Fermer</String>
+<String Name="1003">&amp;Détails &gt;&gt;</String>
+<String Name="1004">&amp;Détails &lt;&lt;</String>
+<String Name="1005">Oui</String>
+<String Name="1006">Non</String>
+<String Name="1008">Cliquez sur 'Oui' pour redémarrer maintenant l'ordinateur ou sur 'Non' pour le redémarrer manuellement ultérieurement.</String>
+<String Name="1009">Il convient de redémarrer l'ordinateur pour terminer la mise à jour du système.</String>
+<String Name="1010">Copie des fichiers requis...</String>
+<String Name="1011">Téléchargement des fichiers requis...</String>
+<String Name="1012">Installation de %1</String>
+<String Name="1013">Installation de %1...</String>
+<String Name="1016">Une erreur s'est produite lors de l'installation des composants système pour %1. Le programme d'installation ne peut pas continuer tant que tous les composants système n'ont pas été correctement installés.</String>
+<String Name="1017">Une erreur s'est produite lors de l'installation des composants système pour %1. Le programme d'installation ne peut pas continuer tant que tous les composants système n'ont pas été correctement installés. Un redémarrage est nécessaire car les composants système ont été mis à jour.</String>
+<String Name="1018">Utilisation :\r\n   -? ou -h ou -help :  Afficher cette boîte de dialogue.\r\n   -url ou -componentsurl :  Afficher l'URL stockée et l'URL du composant pour cette installation.\r\n   -url=&lt;location&gt; : Définit la source de l'URL à l'emplacement spécifié.\r\n   -componentsurl=&lt;emplacement&gt; : Définit l'URL du composant à l'emplacement spécifié.\r\n   -homesite=&lt;true ou false&gt; : Si la valeur est true, télécharge les composants à partir du site Web de leur constructeur, en remplaçant l'URL du composant.\r\n\r\n   Tous les autres arguments de la ligne de commande seront passés à l'installation de l'application.</String>
+<String Name="1019">url=%1\r\ncomponentsurl=%2</String>
+<String Name="1020">(aucun)</String>
+<String Name="1021">Cette opération requiert Windows 2000 ou une version ultérieure.</String>
+<String Name="1023">\r\n</String>
+<String Name="1025">L'installation du composant %1 a échoué.</String>
+<String Name="1026">L'installation du composant %1 a échoué avec le message d'erreur suivant :\r\n"%2"</String>
+<String Name="1028">Pour plus d'informations, consultez le fichier journal d'installation dans '%1'.</String>
+<String Name="1029">Cela arrêtera l'installation. Voulez-vous vraiment annuler ?</String>
+<String Name="1030">Le programme d'installation s'arrêtera une fois l'installation du composant en cours terminée. Aucun des composants installés avant l'annulation ne sera désinstallé. Voulez-vous vraiment annuler ?</String>
+<String Name="1031">Téléchargement du fichier %1!d! de %2!d!...</String>
+<String Name="1032">L'installation a été annulée par l'utilisateur. Un redémarrage est nécessaire car les composants système ont été mis à jour.</String>
+<String Name="1033">Le programme d'installation doit redémarrer avant de poursuivre.</String>
+<String Name="1034">La vérification des composants requis pour le composant système %1 a échoué.</String>
+<String Name="1035">Impossible d'obtenir tous les composants requis pour %1. Le programme d'installation ne peut pas continuer tant que tous les composants système n'ont pas été correctement installés.</String>
+<String Name="1036">Installation</String>
+<String Name="1037">Le programme d'installation initialise les composants...</String>
+<String Name="1038">Installation annulée.</String>
+<String Name="1039">Téléchargement des fichiers d'application...</String>
+<String Name="1041">Le composant %1 requiert un redémarrage pour que le programme d'installation continue.</String>
+<String Name="1042">Les composants suivants ont été correctement installés :</String>
+<String Name="1043">Les composants suivants ont été installés, mais l'ordinateur doit être redémarré :</String>
+<String Name="1044">Les composants suivants n'ont pas été installés :</String>
+<String Name="1045">Les composants suivants seront installés après le redémarrage de l'ordinateur :</String>
+<String Name="1046">Les composants suivants n'ont pas été installés :</String>
+<String Name="1047"></String>
+<String Name="1048">Composants</String>
+<String Name="1049">Une erreur s'est produite lors de la tentative d'installation de %1.</String>
+<String Name="1050">url=%1\r\ncomponentsurl=%2\r\nLes composants seront téléchargés à partir des sites Web de leurs constructeurs.</String>
+<String Name="1051">&amp;Réessayer</String>
+<String Name="1052">Cliquez ici pour obtenir de l'assistance.</String>
+<String Name="1053">Date : %1</String>
+<String Name="1054">La vérification des composants requis pour le composant système %1 a échoué avec le message d'erreur suivant :\r\n"%2"</String>
+<String Name="1055">Détails</String>
+<String Name="1057">L'installation requiert %1!d! Mo d'espace sur votre disque dur mais seuls %2!d! Mo sont disponibles. Cliquez sur OK pour continuer l'installation ou sur Annuler pour arrêter l'installation.</String>
+<String Name="1058">%1 Cliquez sur OK pour recommencer le téléchargement ou sur Annuler pour quitter le programme d'installation.</String>
+<String Name="1200">Pour les composants suivants :</String>
+<String Name="1201">Lisez le contrat de licence suivant. Appuyez sur PG. SUIV. pour consulter la suite du contrat.</String>
+<String Name="1202">Afficher le CLUF pour l'imprimer</String>
+<String Name="1203">Acceptez-vous les termes du présent contrat de licence ?</String>
+<String Name="1204">Si vous choisissez Ne pas accepter, l'installation se terminera. Vous devez accepter ce contrat pour effectuer l'installation.</String>
+<String Name="1205">&amp;Accepter</String>
+<String Name="1206">&amp;Ne pas accepter</String>
+<String Name="1207">Les composants suivants seront installés sur votre ordinateur :</String>
+<String Name="1208">Aucun contrat de licence n'a été fourni pour ce composant.</String>
+<String Name="1209">Voulez-vous installer ces composants ?</String>
+<String Name="1210">Si vous choisissez Annuler, vous quitterez le programme d'installation.</String>
+<String Name="1211">&amp;Installer</String>
+<String Name="1212">&amp;Annuler</String>
+<String Name="1213">Installation de %1</String>
+<String Name="1400">Une erreur s'est produite lors du téléchargement d'un composant requis pour %1. Le programme d'installation ne peut pas continuer tant que tous les composants n'ont pas été téléchargés et installés correctement.</String>
+<String Name="1401">Une erreur s'est produite lors de la tentative de téléchargement de '%1'.</String>
+<String Name="1402">Le téléchargement a retourné HRESULT = %1!x!</String>
+<String Name="1405">Impossible de trouver les fichiers du package suivants :\r\n%1</String>
+<String Name="1416">La mémoire disponible est insuffisante pour terminer cette opération.</String>
+<String Name="1420">Impossible de copier le fichier '%1' vers '%2'.</String>
+<String Name="1423">Impossible de copier le fichier '%1' vers '%2'.</String>
+<String Name="1424">Impossible de trouver le fichier '%1' pour le package '%2'.</String>
+<String Name="1425">Le programme d'installation a détecté que le fichier '%1' a été modifié depuis sa publication initiale ou qu'il est endommagé.</String>
+<String Name="1426">Une erreur s'est produite lors de l'initialisation.\r\n\r\nLe programme d'installation va se fermer.</String>
+<String Name="1427">Une erreur s'est produite lors du téléchargement d'un fichier requis. Vous pouvez recommencer le téléchargement de ce fichier ou annuler l'installation.</String>
+<String Name="1429">Impossible de trouver le fichier '%1' requis pour l'installation.</String>
+<String Name="1430">Le programme d'installation de l'application '%1' requiert Internet Explorer 3.0 ou une version ultérieure.</String>
+<String Name="1432">Impossible de poursuivre l'installation car une autre installation requiert un redémarrage. Voulez-vous redémarrer maintenant ?</String>
+<String Name="1433">Impossible de poursuivre l'installation car une autre installation requiert un redémarrage. Contactez votre administrateur.</String>
+<String Name="1435">Impossible de trouver le fichier d'application '%1'.</String>
+<String Name="1436">Vous avez choisi de ne pas accepter le CLUF.\r\nL'installation va être arrêtée.</String>
+<String Name="1437">Vous avez choisi de ne pas effectuer l'installation.\r\nL'installation va être arrêtée.</String>
+<String Name="1438">Impossible d'écrire le CLUF sur le disque pour l'afficher.</String>
+<String Name="1442">Le programme d'installation a détecté que l'éditeur du fichier '%1' ne peut pas être vérifié.</String>
+<String Name="1443">Le programme d'installation a détecté que le fichier '%1' a été modifié depuis sa publication initiale.</String>
+<String Name="1444">Une erreur s'est produite lors du téléchargement de la ressource suivante :</String>
+<String Name="1446">L'erreur suivante s'est produite lors de la tentative d'installation de '%1' :\r\n"%2"</String>
+<String Name="1447">Impossible d'installer l'application à partir de '%1' car aucune connexion réseau n'est disponible. Recommencez l'installation ultérieurement.</String>
+<String Name="1448">Impossible de modifier '%1'. Le fichier est peut-être en lecture seule ou verrouillé.</String>
+<String Name="1449">Ce produit est conçu pour la plateforme %1 mais est installé sur %2. Obtenez le programme d'installation correct du fabricant.</String>
+</Strings>
+<Fonts>
+<Font Name="BaseFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>0</Weight>
+    </Font>
+<Font Name="BoldFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>700</Weight>
+    </Font>
+</Fonts>
+</Resources>

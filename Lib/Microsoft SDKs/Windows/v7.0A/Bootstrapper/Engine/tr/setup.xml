@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Resources Culture="Culture">
+<Strings>
+<String Name="Culture">tr</String>
+<String Name="1000">İ&amp;ptal</String>
+<String Name="1001">&amp;Devam</String>
+<String Name="1002">&amp;Kapat</String>
+<String Name="1003">&amp;Ayrıntılar &gt;&gt;</String>
+<String Name="1004">&amp;Ayrıntılar &lt;&lt;</String>
+<String Name="1005">Evet</String>
+<String Name="1006">Hayır</String>
+<String Name="1008">Şimdi yeniden önyüklemek için 'Evet'i, daha sonra yeniden önyüklemek için 'Hayır'ı seçin.</String>
+<String Name="1009">Sistem güncelleştirmesinin tamamlanabilmesi için bilgisayarın yeniden önyüklenmesi gerekiyor.</String>
+<String Name="1010">Gerekli dosyalar kopyalanıyor...</String>
+<String Name="1011">Gerekli dosyalar karşıdan yükleniyor...</String>
+<String Name="1012">%1 Kurulumu</String>
+<String Name="1013">%1 yükleniyor...</String>
+<String Name="1016">%1 için sistem bileşenleri yüklenirken hata oluştu. Kurulum tüm sistem bileşenleri başarıyla yükleninceye kadar devam edemez.</String>
+<String Name="1017">%1 için sistem bileşenleri yüklenirken hata oluştu. Kurulum tüm sistem bileşenleri başarıyla yükleninceye kadar devam edemez. Sistem bileşenleri güncelleştirildiğinden yeniden önyükleme gerekiyor.</String>
+<String Name="1018">Kullanım:\r\n   -? veya -h veya -help :  Bu iletişim kutusunu göster.\r\n   -url veya -componentsurl :  Bu kurulumun url ve componentsurl değerlerini göster.\r\n   -url=&lt;konum&gt; : Url kaynağını belirtilen konuma ayarlar.\r\n   -componentsurl=&lt;konum&gt; : Componentsurl'yi belirtilen konuma ayarlar.\r\n   -homesite=&lt;true veya false&gt; : True ayarlandığında, componentsurl'yi geçersiz kılarak bileşenleri satıcının web sitesinden yükler.\r\n\r\n   Kalan tüm komut satırı bağımsız değişkenleri uygulama yükleyicisine geçirilir.</String>
+<String Name="1019">url=%1\r\ncomponentsurl=%2</String>
+<String Name="1020">(yok)</String>
+<String Name="1021">Bu işlem için Windows 2000 veya üstü gerekiyor.</String>
+<String Name="1023">\r\n</String>
+<String Name="1025">%1 bileşeni yüklenemedi.</String>
+<String Name="1026">%1 bileşeni aşağıdaki hata iletisini verdi ve yüklenemedi:\r\n"%2"</String>
+<String Name="1028">Daha fazla bilgi için '%1' konumundaki kurulum günlük dosyasına bakın.</String>
+<String Name="1029">Bu, yüklemeyi durdurur. İptal etmek istediğinizden emin misiniz?</String>
+<String Name="1030">Geçerli bileşenin yüklenmesi tamamlandıktan sonra kurulum duracak. İptal edilmeden önce yüklenmiş olan bileşenler varsa bunlar kaldırılmaz. İptal etmek istediğinizden emin misiniz?</String>
+<String Name="1031">Dosya %1!d! / %2!d! karşıdan yükleniyor...</String>
+<String Name="1032">Kurulum kullanıcı tarafından iptal edildi. Sistem bileşenleri güncelleştirildiğinden yeniden önyükleme gerekiyor.</String>
+<String Name="1033">Devam etmeden önce kurulumun yeniden başlatması gerekiyor.</String>
+<String Name="1034">%1 sistem bileşeni için önkoşul denetimi başarısız oldu.</String>
+<String Name="1035">%1 ile ilgili tüm önkoşullar sağlanamıyor. Kurulum tüm sistem bileşenleri başarıyla yükleninceye kadar devam edemez.</String>
+<String Name="1036">Kurulum</String>
+<String Name="1037">Kurulum bileşenleri başlatıyor...</String>
+<String Name="1038">Kurulum iptal edildi.</String>
+<String Name="1039">Uygulama dosyaları yükleniyor...</String>
+<String Name="1041">%1 bileşeni kurulumun devam edebilmesi için yeniden başlatma gerektiriyor.</String>
+<String Name="1042">Aşağıdaki bileşenler başarıyla yüklendi:</String>
+<String Name="1043">Aşağıdaki bileşenler başarıyla yüklendi ancak yeniden önyükleme gerekiyor:</String>
+<String Name="1044">Aşağıdaki bileşenler yüklenmedi:</String>
+<String Name="1045">Aşağıdaki bileşenler yeniden önyüklemeden sonra yüklenecek:</String>
+<String Name="1046">Aşağıdaki bileşenler yüklenemedi:</String>
+<String Name="1047"></String>
+<String Name="1048">Bileşenler</String>
+<String Name="1049">%1 yüklenmeye çalışılırken hata oluştu.</String>
+<String Name="1050">url=%1\r\ncomponentsurl=%2\r\nBileşenler satıcının web sitesinden yüklenecek.</String>
+<String Name="1051">Ye&amp;niden Dene</String>
+<String Name="1052">Destek için burayı tıklatın.</String>
+<String Name="1053">Tarih: %1</String>
+<String Name="1054">%1 sistem bileşeninde önkoşul denetimi aşağıdaki hatayla başarısız oldu:\r\n"%2"</String>
+<String Name="1055">Ayrıntılar</String>
+<String Name="1057">Kurulum için sabit sürücünüzde %1!d! MB alan gerekiyor, ancak şu anda yalnızca %2!d! MB var. Yüklemeye devam etmek için Tamam'ı, durdurmak için İptal'i tıklatın.</String>
+<String Name="1058">%1 Karşıdan yüklemeyi yeniden denemek için Tamam'ı, kurulumdan çıkmak için İptal'i tıklatın.</String>
+<String Name="1200">Aşağıdaki bileşenler için:</String>
+<String Name="1201">Lütfen aşağıdaki lisans sözleşmesini okuyun. Sözleşmenin kalanını görmek için Page Down tuşuna basın.</String>
+<String Name="1202">Yazdırmak için EULA'yı görüntüle</String>
+<String Name="1203">Bekleyen Lisans Sözleşmesi koşullarını kabul ediyor musunuz?</String>
+<String Name="1204">Kabul Etmiyorum'u seçerseniz yükleme kapanır. Yüklemek için bu sözleşmeyi kabul etmeniz gerekiyor.</String>
+<String Name="1205">K&amp;abul Ediyorum</String>
+<String Name="1206">Kabul Et&amp;miyorum</String>
+<String Name="1207">Aşağıdaki bileşenler bilgisayarınıza yüklenecek:</String>
+<String Name="1208">Bu bileşen için lisans sözleşmesi sağlanmadı.</String>
+<String Name="1209">Bu bileşenleri yüklemek istiyor musunuz?</String>
+<String Name="1210">İptal'i seçerseniz kurulumdan çıkılacak.</String>
+<String Name="1211">Yü&amp;kle</String>
+<String Name="1212">İ&amp;ptal</String>
+<String Name="1213">%1 Kurulumu</String>
+<String Name="1400">%1 için gerekli bir bileşen karşıdan yüklenirken hata oluştu. Tüm bileşenler başarıyla karşıdan yüklenip kuruluncaya kadar kurulum devam edemez.</String>
+<String Name="1401">'%1' karşıdan yüklenmeye çalışılırken hata oluştu.</String>
+<String Name="1402">Döndürülen HRESULT = %1!x! karşıdan yükleniyor</String>
+<String Name="1405">Aşağıdaki paket dosyaları bulunamadı:\r\n%1</String>
+<String Name="1416">Bu işlemi tamamlamak için kullanılabilecek yeterli bellek yok.</String>
+<String Name="1420">'%1' dosyası '%2' konumuna kopyalanamadı.</String>
+<String Name="1423">'%1' dosyası '%2' konumuna kopyalanamadı.</String>
+<String Name="1424">'%2' paketi için '%1' dosyası bulunamıyor.</String>
+<String Name="1425">Kurulum '%1' dosyasının ilk yayımlanmasından sonra değiştiğini veya bozulduğunu algıladı.</String>
+<String Name="1426">Başlatılırken bir hata oluştu.\r\n\r\nKurulumdan şimdi çıkılacak.</String>
+<String Name="1427">Gerekli bir dosya karşıdan yüklenirken hata oluştu. Dosyayı karşıdan yüklemeyi deneyebilir veya kurulumu iptal edebilirsiniz.</String>
+<String Name="1429">Kurulum için gereken '%1' dosyası bulunamıyor.</String>
+<String Name="1430">'%1' uygulamasının kurulumu için Internet Explorer 3.0 veya üstü gerekiyor.</String>
+<String Name="1432">Başka bir yükleme yeniden önyükleme gerektirdiğinden kurulum devam edemiyor. Şimdi yeniden önyüklemek ister misiniz?</String>
+<String Name="1433">Başka bir yükleme yeniden önyükleme gerektirdiğinden kurulum devam edemiyor. Lütfen yöneticinize başvurun.</String>
+<String Name="1435">'%1' uygulama dosyası bulunamıyor.</String>
+<String Name="1436">EULA'yı kabul etmemeyi seçtiniz.\r\nYükleme işleminden şimdi çıkılacak.</String>
+<String Name="1437">Yükleme yapmamayı seçtiniz.\r\nYükleme işleminden şimdi çıkılacak.</String>
+<String Name="1438">EULA görüntüleme için diske yazılamıyor.</String>
+<String Name="1442">Kurulum '%1' dosyasının yayımcısının doğrulanamadı belirledi.</String>
+<String Name="1443">Kurulum '%1' dosyasının ilk yayımlanmasından sonra değiştiğini algıladı.</String>
+<String Name="1444">Aşağıdaki kaynak karşıdan yüklenirken hata oluştu:</String>
+<String Name="1446">'%1' yüklenmeye çalışılırken aşağıdaki hata oluştu:\r\n"%2"</String>
+<String Name="1447">Ağ bağlantısı olmadığından uygulama '%1' konumundan yüklenemiyor. Yüklemeyi daha sonra yeniden deneyin.</String>
+<String Name="1448">'%1' değiştirilemiyor. Dosya salt okunur veya kilitli olabilir.</String>
+<String Name="1449">Bu ürün %1 platformu için tasarlanmış ancak %2 üzerine yükleniyor. Üreticiden doğru kurulumu edinin.</String>
+</Strings>
+<Fonts>
+<Font Name="BaseFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>0</Weight>
+    </Font>
+<Font Name="BoldFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>700</Weight>
+    </Font>
+</Fonts>
+</Resources>

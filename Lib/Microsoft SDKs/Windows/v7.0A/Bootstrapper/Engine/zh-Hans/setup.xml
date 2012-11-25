@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Resources Culture="Culture">
+<Strings>
+<String Name="Culture">zh-Hans</String>
+<String Name="1000">取消(&amp;C)</String>
+<String Name="1001">继续(&amp;O)</String>
+<String Name="1002">关闭(&amp;L)</String>
+<String Name="1003">详细信息(&amp;D) &gt;&gt;</String>
+<String Name="1004">详细信息(&amp;D) &lt;&lt;</String>
+<String Name="1005">是</String>
+<String Name="1006">否</String>
+<String Name="1008">选择“是”立即重新启动，选择“否”以后手动重新启动。</String>
+<String Name="1009">必须重新启动计算机，才能完成系统更新。</String>
+<String Name="1010">正在复制所需文件...</String>
+<String Name="1011">正在下载所需文件...</String>
+<String Name="1012">%1 安装程序</String>
+<String Name="1013">正在安装 %1...</String>
+<String Name="1016">安装 %1 的系统组件时发生错误。在成功安装所有系统组件之前，安装程序无法继续进行。</String>
+<String Name="1017">安装 %1 的系统组件时发生错误。在成功安装所有系统组件之前，安装程序无法继续进行。系统组件已被更新，因此需要重新启动。</String>
+<String Name="1018">用法:\r\n   -? 或 -h 或 -help : 显示此对话框。\r\n   -url 或 -componentsurl :  显示此安装程序的存储 url 和 componentsurl。\r\n   -url=&lt;location&gt; : 将 url 源设置在指定的位置。\r\n   -componentsurl=&lt;location&gt; : 将 componentsurl 设置为指定位置。\r\n   -homesite=&lt;true 或 false&gt; : 当设置为 true 时，从供应商网站下载组件，重写 componentsurl。\r\n\r\n   所有剩余的命令行参数将被传递到应用程序安装。</String>
+<String Name="1019">url=%1\r\ncomponentsurl=%2</String>
+<String Name="1020">(无)</String>
+<String Name="1021">此操作需要 Windows 2000 或更高版本。</String>
+<String Name="1023">\r\n</String>
+<String Name="1025">未能安装组件 %1。</String>
+<String Name="1026">未能安装组件 %1，并显示下列错误消息:\r\n“%2”</String>
+<String Name="1028">有关详细信息，请参阅位于“%1”的安装日志文件。</String>
+<String Name="1029">这将停止安装。确实要取消吗?</String>
+<String Name="1030">当前组件的安装完成之后，安装程序将停止。在取消前安装的任何组件都不会被卸载。确实要取消吗?</String>
+<String Name="1031">正在下载 %2!d! 的文件 %1!d!...</String>
+<String Name="1032">用户已取消安装。系统组件已被更新，因此需要重新启动。</String>
+<String Name="1033">安装程序在继续进行之前必须重新启动。</String>
+<String Name="1034">系统组件 %1 的系统必备检查失败。</String>
+<String Name="1035">无法满足 %1 的所有系统必备。在成功安装所有系统组件之前，安装程序无法继续。</String>
+<String Name="1036">安装</String>
+<String Name="1037">安装程序正在初始化组件...</String>
+<String Name="1038">安装已被取消。</String>
+<String Name="1039">正在下载应用程序文件...</String>
+<String Name="1041">需要重新启动组件 %1，安装程序才能继续。</String>
+<String Name="1042">下列组件已成功安装:</String>
+<String Name="1043">下列组件已成功安装，但需要重新启动:</String>
+<String Name="1044">下列组件未安装:</String>
+<String Name="1045">下列组件将在重新启动后安装:</String>
+<String Name="1046">下列组件未能安装:</String>
+<String Name="1047"></String>
+<String Name="1048">组件</String>
+<String Name="1049">试图安装 %1 时发生错误。</String>
+<String Name="1050">url=%1\r\ncomponentsurl=%2\r\n将从供应商网站上下载组件。</String>
+<String Name="1051">重试(&amp;R)</String>
+<String Name="1052">单击此处以获得支持。</String>
+<String Name="1053">日期: %1</String>
+<String Name="1054">系统组件 %1 的系统必备检查失败，并显示下列错误消息:\r\n“%2”</String>
+<String Name="1055">详细信息</String>
+<String Name="1057">安装程序需要 %1!d! MB 硬盘空间，但当前只有 %2!d! MB 可用空间。单击“确定”继续安装，或单击“取消”停止安装。</String>
+<String Name="1058">%1 单击“确定”重试下载，或单击“取消”退出安装程序。</String>
+<String Name="1200">对于下列组件:</String>
+<String Name="1201">请阅读以下许可协议。按 Page Down 键可阅读协议的其余部分。</String>
+<String Name="1202">查看 EULA 以便打印</String>
+<String Name="1203">您接受挂起的许可协议条款吗?</String>
+<String Name="1204">如果选择“不接受”，安装程序将会关闭。要安装此软件，您必须接受此协议。</String>
+<String Name="1205">接受(&amp;A)</String>
+<String Name="1206">不接受(&amp;D)</String>
+<String Name="1207">将在您的计算机上安装下列组件:</String>
+<String Name="1208">没有为此组件提供许可协议。</String>
+<String Name="1209">要安装这些组件吗?</String>
+<String Name="1210">如果选择“取消”，安装程序将退出。</String>
+<String Name="1211">安装(&amp;I)</String>
+<String Name="1212">取消(&amp;C)</String>
+<String Name="1213">%1 安装程序</String>
+<String Name="1400">下载 %1 所需的组件时发生错误。在成功下载和安装所有的组件之前，安装程序无法继续。</String>
+<String Name="1401">试图下载“%1”时发生错误。</String>
+<String Name="1402">正在下载返回的 HRESULT = %1!x!</String>
+<String Name="1405">未能找到下列包文件:\r\n%1</String>
+<String Name="1416">内存空间不足，无法完成此操作。</String>
+<String Name="1420">未能将文件“%1”复制到“%2”。</String>
+<String Name="1423">未能将文件“%1”复制到“%2”。</String>
+<String Name="1424">无法为包“%2”定位文件“%1”。</String>
+<String Name="1425">安装程序检测到文件“%1”或者在最初发布后进行了更改，或者可能已损坏。</String>
+<String Name="1426">初始化时发生错误。\r\n\r\n安装程序将立即退出。</String>
+<String Name="1427">下载所需文件时发生错误。您可以重试下载该文件或取消安装程序。</String>
+<String Name="1429">无法找到安装程序所需的文件“%1”。</String>
+<String Name="1430">应用程序“%1”的安装程序需要 Internet Explorer 3.0 或更高版本。</String>
+<String Name="1432">安装程序无法继续，因为另一个安装需要重新启动。要立即重新启动吗?</String>
+<String Name="1433">安装程序无法继续，因为另一个安装需要重新启动。请与您的管理员联系。</String>
+<String Name="1435">无法找到应用程序文件“%1”。</String>
+<String Name="1436">您已经选择不接受 EULA。\r\n安装将立即退出。</String>
+<String Name="1437">您已经选择不安装。\r\n安装将立即退出。</String>
+<String Name="1438">无法将 EULA 写入磁盘以供查看。</String>
+<String Name="1442">安装程序检测到无法验证文件“%1”的发行者。</String>
+<String Name="1443">安装程序检测到文件“%1”自最初发布后已经更改。</String>
+<String Name="1444">下载下列资源时发生错误:</String>
+<String Name="1446">试图安装“%1”时发生以下错误:\r\n“%2”</String>
+<String Name="1447">由于没有网络连接，无法从“%1”安装应用程序。请稍后再尝试安装。</String>
+<String Name="1448">无法修改“%1”。该文件可能是只读文件或已被锁定。</String>
+<String Name="1449">此产品是专为 %1 平台设计的，但现在却要在 %2 上安装。请从制造商处获取正确的安装程序。</String>
+</Strings>
+<Fonts>
+<Font Name="BaseFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>0</Weight>
+    </Font>
+<Font Name="BoldFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>400</Weight>
+    </Font>
+</Fonts>
+</Resources>

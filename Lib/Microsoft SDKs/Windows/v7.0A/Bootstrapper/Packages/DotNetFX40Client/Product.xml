@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Product xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper" ProductCode=".NETFramework,Version=v4.0,Profile=Client">
+  <!-- Defines list of files to be copied on build -->
+  <PackageFiles CopyAllPackageFiles="false">
+    <PackageFile Name="dotNetFx40_Client_x86_x64.exe" HomeSite="DotNetFX40ClientWebBootstrapper" PublicKey="3082010A0282010100BD3089FB4572A8536B9E894F0023C0BED41D3DB1594038F373918226E696120053D91C820E3CCE1DBBBDF7428D97D4FC381AE4B9F9E3ECD36103BFA0D3D6754D5C46A9ED5EF0D2E2695B1A73EAB31C8D04CD2944A064592F1E985D6EC7AB18398265C4A7BCAB758819EA87971426B37F2676A4D4383984E3B326D518F92BE9D2C9165A5421F2978D878629FEF4492CE68BF8043F7DCDCD9692860D7103E2D0FE0C4235FFD7B83FDD8E450A7DF6D74BAD5BF076721D77237D8935C41C5DB250034B476D07A75588980680A681AD544ED881D6FABF42C031BE550D99D553491230EBE5A5887C5EC47A5A148708B43769A0EB32248C08EBF9D414BAE0FCCDEAA4150203010001" />
+    <PackageFile Name="dotNetFx40_Client_setup.exe" HomeSite="DotNetFX40ClientWebBootstrapper" CopyOnBuild="False" PublicKey="3082010A0282010100BD3089FB4572A8536B9E894F0023C0BED41D3DB1594038F373918226E696120053D91C820E3CCE1DBBBDF7428D97D4FC381AE4B9F9E3ECD36103BFA0D3D6754D5C46A9ED5EF0D2E2695B1A73EAB31C8D04CD2944A064592F1E985D6EC7AB18398265C4A7BCAB758819EA87971426B37F2676A4D4383984E3B326D518F92BE9D2C9165A5421F2978D878629FEF4492CE68BF8043F7DCDCD9692860D7103E2D0FE0C4235FFD7B83FDD8E450A7DF6D74BAD5BF076721D77237D8935C41C5DB250034B476D07A75588980680A681AD544ED881D6FABF42C031BE550D99D553491230EBE5A5887C5EC47A5A148708B43769A0EB32248C08EBF9D414BAE0FCCDEAA4150203010001" />
+  </PackageFiles>
+  <RelatedProducts>
+    <EitherProducts>
+      <DependsOnProduct Code="Microsoft.Windows.Installer.3.1" />
+      <DependsOnProduct Code="Microsoft.Windows.Installer.4.5" />
+    </EitherProducts>
+  </RelatedProducts>
+  <InstallChecks>
+    <RegistryCheck Property="DotNet40Client_TargetVersion" Key="HKLM\Software\Microsoft\NET Framework Setup\NDP\v4\Client" Value="Version" />
+  </InstallChecks>
+  <!-- Defines how to invoke the setup for .NET Framework redist -->
+  <Commands Reboot="Immediate">
+    <Command PackageFile="dotNetFx40_Client_x86_x64.exe"
+         Arguments=' /q /norestart /ChainingPackage ClientX64ClickOnce'
+         EstimatedInstalledBytes="1476239360"
+         EstimatedInstallSeconds="900"
+         EstimatedTempBytes="221961886">
+      <!-- These checks determine whether the package is to be installed -->
+      <InstallConditions>
+        <!-- This command is only for Samesite -->
+        <BypassIf Property="InstallMode" Compare="ValueEqualTo" Value="HomeSite" />
+        <!-- This indicates .NET Framework is already installed -->
+        <BypassIf Property="DotNet40Client_TargetVersion" Compare="VersionGreaterThanOrEqualTo" Value="4.0.30129"/>
+        <!-- Block install if user does not have admin privileges -->
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+        <!-- Block install on less than Windows XP SP2 -->
+        <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.1.2" String="InvalidPlatformWinNT"/>
+        <!-- Block install if the platform is IA-64 -->
+        <FailIf Property="ProcessorArchitecture" Compare="ValueEqualTo" Value="IA64" String="InvalidPlatformArchitecture" />
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <ExitCode Value="3010" Result="SuccessReboot"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="false" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+    <Command PackageFile="dotNetFx40_Client_setup.exe" Arguments=" /q /norestart /ChainingPackage ClientX64ClickOnce /lcid 1033" EstimatedInstalledBytes="1476239360" EstimatedInstallSeconds="900" EstimatedTempBytes="221961886">
+      <!-- These checks determine whether the package is to be installed -->
+      <InstallConditions>
+        <!-- This command is only for Samesite -->
+        <BypassIf Property="InstallMode" Compare="ValueNotEqualTo" Value="HomeSite" />
+        <!-- This indicates .NET Framework is already installed -->
+        <BypassIf Property="DotNet40Client_TargetVersion" Compare="VersionGreaterThanOrEqualTo" Value="4.0.30129" />
+        <!-- Block install if user does not have admin privileges -->
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired" />
+        <!-- Block install on less than Windows XP SP2 -->
+        <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.1.2" String="InvalidPlatformWinNT" />
+        <!-- Block install if the platform is IA-64 -->
+        <FailIf Property="ProcessorArchitecture" Compare="ValueEqualTo" Value="IA64" String="InvalidPlatformArchitecture" />
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success" />
+        <ExitCode Value="3010" Result="SuccessReboot" />
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="false" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+  </Commands>
+</Product>

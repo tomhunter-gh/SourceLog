@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Resources Culture="Culture">
+<Strings>
+<String Name="Culture">it</String>
+<String Name="1000">&amp;Annulla</String>
+<String Name="1001">C&amp;ontinua</String>
+<String Name="1002">&amp;Chiudi</String>
+<String Name="1003">&amp;Dettagli &gt;&gt;</String>
+<String Name="1004">&amp;Dettagli &lt;&lt;</String>
+<String Name="1005">Sì</String>
+<String Name="1006">No</String>
+<String Name="1008">Scegliere 'Sì' per riavviare ora o 'No' per riavviare manualmente in un secondo momento.</String>
+<String Name="1009">Riavviare il computer per completare l'aggiornamento del sistema.</String>
+<String Name="1010">Copia dei file richiesti in corso...</String>
+<String Name="1011">Download dei file richiesti in corso...</String>
+<String Name="1012">Installazione di %1</String>
+<String Name="1013">Installazione di %1 in corso...</String>
+<String Name="1016">Errore durante l'installazione dei componenti di sistema per %1. Impossibile continuare fino alla corretta installazione di tutti i componenti di sistema.</String>
+<String Name="1017">Errore durante l'installazione dei componenti di sistema per %1. Impossibile continuare fino alla corretta installazione di tutti i componenti di sistema. È necessario riavviare il computer perché dei componenti di sistema sono stati aggiornati.</String>
+<String Name="1018">Uso:\r\n   -? o -h o -help :  Mostra questa finestra di dialogo.\r\n   -url o -componentsurl :  Mostra url e componentsurl memorizzati per questa installazione.\r\n   -url=&lt;percorso&gt; : Imposta l'origine url sul percorso specificato.\r\n   -componentsurl=&lt;percorso&gt; : Imposta componentsurl sul percorso specificato.\r\n   -homesite=&lt;true o false&gt; : Se impostato su true, scarica i componenti dal sito Web dei rispettivi fornitori, effettuando l'override di componentsurl.\r\n\r\n   Tutti gli altri argomenti della riga di comando verranno passati all'installazione dell'applicazione.</String>
+<String Name="1019">url=%1\r\ncomponentsurl=%2</String>
+<String Name="1020">(nessuno)</String>
+<String Name="1021">Per questa operazione è necessario Windows 2000 o versione successiva.</String>
+<String Name="1023">\r\n</String>
+<String Name="1025">Impossibile installare il componente %1.</String>
+<String Name="1026">Impossibile installare il componente %1. Messaggio di errore:\r\n'%2'</String>
+<String Name="1028">Per ulteriori informazioni, vedere il file di log dell'installazione in '%1'.</String>
+<String Name="1029">L'installazione verrà interrotta. Annullare?</String>
+<String Name="1030">Il processo verrà interrotto al completamento dell'installazione del componente corrente. I componenti installati prima dell'annullamento non verranno disinstallati. Annullare?</String>
+<String Name="1031">Download del file %1!d! di %2!d! in corso...</String>
+<String Name="1032">Installazione annullata dall'utente. È necessario riavviare il computer perché dei componenti di sistema sono stati aggiornati.</String>
+<String Name="1033">Prima di continuare è necessario riavviare il sistema.</String>
+<String Name="1034">Controllo dei prerequisiti per il componente di sistema %1 non riuscito.</String>
+<String Name="1035">Impossibile soddisfare tutti i prerequisiti per %1. Impossibile continuare fino alla corretta installazione di tutti i componenti di sistema.</String>
+<String Name="1036">Installazione</String>
+<String Name="1037">Inizializzazione dei componenti in corso...</String>
+<String Name="1038">Installazione annullata.</String>
+<String Name="1039">Download dei file dell'applicazione in corso...</String>
+<String Name="1041">Per continuare l'installazione è necessario il riavvio per il componente %1.</String>
+<String Name="1042">Sono stati installati i seguenti componenti:</String>
+<String Name="1043">I componenti riportati di seguito sono stati installati. È necessario riavviare il sistema.</String>
+<String Name="1044">I seguenti componenti non sono stati installati:</String>
+<String Name="1045">I seguenti componenti verranno installati dopo il riavvio:</String>
+<String Name="1046">Impossibile installare i seguenti componenti:</String>
+<String Name="1047"></String>
+<String Name="1048">Componenti</String>
+<String Name="1049">Errore durante il tentativo di installazione di %1.</String>
+<String Name="1050">url=%1\r\ncomponentsurl=%2\r\nI componenti verranno scaricati dai siti Web dei fornitori.</String>
+<String Name="1051">&amp;Riprova</String>
+<String Name="1052">Fare clic qui per informazioni di supporto.</String>
+<String Name="1053">Data: %1</String>
+<String Name="1054">Controllo dei prerequisiti per il componente di sistema %1 non riuscito. Messaggio di errore:\r\n'%2'</String>
+<String Name="1055">Dettagli</String>
+<String Name="1057">Sono richiesti %1!d! MB di spazio sul disco rigido, ma al momento sono disponibili solo %2!d! MB. Scegliere OK per continuare l'installazione o Annulla per interromperla.</String>
+<String Name="1058">%1 Scegliere OK per riprovare il download o Annulla per uscire dall'installazione.</String>
+<String Name="1200">Per i seguenti componenti:</String>
+<String Name="1201">Leggere il Contratto Microsoft. Premere PGGIÙ per visualizzare il resto del contratto.</String>
+<String Name="1202">Versione del contratto per stampante</String>
+<String Name="1203">Si accettano i termini del contratto di licenza in sospeso?</String>
+<String Name="1204">Se si sceglie Non accetto, l'installazione verrà interrotta. Per installare è necessario accettare i termini del contratto.</String>
+<String Name="1205">&amp;Accetto</String>
+<String Name="1206">&amp;Non accetto</String>
+<String Name="1207">I seguenti componenti verranno installati nel computer:</String>
+<String Name="1208">Per questo componente non è stato fornito un Contratto di Licenza.</String>
+<String Name="1209">Installare i componenti?</String>
+<String Name="1210">Se si sceglie Annulla, l'installazione verrà interrotta.</String>
+<String Name="1211">&amp;Installa</String>
+<String Name="1212">&amp;Annulla</String>
+<String Name="1213">Installazione di %1</String>
+<String Name="1400">Errore durante il download di un componente richiesto per %1. Impossibile continuare fino ai corretti download e installazione di tutti i componenti.</String>
+<String Name="1401">Errore durante il download di "%1".</String>
+<String Name="1402">Il download ha restituito HRESULT = %1!x!</String>
+<String Name="1405">Impossibile trovare i seguenti file del package:\r\n%1</String>
+<String Name="1416">Memoria insufficiente per completare l'operazione.</String>
+<String Name="1420">Impossibile copiare il file "%1" in "%2".</String>
+<String Name="1423">Impossibile copiare il file '%1' in '%2'.</String>
+<String Name="1424">Impossibile individuare il file "%1" per il package "%2".</String>
+<String Name="1425">Il file '%1' è stato modificato dopo la pubblicazione iniziale oppure potrebbe essere danneggiato.</String>
+<String Name="1426">Errore durante l'inizializzazione.\r\n\r\nIl programma di installazione verrà chiuso.</String>
+<String Name="1427">Errore durante il download di un file richiesto. Riprovare il download del file o annullare l'installazione.</String>
+<String Name="1429">Impossibile trovare il file '%1' richiesto per l'installazione.</String>
+<String Name="1430">Per l'installazione dell'applicazione '%1' è necessario Internet Explorer 3.0 o versione successiva.</String>
+<String Name="1432">È necessario il riavvio per un'altra installazione. Impossibile continuare. Riavviare?</String>
+<String Name="1433">È necessario il riavvio per un'altra installazione. Impossibile continuare. Rivolgersi all'amministratore.</String>
+<String Name="1435">Impossibile trovare il file dell'applicazione '%1'.</String>
+<String Name="1436">Si è scelto di non accettare i termini del contratto.\r\nIl programma di installazione verrà chiuso.</String>
+<String Name="1437">Si è scelto di non effettuare l'installazione.\r\nIl programma di installazione verrà chiuso.</String>
+<String Name="1438">Impossibile copiare il contratto su disco per la visualizzazione.</String>
+<String Name="1442">Impossibile verificare l'editore del file '%1'.</String>
+<String Name="1443">Il file '%1' è stato modificato dopo la pubblicazione iniziale.</String>
+<String Name="1444">Errore durante il download della risorsa seguente:</String>
+<String Name="1446">Si è verificato l'errore seguente nel tentativo di installare '%1':\r\n'%2'</String>
+<String Name="1447">Impossibile installare l'applicazione da '%1' a causa della mancanza di connessione di rete. Riprovare l'installazione in un altro momento.</String>
+<String Name="1448">Impossibile modificare '%1'. Il file potrebbe essere in sola lettura o bloccato.</String>
+<String Name="1449">Questo prodotto è progettato per la piattaforma %1, ma viene installato su %2. Richiedere al produttore il programma di installazione corretto.</String>
+</Strings>
+<Fonts>
+<Font Name="BaseFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>0</Weight>
+    </Font>
+<Font Name="BoldFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>700</Weight>
+    </Font>
+</Fonts>
+</Resources>

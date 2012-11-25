@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper" Name="DisplayName" Culture="Culture" LicenseAgreement="eula.rtf">
+  <!-- Defines list of files to be copied on build -->
+  <PackageFiles CopyAllPackageFiles="false">
+    <PackageFile Name="eula.rtf"/>
+    <PackageFile Name="dotNetFx40LP_Client_x86_x64tr.exe" HomeSite="DotNetFX40ClientLanguagePackBootstrapper" PublicKey="3082010A0282010100BD3089FB4572A8536B9E894F0023C0BED41D3DB1594038F373918226E696120053D91C820E3CCE1DBBBDF7428D97D4FC381AE4B9F9E3ECD36103BFA0D3D6754D5C46A9ED5EF0D2E2695B1A73EAB31C8D04CD2944A064592F1E985D6EC7AB18398265C4A7BCAB758819EA87971426B37F2676A4D4383984E3B326D518F92BE9D2C9165A5421F2978D878629FEF4492CE68BF8043F7DCDCD9692860D7103E2D0FE0C4235FFD7B83FDD8E450A7DF6D74BAD5BF076721D77237D8935C41C5DB250034B476D07A75588980680A681AD544ED881D6FABF42C031BE550D99D553491230EBE5A5887C5EC47A5A148708B43769A0EB32248C08EBF9D414BAE0FCCDEAA4150203010001"/>
+  </PackageFiles>
+  <InstallChecks>
+    <RegistryCheck Property="DotNet40ClientLangPack_TargetVersion" Key="HKLM\Software\Microsoft\NET Framework Setup\NDP\v4\Client\1055" Value="Version"/>
+  </InstallChecks>
+  <!-- Defines how to invoke the setup for .NET Framework redist -->
+  <Commands>
+    <!--This command is for the Langpack in SameSite Installs -->
+    <Command PackageFile="dotNetFx40LP_Client_x86_x64tr.exe" Arguments=" /q /norestart /ChainingPackage ClientX64ClickOnce" EstimatedInstalledBytes="59724800" EstimatedTempBytes="24563040" EstimatedInstallSeconds="450">
+      <!-- These checks determine whether the package is to be installed -->
+      <InstallConditions>
+        <!-- This indicates .NET Framework is already installed -->
+        <BypassIf Property="DotNet40ClientLangPack_TargetVersion" Compare="VersionGreaterThanOrEqualTo" Value="4.0.30129"/>
+        <!-- Block install if user does not have admin privileges -->
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+        <!-- Block install on less than Windows XP SP2 -->
+        <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.1.2" String="InvalidPlatformWinNT"/>
+        <!-- Block install if the platform is IA-64 -->
+        <FailIf Property="ProcessorArchitecture" Compare="ValueEqualTo" Value="IA64" String="InvalidPlatformArchitecture"/>
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <ExitCode Value="3010" Result="SuccessReboot"/>
+        <DefaultExitCode Result="Success" FormatMessageFromSystem="false" String="GeneralFailure"/>
+      </ExitCodes>
+    </Command>
+  </Commands>
+  <!-- Defines a localizable string table for error messages-->
+  <Strings>
+    <String Name="DisplayName">Microsoft .NET Framework 4 İstemci Profili (x86 ve x64)</String>
+    <String Name="Culture">tr</String>
+    <String Name="AdminRequired">.NET Framework 4 İstemci sürümünü yüklemek için yönetici izinleri gerekiyor. Yöneticinize başvurun.</String>
+    <String Name="InvalidPlatformWinNT">.NET Framework 4 İstemci sürümünün yüklenmesi için Windows XP SP2, Windows 2003 SP1, Windows Vista veya üstü gerekiyor. Uygulama satıcınıza başvurun.</String>
+    <String Name="InvalidPlatformArchitecture">Bu .NET Framework 4 İstemci sürümü IA-64 işletim sistemlerinde desteklenmiyor. Uygulama satıcınıza başvurun.</String>
+    <String Name="DotNetFX40ClientWebBootstrapper">http://go.microsoft.com/fwlink/?linkid=182804</String>
+    <String Name="DotNetFX40ClientLanguagePackBootstrapper">http://go.microsoft.com/fwlink/?linkid=164196&amp;clcid=0x41f</String>
+    <String Name="GeneralFailure">.NET Framework 4 İstemci sürümü yüklenmeye çalışılırken hata oluştu.</String>
+  </Strings>
+</Package>

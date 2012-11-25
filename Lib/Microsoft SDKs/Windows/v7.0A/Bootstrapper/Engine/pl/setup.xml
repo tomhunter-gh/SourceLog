@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Resources Culture="Culture">
+<Strings>
+<String Name="Culture">pl</String>
+<String Name="1000">&amp;Anuluj</String>
+<String Name="1001">K&amp;ontynuuj</String>
+<String Name="1002">&amp;Zamknij</String>
+<String Name="1003">&amp;Szczegóły &gt;&gt;</String>
+<String Name="1004">&amp;Szczegóły &lt;&lt;</String>
+<String Name="1005">Tak</String>
+<String Name="1006">Nie</String>
+<String Name="1008">Wybierz opcję Tak, aby przeprowadzić ponowny rozruch teraz, lub Nie, aby zrobić to później ręcznie.</String>
+<String Name="1009">Aby można było zaktualizować system, należy przeprowadzić ponowny rozruch komputera.</String>
+<String Name="1010">Trwa kopiowanie wymaganych plików...</String>
+<String Name="1011">Trwa pobieranie wymaganych plików...</String>
+<String Name="1012">Instalator produktu %1</String>
+<String Name="1013">Trwa instalowanie produktu %1...</String>
+<String Name="1016">Wystąpił błąd podczas instalowania składników systemowych dla produktu %1. Instalator nie może kontynuować pracy, dopóki wszystkie składniki systemowe nie zostaną pomyślnie zainstalowane.</String>
+<String Name="1017">Wystąpił błąd podczas instalowania składników systemowych dla produktu %1. Instalator nie może kontynuować pracy, dopóki wszystkie składniki systemowe nie zostaną pomyślnie zainstalowane. Wymagany jest ponowny rozruch komputera, ponieważ składniki systemowe zostały zaktualizowane.</String>
+<String Name="1018">Użycie:\r\n   -?, -h lub -help:  umożliwia wyświetlenie tego okna dialogowego.\r\n   -url lub -componentsurl:  umożliwia wyświetlenie przechowywanego adresu URL i adresu URL składników dla tej instalacji.\r\n   -url=&lt;lokalizacja&gt;: umożliwia ustawienie określonej lokalizacji dla źródłowego adresu URL.\r\n   -componentsurl=&lt;lokalizacja&gt;: umożliwia ustawienie określonej lokalizacji dla adresu URL składników.\r\n   -homesite=&lt;true lub false&gt;: w przypadku ustawienia opcji true składniki są pobierane z witryn sieci web ich dostawców, czyli adres URL składników jest zastępowany.\r\n\r\n   Wszystkie pozostałe argumenty wiersza polecenia są przekazywane do instalatora aplikacji.</String>
+<String Name="1019">url=%1\r\ncomponentsurl=%2</String>
+<String Name="1020">(brak)</String>
+<String Name="1021">Ta operacja wymaga systemu Windows 2000 lub nowszego.</String>
+<String Name="1023">\r\n</String>
+<String Name="1025">Nie można zainstalować składnika %1.</String>
+<String Name="1026">Nie można zainstalować składnika %1; komunikat o błędzie:\r\n„%2”</String>
+<String Name="1028">Aby uzyskać więcej informacji, zobacz plik dziennika instalacji. Jego lokalizacja: %1.</String>
+<String Name="1029">Ta operacja spowoduje zatrzymanie instalacji. Czy na pewno chcesz anulować?</String>
+<String Name="1030">Praca instalatora zostanie zatrzymana po zakończeniu instalacji bieżącego składnika. Żadne składniki zainstalowane przed anulowaniem nie zostaną odinstalowane. Czy na pewno chcesz anulować?</String>
+<String Name="1031">Trwa pobieranie pliku %1!d! z %2!d!...</String>
+<String Name="1032">Instalacja została anulowana przez użytkownika. Wymagany jest ponowny rozruch komputera, ponieważ składniki systemowe zostały zaktualizowane.</String>
+<String Name="1033">Instalator musi przeprowadzić ponowny rozruch komputera, aby kontynuować.</String>
+<String Name="1034">Nie można sprawdzić wymagań wstępnych dotyczących składnika systemowego %1.</String>
+<String Name="1035">Nie można spełnić wszystkich wymagań wstępnych dotyczących składnika %1. Instalator nie może kontynuować pracy, dopóki wszystkie składniki systemowe nie zostaną pomyślnie zainstalowane.</String>
+<String Name="1036">Instalator</String>
+<String Name="1037">Instalator inicjuje składniki...</String>
+<String Name="1038">Instalacja anulowana.</String>
+<String Name="1039">Trwa pobieranie plików aplikacji...</String>
+<String Name="1041">Składnik %1 wymaga ponownego rozruchu komputera przed kontynuacją instalacji.</String>
+<String Name="1042">Następujące składniki zostały pomyślnie zainstalowane:</String>
+<String Name="1043">Następujące składniki zostały pomyślnie zainstalowane, ale jest wymagany ponowny rozruch komputera:</String>
+<String Name="1044">Następujące składniki nie zostały zainstalowane:</String>
+<String Name="1045">Następujące składniki zostaną zainstalowane po przeprowadzeniu ponownego rozruchu komputera:</String>
+<String Name="1046">Nie można zainstalować następujących składników:</String>
+<String Name="1047"></String>
+<String Name="1048">Składniki</String>
+<String Name="1049">Wystąpił błąd podczas próby zainstalowania produktu %1.</String>
+<String Name="1050">url=%1\r\ncomponentsurl=%2\r\nSkładniki zostaną pobrane z witryn sieci web dostawców.</String>
+<String Name="1051">Ponów p&amp;róbę</String>
+<String Name="1052">Kliknij tutaj, aby uzyskać pomoc techniczną.</String>
+<String Name="1053">Data: %1</String>
+<String Name="1054">Nie można sprawdzić wymagań wstępnych dotyczących składnika systemowego %1; komunikat o błędzie:\r\n„%2”</String>
+<String Name="1055">Szczegóły</String>
+<String Name="1057">Instalator wymaga %1!d! MB miejsca na dysku twardym, lecz dostępne jest tylko %2!d! MB. Kliknij przycisk OK, aby kontynuować instalację, lub Anuluj, aby ją zakończyć.</String>
+<String Name="1058">%1 Kliknij przycisk OK, aby ponowić próbę pobrania plików, lub Anuluj, aby zakończyć instalację.</String>
+<String Name="1200">Dla następujących składników:</String>
+<String Name="1201">Przeczytaj poniższą Umowę licencyjną. Naciśnij klawisz Page Down, aby zobaczyć pozostałą część Umowy licencyjnej.</String>
+<String Name="1202">Wyświetl Umowę Licencyjną Użytkownika Oprogramowania (EULA) w celu jej wydrukowania</String>
+<String Name="1203">Czy akceptujesz postanowienia Umowy licencyjnej?</String>
+<String Name="1204">Wybranie opcji Nie akceptuję spowoduje zakończenie instalacji. Instalacja wymaga zaakceptowania tej umowy.</String>
+<String Name="1205">&amp;Akceptuję</String>
+<String Name="1206">&amp;Nie akceptuję</String>
+<String Name="1207">Na tym komputerze zostaną zainstalowane następujące składniki:</String>
+<String Name="1208">Brak umowy licencyjnej dla tego składnika.</String>
+<String Name="1209">Czy chcesz zainstalować te składniki?</String>
+<String Name="1210">Wybranie opcji Anuluj spowoduje zakończenie instalacji.</String>
+<String Name="1211">Za&amp;instaluj</String>
+<String Name="1212">&amp;Anuluj</String>
+<String Name="1213">Instalator produktu %1</String>
+<String Name="1400">Wystąpił błąd podczas pobierania wymaganego składnika dla produktu %1. Instalator nie może kontynuować pracy, dopóki wszystkie składniki nie zostaną pomyślnie pobrane.</String>
+<String Name="1401">Wystąpił błąd podczas próby pobrania produktu %1.</String>
+<String Name="1402">Proces pobierania zwrócił wynik HRESULT = %1!x!</String>
+<String Name="1405">Nie odnaleziono następujących plików z pakietu:\r\n%1</String>
+<String Name="1416">Za mało pamięci, aby ukończyć tę operację.</String>
+<String Name="1420">Nie można skopiować pliku %1 do lokalizacji %2.</String>
+<String Name="1423">Nie można skopiować pliku %1 do lokalizacji %2.</String>
+<String Name="1424">Nie można odnaleźć pliku %1 dla pakietu %2.</String>
+<String Name="1425">Instalator wykrył, że plik %1 został zmodyfikowany od czasu pierwszej publikacji lub może być uszkodzony.</String>
+<String Name="1426">Podczas inicjowania wystąpił błąd.\r\n\r\nPraca instalatora zostanie zakończona.</String>
+<String Name="1427">Podczas pobierania wymaganego pliku wystąpił błąd. Możesz spróbować ponownie pobrać plik lub anulować instalację.</String>
+<String Name="1429">Nie można odnaleźć pliku %1 wymaganego do instalacji.</String>
+<String Name="1430">Instalator aplikacji %1 wymaga programu Internet Explorer w wersji 3.0 lub nowszej.</String>
+<String Name="1432">Instalator nie może kontynuować pracy, ponieważ inna instalacja wymaga ponownego rozruchu komputera. Czy chcesz teraz przeprowadzić ponowny rozruch?</String>
+<String Name="1433">Instalator nie może kontynuować pracy, ponieważ inna instalacja wymaga ponownego rozruchu komputera. Skontaktuj się z administratorem.</String>
+<String Name="1435">Nie można odnaleźć pliku aplikacji %1.</String>
+<String Name="1436">Wybrano opcję odrzucenia postanowień Umowy Licencyjnej Użytkownika Oprogramowania (EULA).\r\nPraca instalatora zostanie zakończona.</String>
+<String Name="1437">Wybrano opcję nieinstalowania produktu.\r\nPraca instalatora zostanie zakończona.</String>
+<String Name="1438">Nie można zapisać Umowy Licencyjnej Użytkownika Oprogramowania (EULA) na dysku w celu jej wyświetlenia.</String>
+<String Name="1442">Instalator wykrył, że nie można zweryfikować wydawcy pliku %1.</String>
+<String Name="1443">Instalator wykrył, że plik %1 został zmodyfikowany od czasu pierwszej publikacji.</String>
+<String Name="1444">Wystąpił błąd podczas pobierania następującego zasobu:</String>
+<String Name="1446">Podczas próby zainstalowania pliku %1 wystąpił następujący błąd:\r\n„%2”</String>
+<String Name="1447">Nie można zainstalować aplikacji z lokalizacji %1 z powodu braku łączności z siecią. Spróbuj ponowić instalację później.</String>
+<String Name="1448">Nie można zmodyfikować pliku %1. Być może jest on tylko do odczytu lub zablokowany.</String>
+<String Name="1449">Ten produkt zaprojektowano dla platformy %1, a jest instalowany na platformie %2. Uzyskaj od producenta właściwy plik instalacyjny.</String>
+</Strings>
+<Fonts>
+<Font Name="BaseFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>0</Weight>
+    </Font>
+<Font Name="BoldFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>700</Weight>
+    </Font>
+</Fonts>
+</Resources>

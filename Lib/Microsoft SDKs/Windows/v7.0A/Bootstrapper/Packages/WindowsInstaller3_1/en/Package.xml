@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  Name="DisplayName"
+  Culture="Culture"
+  LicenseAgreement="eula.txt"
+>
+
+    <PackageFiles>
+        <PackageFile Name="eula.txt"/>
+    </PackageFiles>
+
+    <!-- Defines a localizable string table for error messages-->
+    <Strings>
+        <String Name="DisplayName">Windows Installer 3.1</String>
+        <String Name="Culture">en</String>
+        <String Name="AdminRequired">Administrator permissions are required to install Windows Installer 3.1. Contact your administrator.</String>
+        <String Name="InvalidPlatform">Installation of Windows Installer 3.1 requires Windows 2000 Service Pack 3 or later. Contact your application vendor.</String>
+        <String Name="InvalidPlatformArchitecture">Windows Installer 3.1 is not supported on a 64-bit operating system. Contact your application vendor.</String>
+        <String Name="GeneralFailure">A failure occurred attempting to install Windows Installer 3.1.</String>
+        <String Name="Msi31Exe">http://go.microsoft.com/fwlink/?LinkId=49256</String>
+    </Strings>
+
+</Package>

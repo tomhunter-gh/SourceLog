@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- SQL Express 2008 VS Bootstrapper : product.xml : Language neutral information -->
+<Product xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper" ProductCode="Microsoft.Sql.Server.Express.10.0">
+  <RelatedProducts>
+    <EitherProducts>
+      <DependsOnProduct Code=".NETFramework,Version=v4.0" />
+      <DependsOnProduct Code="Microsoft.Net.Framework.3.5.SP1" />
+    </EitherProducts>
+    <DependsOnProduct Code="Microsoft.Windows.Installer.4.5" />
+    <IncludesProduct Code="Microsoft.Sql.Server.Express.1.0" />
+    <IncludesProduct Code="Microsoft.Sql.Server.Express.9.2" />
+  </RelatedProducts>
+  <PackageFiles>
+    <PackageFile Name="SqlExpressChk.exe" />
+  </PackageFiles>
+</Product>

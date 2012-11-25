@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Resources Culture="Culture">
+<Strings>
+<String Name="Culture">en</String>
+<String Name="1000">&amp;Cancel</String>
+<String Name="1001">C&amp;ontinue</String>
+<String Name="1002">C&amp;lose</String>
+<String Name="1003">&amp;Details &gt;&gt;</String>
+<String Name="1004">&amp;Details &lt;&lt;</String>
+<String Name="1005">Yes</String>
+<String Name="1006">No</String>
+<String Name="1008">Choose 'Yes' to reboot now or 'No' to manually reboot later.</String>
+<String Name="1009">The computer must be rebooted before system update can be completed.</String>
+<String Name="1010">Copying required files...</String>
+<String Name="1011">Downloading required files...</String>
+<String Name="1012">%1 Setup</String>
+<String Name="1013">Installing %1...</String>
+<String Name="1016">An error occurred while installing system components for %1. Setup cannot continue until all system components have been successfully installed.</String>
+<String Name="1017">An error occurred while installing system components for %1. Setup cannot continue until all system components have been successfully installed. A reboot is required because system components have been updated.</String>
+<String Name="1018">Usage:\r\n   -? or -h or -help :  Show this dialog.\r\n   -url or -componentsurl :  Show the stored url and componentsurl for this setup.\r\n   -url=&lt;location&gt; : Sets the url source to the specified location.\r\n   -componentsurl=&lt;location&gt; : Sets the componentsurl to the specified location.\r\n   -homesite=&lt;true or false&gt; : When set to true, downloads the components from their vendors' web site, overriding the componentsurl.\r\n\r\n   All remaining command line arguments will be passed to the application install.</String>
+<String Name="1019">url=%1\r\ncomponentsurl=%2</String>
+<String Name="1020">(none)</String>
+<String Name="1021">This operation requires Windows 2000 or greater.</String>
+<String Name="1023">\r\n</String>
+<String Name="1025">Component %1 has failed to install.</String>
+<String Name="1026">Component %1 has failed to install with the following error message:\r\n"%2"</String>
+<String Name="1028">See the setup log file located at '%1' for more information.</String>
+<String Name="1029">This will stop the installation. Are you sure you want to cancel?</String>
+<String Name="1030">Setup will stop after the install of the current component has completed. Any components that have been installed prior to canceling will not be uninstalled. Are you sure you want to cancel?</String>
+<String Name="1031">Downloading file %1!d! of %2!d!...</String>
+<String Name="1032">Setup was canceled by the user. A reboot is required because system components have been updated.</String>
+<String Name="1033">Setup must reboot before proceeding.</String>
+<String Name="1034">Prerequisite check for system component %1 failed.</String>
+<String Name="1035">Unable to satisfy all prerequisites for %1. Setup cannot continue until all system components have been successfully installed.</String>
+<String Name="1036">Setup</String>
+<String Name="1037">Setup is initializing components...</String>
+<String Name="1038">Setup canceled.</String>
+<String Name="1039">Downloading application files...</String>
+<String Name="1041">Component %1 requires a reboot before setup can continue.</String>
+<String Name="1042">The following components were successfully installed:</String>
+<String Name="1043">The following components were successfully installed but a reboot is required:</String>
+<String Name="1044">The following components were not installed:</String>
+<String Name="1045">The following components will install after reboot:</String>
+<String Name="1046">The following components failed to install:</String>
+<String Name="1047"></String>
+<String Name="1048">Components</String>
+<String Name="1049">An error occurred attempting to install %1.</String>
+<String Name="1050">url=%1\r\ncomponentsurl=%2\r\nComponents will be downloaded from vendor web sites.</String>
+<String Name="1051">&amp;Retry</String>
+<String Name="1052">Click here for support.</String>
+<String Name="1053">Date: %1</String>
+<String Name="1054">Prerequisite check for system component %1 failed with the following error message:\r\n"%2"</String>
+<String Name="1055">Details</String>
+<String Name="1057">Setup requires %1!d! MB of space on your hard drive, but only %2!d! MB are currently available. Click OK to continue installation or Cancel to stop the installation.</String>
+<String Name="1058">%1 Click OK to retry the download, or Cancel to exit setup.</String>
+<String Name="1200">For the following components:</String>
+<String Name="1201">Please read the following license agreement. Press the page down key to see the rest of the agreement.</String>
+<String Name="1202">View EULA for printing</String>
+<String Name="1203">Do you accept the terms of the pending License Agreement?</String>
+<String Name="1204">If you choose Don't Accept, install will close. To install you must accept this agreement.</String>
+<String Name="1205">&amp;Accept</String>
+<String Name="1206">&amp;Don't Accept</String>
+<String Name="1207">The following components will be installed on your machine:</String>
+<String Name="1208">No license agreement was provided for this component.</String>
+<String Name="1209">Do you wish to install these components?</String>
+<String Name="1210">If you choose Cancel, setup will exit.</String>
+<String Name="1211">&amp;Install</String>
+<String Name="1212">&amp;Cancel</String>
+<String Name="1213">%1 Setup</String>
+<String Name="1400">An error occurred while downloading a required component for %1. Setup cannot continue until all components have downloaded and installed successfully.</String>
+<String Name="1401">An error occurred trying to download '%1'.</String>
+<String Name="1402">Downloading returned HRESULT = %1!x!</String>
+<String Name="1405">The following package files could not be found:\r\n%1</String>
+<String Name="1416">Not enough memory is available to complete this operation.</String>
+<String Name="1420">Could not copy file '%1' to '%2'.</String>
+<String Name="1423">Could not copy file '%1' to '%2'.</String>
+<String Name="1424">Unable to locate file '%1' for package '%2'.</String>
+<String Name="1425">Setup has detected that the file '%1' has either changed since it was initially published or may be corrupt.</String>
+<String Name="1426">An error occurred while initializing.\r\n\r\nSetup will now exit.</String>
+<String Name="1427">An error occurred while downloading a required file. You may retry downloading the file or cancel setup.</String>
+<String Name="1429">Unable to locate file '%1' required for setup.</String>
+<String Name="1430">Setup for application '%1' requires Internet Explorer 3.0 or greater.</String>
+<String Name="1432">Setup cannot continue because another installation requires a reboot. Would you like to reboot now?</String>
+<String Name="1433">Setup cannot continue because another installation requires a reboot. Please contact your administrator.</String>
+<String Name="1435">Unable to locate application file '%1'.</String>
+<String Name="1436">You have selected to not accept the EULA.\r\nInstall will now exit.</String>
+<String Name="1437">You have selected to not install.\r\nInstall will now exit.</String>
+<String Name="1438">Cannot write EULA to disk for viewing.</String>
+<String Name="1442">Setup has detected that the publisher of file '%1' cannot be verified.</String>
+<String Name="1443">Setup has detected that the file '%1' has changed since it was initially published.</String>
+<String Name="1444">An error occurred downloading the following resource:</String>
+<String Name="1446">The following error occurred attempting to install '%1':\r\n"%2"</String>
+<String Name="1447">Unable to install the application from '%1' because there is no network connectivity. Try to install again later.</String>
+<String Name="1448">Unable to modify '%1'.  The file may be read-only or locked.</String>
+<String Name="1449">This product is designed for %1 platform but is being installed on %2. Obtain the correct setup from the manufacturer.</String>
+</Strings>
+<Fonts>
+<Font Name="BaseFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>0</Weight>
+    </Font>
+<Font Name="BoldFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-11</Height>
+      <Weight>700</Weight>
+    </Font>
+</Fonts>
+</Resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+***********************************************************************
+ 
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+ 
+ THIS CODE AND INFORMATION ARE PROVIDED AS IS WITHOUT WARRANTY OF ANY
+ KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+ PARTICULAR PURPOSE.
+***********************************************************************
+-->
+
+<Package 
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  Name="DisplayName"
+  Culture="Culture"
+  LicenseAgreement="eula.rtf">
+  <PackageFiles>
+    <PackageFile Name="eula.rtf"/>
+  </PackageFiles>
+
+  <!-- Defines a localizable string table for error messages. -->
+  <Strings>
+    <String Name="DisplayName">Microsoft Visual Studio 2010 Tools for Office Runtime (x86 and x64)</String>
+    <String Name="Culture">en</String>
+    <String Name="AdminRequired">Administrator permissions are required to install the Microsoft Visual Studio 2010 Tools for Office Runtime (x86 and x64). Contact your administrator.</String>
+    <String Name="GeneralFailure">A failure occurred attempting to install the Microsoft Visual Studio 2010 Tools for Office Runtime (x86 and x64).</String>
+    <String Name="VSTORRedistX86">http://go.microsoft.com/fwlink/?LinkId=158917</String>
+    <String Name="VSTORRedistX64">http://go.microsoft.com/fwlink/?LinkId=158918</String>
+  </Strings>
+</Package>

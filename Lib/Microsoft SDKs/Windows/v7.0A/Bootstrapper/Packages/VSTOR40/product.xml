@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+***********************************************************************
+ 
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+ 
+ THIS CODE AND INFORMATION ARE PROVIDED AS IS WITHOUT WARRANTY OF ANY
+ KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
+ PARTICULAR PURPOSE.
+***********************************************************************
+-->
+
+<Product 
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper" 
+  ProductCode="Microsoft.VSTORuntime.4.0">
+  <RelatedProducts>
+    <EitherProducts>
+      <DependsOnProduct Code="Microsoft.Net.Client.3.5" />  
+      <DependsOnProduct Code=".NETFramework,Version=v4.0,Profile=Client" />
+    </EitherProducts>
+  </RelatedProducts>
+  <!-- Defines the list of files to be copied on build. -->
+  <PackageFiles CopyAllPackageFiles="false">
+    <PackageFile Name="vstor40_x86.exe" HomeSite="VSTORRedistX86" />
+    <PackageFile Name="vstor40_x64.exe" HomeSite="VSTORRedistX64" />
+  </PackageFiles>
+
+  <InstallChecks>
+    <RegistryCheck Property="VSTORuntimeVersionInstalled" Key="HKLM\SOFTWARE\Microsoft\VSTO Runtime Setup\v4R" Value="Version"/>
+  </InstallChecks>
+
+  <!-- Defines how to run the Setup package. -->
+  <Commands Reboot="Defer">
+    <Command 
+      PackageFile="vstor40_x86.exe" 
+      Arguments=' /q:a /c:"install /q /l"' 
+      EstimatedInstalledBytes="2600000" 
+      EstimatedTempBytes="4500000"
+      EstimatedInstallSeconds="60">
+      <InstallConditions>
+        <BypassIf Property="VSTORuntimeVersionInstalled" Compare="VersionGreaterThanOrEqualTo" Value="10.0.31007"/>
+        <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="Intel" />
+        <!-- Requires the user to be an admin user when installing the prerequisite -->
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <ExitCode Value="1641" Result="SuccessReboot"/>
+        <ExitCode Value="3010" Result="SuccessReboot"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+    <Command 
+      PackageFile="vstor40_x64.exe" 
+      Arguments=' /q:a /c:"install /q /l"' 
+      EstimatedInstalledBytes="3300000" 
+      EstimatedTempBytes="5400000"
+      EstimatedInstallSeconds="60">
+      <InstallConditions>
+        <BypassIf Property="VSTORuntimeVersionInstalled" Compare="VersionGreaterThanOrEqualTo" Value="10.0.31007"/>
+        <BypassIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="AMD64" />
+        <!-- Requires the user to be an admin user when installing the prerequisite -->
+        <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+      </InstallConditions>
+      <ExitCodes>
+        <ExitCode Value="0" Result="Success"/>
+        <ExitCode Value="1641" Result="SuccessReboot"/>
+        <ExitCode Value="3010" Result="SuccessReboot"/>
+        <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+      </ExitCodes>
+    </Command>
+  </Commands>
+</Product>

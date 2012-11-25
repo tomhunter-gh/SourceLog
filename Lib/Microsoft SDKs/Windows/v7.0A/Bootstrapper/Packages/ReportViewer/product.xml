@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Product
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  ProductCode="Microsoft.ReportViewer.10.0"
+>
+	<RelatedProducts>
+		<EitherProducts>
+			<DependsOnProduct Code=".NETFramework,Version=v4.0,Profile=Client" />
+			<DependsOnProduct Code=".NETFramework,Version=v4.0" />
+			<DependsOnProduct Code="Microsoft.Net.Framework.3.5.SP1" />
+		</EitherProducts>
+	</RelatedProducts>
+
+    <PackageFiles CopyAllPackageFiles="false">
+        <PackageFile Name="ReportViewer.exe" HomeSite="ReportViewerExe" />
+    </PackageFiles>
+
+    <InstallChecks>
+        <RegistryCheck Property="IsViewerInstalled" Key="HKLM\Software\Microsoft\DevDiv\VB\Servicing\10.0\ROS" Value="Install" />
+    </InstallChecks>
+
+    <Commands Reboot="Defer">
+        <Command PackageFile="ReportViewer.exe" 
+             Arguments="/q /norestart" 
+             EstimatedInstalledBytes="13000000"
+             EstimatedInstallSeconds="150">
+
+            <!-- These checks determine whether the package is to be installed -->
+            <InstallConditions>
+              <BypassIf Property="IsViewerInstalled" Compare="ValueExists" Value="1"/>
+
+                <!-- Block install if user does not have admin privileges -->
+                <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+            </InstallConditions>
+
+            <ExitCodes>
+                <ExitCode Value="0" Result="Success"/>
+                <ExitCode Value="3010" Result="SuccessReboot"/>
+                <ExitCode Value="4097" Result="Fail" String="AdminRequired"/>
+                <ExitCode Value="4099" Result="Fail" String="WindowsInstallerImproperInstall"/>
+                <ExitCode Value="4101" Result="Fail" String="AnotherInstanceRunning"/>
+                <ExitCode Value="4113" Result="Fail" String="BetaProductFailure"/>
+                <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+            </ExitCodes>
+
+        </Command>
+    </Commands>
+</Product>

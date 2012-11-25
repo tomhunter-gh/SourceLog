@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper" Name="DisplayName" Culture="Culture" LicenseAgreement="eula.txt">
+
+    <PackageFiles>
+        <PackageFile Name="eula.txt" />
+    </PackageFiles>
+
+    <Strings>
+        <String Name="DisplayName">Microsoft Visual F# Runtime for .NET 4.0</String>
+        <String Name="Culture">en</String>
+        <String Name="NotAnAdmin">You must be an administrator to install this package.</String>
+        <String Name="GeneralFailure">A general error has occurred while installing this package.</String>
+
+        <String Name="FSharpRedistHomeSite">http://go.microsoft.com/fwlink/?LinkId=164875</String>
+    </Strings>
+
+</Package>

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Package
+  xmlns="http://schemas.microsoft.com/developer/2004/01/bootstrapper"
+  Name="DisplayName"
+  Culture="Culture"
+  LicenseAgreement="eula.txt"
+>
+
+    <PackageFiles CopyAllPackageFiles="false">
+        <PackageFile Name="sqlexpr32.exe" HomeSite="SqlExprExe" PublicKey="3082010A0282010100CD819638AE5CA2F2C1DFDED0AB958DD63C9D1F8BC35D862E5DF0B172F5ABAC886AB5DAB1227B0BC8C8A54B915E2213E9F9F5239DB5F46E76AEEFEEA43CC7C4C0595C3FABB3733326A662816179A162F46E8895D06EDDC79FD2A451117661BA708A65A1961689A75D81D04466E5DB569E40CAFCDC76242E443000E5D67D7B9511D5581DA3E84F0BC988DCA2D653996CCA63CA996A9A925E4C4D11E82FD35B5B5E5F52A3732DA5BB84450D8C191576CB08DA9AA67015E84DEC69FD5DB26B8FED295137388BC6464915945098B0F468A4D7DE097167749E778C1D856B97EAE75F45CCE0E6710DD16300937B31988E0BB413BDB3D0EEF1DF21EEA96061EE37433DC30203010001"/>
+        <PackageFile Name="eula.txt"/>
+    </PackageFiles>
+    <Commands Reboot="Defer">
+
+        <!-- Defines the installation for Windows 2000 -->
+        <Command PackageFile="sqlexpr32.exe" 
+                 Arguments='-q /norebootchk /qn reboot=ReallySuppress addlocal=all instancename=SQLEXPRESS SQLAUTOSTART=1 ADDUSERASADMIN=1'
+                 EstimatedInstalledBytes="225000000" 
+                 EstimatedTempBytes="225000000"
+                 EstimatedInstallSeconds="420">
+            <InstallConditions>
+                <BypassIf Property="SQLExpressInstalled" Compare="ValueEqualTo" Value="0"/>
+                <BypassIf Property="VersionNT" Compare="VersionGreaterThanOrEqualTo" Value="5.1"/>
+                <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+                <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatform"/>
+                <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.0.4" String="InvalidPlatform2K"/>
+                <FailIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="Intel" String="InvalidPlatformArchitecture"/>
+            </InstallConditions>
+            <ExitCodes>
+                <ExitCode Value="0" Result="Success"/>
+                <ExitCode Value="1641" Result="SuccessReboot"/>
+                <ExitCode Value="3010" Result="SuccessReboot"/>
+                <ExitCode Value="50037" Result="Fail" String="MissingMSXml"/>
+                <ExitCode Value="50251" Result="Fail" String="MissingMSXml"/>
+                <ExitCode Value="50198" Result="Fail" String="InsufficientHardware"/>
+                <ExitCode Value="50236" Result="Fail" String="InsufficientHardware"/>
+                <ExitCode Value="50222" Result="Fail" String="InvalidPlatformOSServicePacks"/>
+                <ExitCode Value="70003" Result="Fail" String="InvalidPlatformOSServicePacks"/>
+                <ExitCode Value="50247" Result="Fail" String="InvalidPlatformIE"/>
+                <ExitCode Value="50248" Result="Fail" String="InvalidPlatformIE"/>
+                <ExitCode Value="70004" Result="Fail" String="AnotherInstanceRunning"/>
+                <ExitCode Value="70032" Result="Fail" String="BetaComponentsFailure"/>
+                <ExitCode Value="70033" Result="Fail" String="InvalidPlatformArchitecture"/>
+                <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+            </ExitCodes>
+        </Command>
+
+        <!-- Defines the installation for Windows XP -->
+        <Command PackageFile="sqlexpr32.exe" 
+                 Arguments='-q /norebootchk /qn reboot=ReallySuppress addlocal=all instancename=SQLEXPRESS SQLAUTOSTART=1 ADDUSERASADMIN=1'
+                 EstimatedInstalledBytes="225000000" 
+                 EstimatedInstallSeconds="420">
+            <InstallConditions>
+                <BypassIf Property="SQLExpressInstalled" Compare="ValueEqualTo" Value="0"/>
+                <BypassIf Property="VersionNT" Compare="VersionLessThan" Value="5.1"/>
+                <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+                <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatformXP"/>
+                <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.1.2" String="InvalidPlatformXP"/>
+                <FailIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="Intel" String="InvalidPlatformArchitecture"/>
+            </InstallConditions>
+            <ExitCodes>
+                <ExitCode Value="0" Result="Success"/>
+                <ExitCode Value="1641" Result="SuccessReboot"/>
+                <ExitCode Value="3010" Result="SuccessReboot"/>
+                <ExitCode Value="50037" Result="Fail" String="MissingMSXml"/>
+                <ExitCode Value="50251" Result="Fail" String="MissingMSXml"/>
+                <ExitCode Value="50198" Result="Fail" String="InsufficientHardware"/>
+                <ExitCode Value="50236" Result="Fail" String="InsufficientHardware"/>
+                <ExitCode Value="50222" Result="Fail" String="InvalidPlatformOSServicePacks"/>
+                <ExitCode Value="70003" Result="Fail" String="InvalidPlatformOSServicePacks"/>
+                <ExitCode Value="50247" Result="Fail" String="InvalidPlatformIE"/>
+                <ExitCode Value="50248" Result="Fail" String="InvalidPlatformIE"/>
+                <ExitCode Value="70004" Result="Fail" String="AnotherInstanceRunning"/>
+                <ExitCode Value="70032" Result="Fail" String="BetaComponentsFailure"/>
+                <ExitCode Value="70033" Result="Fail" String="InvalidPlatformArchitecture"/>
+                <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+            </ExitCodes>
+        </Command>
+
+        <!-- Defines the installation for Windows 2003 and beyond -->
+        <Command PackageFile="sqlexpr32.exe" 
+                 Arguments='-q /norebootchk /qn reboot=ReallySuppress addlocal=all instancename=SQLEXPRESS SQLAUTOSTART=1 ADDUSERASADMIN=1'
+                 EstimatedInstalledBytes="225000000" 
+                 EstimatedInstallSeconds="420">
+            <InstallConditions>
+                <BypassIf Property="SQLExpressInstalled" Compare="ValueEqualTo" Value="0"/>
+                <BypassIf Property="VersionNT" Compare="VersionLessThan" Value="5.2"/>
+                <FailIf Property="VersionNT" Compare="VersionLessThan" Value="5.2.1" String="InvalidPlatform2K3"/>
+                <FailIf Property="Version9x" Compare="ValueExists" String="InvalidPlatform2K3"/>
+                <FailIf Property="AdminUser" Compare="ValueEqualTo" Value="false" String="AdminRequired"/>
+                <FailIf Property="ProcessorArchitecture" Compare="ValueNotEqualTo" Value="Intel" String="InvalidPlatformArchitecture"/>
+            </InstallConditions>
+            <ExitCodes>
+                <ExitCode Value="0" Result="Success"/>
+                <ExitCode Value="1641" Result="SuccessReboot"/>
+                <ExitCode Value="3010" Result="SuccessReboot"/>
+                <ExitCode Value="50037" Result="Fail" String="MissingMSXml"/>
+                <ExitCode Value="50251" Result="Fail" String="MissingMSXml"/>
+                <ExitCode Value="50198" Result="Fail" String="InsufficientHardware"/>
+                <ExitCode Value="50236" Result="Fail" String="InsufficientHardware"/>
+                <ExitCode Value="50222" Result="Fail" String="InvalidPlatformOSServicePacks"/>
+                <ExitCode Value="70003" Result="Fail" String="InvalidPlatformOSServicePacks"/>
+                <ExitCode Value="50247" Result="Fail" String="InvalidPlatformIE"/>
+                <ExitCode Value="50248" Result="Fail" String="InvalidPlatformIE"/>
+                <ExitCode Value="70004" Result="Fail" String="AnotherInstanceRunning"/>
+                <ExitCode Value="70032" Result="Fail" String="BetaComponentsFailure"/>
+                <ExitCode Value="70033" Result="Fail" String="InvalidPlatformArchitecture"/>
+                <DefaultExitCode Result="Fail" FormatMessageFromSystem="true" String="GeneralFailure" />
+            </ExitCodes>
+        </Command>
+    </Commands>
+
+    <Strings>
+        <String Name="DisplayName">SQL Server 2005 Express Edition SP2 (x86)</String>
+        <String Name="Culture">en</String>
+        <String Name="AdminRequired">You do not have the permissions required to install SQL Server 2005 Express Edition (x86).  Please contact your administrator.</String>
+        <String Name="GeneralFailure">An error occurred attempting to install SQL Server 2005 Express Edition (x86).</String>
+        <String Name="InvalidPlatform">Windows 2000 or later is required to install SQL Server 2005 Express Edition (x86).</String>
+        <String Name="InvalidPlatform2K">Windows 2000 Service Pack 4 or later is required to install SQL Server 2005 Express Edition (x86).</String>
+        <String Name="InvalidPlatformXP">Windows XP Service Pack 2 or later is required to install SQL Server 2005 Express Edition (x86).</String>
+        <String Name="MissingMSXml">SQL Server 2005 Express Edition (x86) requires MSXML. Please ensure MSXML is installed properly.</String>
+        <String Name="InsufficientHardware">The current system does not meet the minimum hardware requirements for SQL Server 2005 Express Edition (x86). Contact your application vendor.</String>
+        <String Name="InvalidPlatformOSServicePacks">The current operating system does not meet Service Pack level requirements for SQL Server 2005 Express Edition (x86). Install the most recent Service Pack from the Microsoft download center at http://www.microsoft.com/downloads before continuing setup.</String>
+        <String Name="InvalidPlatformIE">This version of SQL Server 2005 Express Edition (x86) requires Internet Explorer version 6.0 with SP1 or later. To proceed, install or upgrade to a required version of Internet Explorer and then run setup again.</String>
+        <String Name="AnotherInstanceRunning">Another instance of setup is already running. The running instance must complete before this setup can proceed.</String>
+        <String Name="BetaComponentsFailure">A beta version of the .NET Framework 2.0 or SQL Server was detected on the computer. Uninstall any previous beta versions of SQL Server Yukon components, SQL Server Support Files, or .NET Framework 2.0 before continuing.</String>
+        <String Name="InvalidPlatformArchitecture">This version of SQL Server 2005 Express Edition (x86) is not supported for the current processor architecture.</String>
+        <String Name="SqlExprExe">http://go.microsoft.com/fwlink/?LinkID=83136&amp;clcid=0x409</String>
+        <String Name="InvalidPlatform2K3">Windows 2003 Service Pack 1 or later is required to install SQL Server 2005 Express Edition (x86).</String>
+    </Strings>
+</Package>

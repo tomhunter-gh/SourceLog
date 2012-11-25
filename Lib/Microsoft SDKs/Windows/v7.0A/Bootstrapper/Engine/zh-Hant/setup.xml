@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Resources Culture="Culture">
+<Strings>
+<String Name="Culture">zh-Hant</String>
+<String Name="1000">取消(&amp;C)</String>
+<String Name="1001">繼續(&amp;O)</String>
+<String Name="1002">關閉(&amp;L)</String>
+<String Name="1003">詳細資料(&amp;D) &gt;&gt;</String>
+<String Name="1004">詳細資料(&amp;D) &lt;&lt;</String>
+<String Name="1005">是</String>
+<String Name="1006">否</String>
+<String Name="1008">選擇 [是] 立即重新開機，或選擇 [否] 稍後以手動方式重新開機。</String>
+<String Name="1009">電腦必須重新開機，才能完成系統更新。</String>
+<String Name="1010">正在複製必要的檔案...</String>
+<String Name="1011">正在下載必要的檔案...</String>
+<String Name="1012">%1 安裝</String>
+<String Name="1013">正在安裝 %1...</String>
+<String Name="1016">安裝 %1 的系統元件時發生錯誤。必須成功安裝所有系統元件，否則安裝程式無法繼續。</String>
+<String Name="1017">安裝 %1 的系統元件時發生錯誤。必須成功安裝所有系統元件，否則安裝程式無法繼續。由於系統元件已經更新，因此必須重新開機。</String>
+<String Name="1018">使用方式:\r\n   -? 或 -h 或 -help :  顯示此對話說明。\r\n   -url 或 -componentsurl :  顯示此安裝程式的儲存 URL 和 componentsurl。\r\n   -url=&lt;location&gt; : 將 URL 來源設定為指定的位置。\r\n   -componentsurl=&lt;location&gt; : 將 componentsurl 設定為指定的位置。\r\n   -homesite=&lt;true 或 false&gt; : 設定為 true 時，會從廠商的網站下載元件，以覆寫 componentsurl。\r\n\r\n   其餘所有的命令列引數都將傳遞給應用程式進行安裝。</String>
+<String Name="1019">url=%1\r\ncomponentsurl=%2</String>
+<String Name="1020">(無)</String>
+<String Name="1021">這項作業需要 Windows 2000 (含) 以上版本。</String>
+<String Name="1023">\r\n</String>
+<String Name="1025">無法安裝元件 %1。</String>
+<String Name="1026">無法安裝元件 %1，並出現下列錯誤訊息:\r\n"%2"</String>
+<String Name="1028">如需詳細資訊，請參閱位於 '%1' 的安裝記錄檔。</String>
+<String Name="1029">這會停止安裝。您確定要取消嗎?</String>
+<String Name="1030">完成目前元件的安裝之後，安裝程式將會停止。對於在取消作業之前安裝的任何元件，都不會進行解除安裝。您確定要取消嗎?</String>
+<String Name="1031">正在下載第 %1!d! 個檔案 (共 %2!d! 個)...</String>
+<String Name="1032">使用者已取消安裝。由於系統元件已經更新，因此必須重新開機。</String>
+<String Name="1033">必須重新開機，才能繼續進行安裝。</String>
+<String Name="1034">系統元件 %1 的必要條件檢查失敗。</String>
+<String Name="1035">無法滿足 %1 的所有必要條件。必須成功安裝所有系統元件，否則安裝程式無法繼續。</String>
+<String Name="1036">安裝程式</String>
+<String Name="1037">安裝程式正在初始化元件...</String>
+<String Name="1038">已取消安裝。</String>
+<String Name="1039">正在下載應用程式檔案...</String>
+<String Name="1041">元件 %1 需要重新開機，才能繼續安裝。</String>
+<String Name="1042">已成功安裝下列元件:</String>
+<String Name="1043">已成功安裝下列元件，但需要重新開機:</String>
+<String Name="1044">下列元件尚未安裝:</String>
+<String Name="1045">下列元件將會在重新開機後安裝:</String>
+<String Name="1046">無法安裝下列元件:</String>
+<String Name="1047"></String>
+<String Name="1048">元件</String>
+<String Name="1049">嘗試安裝 %1 時發生錯誤。</String>
+<String Name="1050">url=%1\r\ncomponentsurl=%2\r\n將從廠商網站下載元件。</String>
+<String Name="1051">重試(&amp;R)</String>
+<String Name="1052">如需支援資訊，請按一下這裡。</String>
+<String Name="1053">日期: %1</String>
+<String Name="1054">系統元件 %1 的必要條件檢查失敗，並出現下列錯誤訊息:\r\n"%2"</String>
+<String Name="1055">詳細資料</String>
+<String Name="1057">安裝程式需要 %1!d! MB 的硬碟空間，但目前只有 %2!d! MB 的可用空間。請按一下 [確定] 繼續安裝，或按一下 [取消] 停止安裝。</String>
+<String Name="1058">%1 請按一下 [確定] 嘗試重新下載，或按一下 [取消] 結束安裝。</String>
+<String Name="1200">針對下列元件:</String>
+<String Name="1201">請仔細閱讀下面的授權合約，並請按 PAGE DOWN，以便讀完整份合約。</String>
+<String Name="1202">檢視要列印的使用者授權合約</String>
+<String Name="1203">您是否接受上述授權合約的條款?</String>
+<String Name="1204">如果選擇 [不接受]，安裝程式就會結束。您必須接受這個授權合約之後才能繼續安裝。</String>
+<String Name="1205">接受(&amp;A)</String>
+<String Name="1206">不接受(&amp;D)</String>
+<String Name="1207">您的電腦上將會安裝下列元件:</String>
+<String Name="1208">未提供此元件的授權合約。</String>
+<String Name="1209">要安裝這些元件嗎?</String>
+<String Name="1210">如果選擇 [取消]，安裝將會結束。</String>
+<String Name="1211">安裝(&amp;I)</String>
+<String Name="1212">取消(&amp;C)</String>
+<String Name="1213">%1 安裝</String>
+<String Name="1400">下載 %1 的必要元件時發生錯誤。必須成功下載並安裝所有元件，否則安裝程式無法繼續。</String>
+<String Name="1401">嘗試下載 '%1' 時發生錯誤。</String>
+<String Name="1402">正在下載傳回的 HRESULT = %1!x!</String>
+<String Name="1405">找不到下列套件檔案:\r\n%1</String>
+<String Name="1416">記憶體不足，無法完成這項作業。</String>
+<String Name="1420">無法將檔案 '%1' 複製到 '%2'。</String>
+<String Name="1423">無法將檔案 '%1' 複製到 '%2'。</String>
+<String Name="1424">找不到套件 '%2' 的檔案 '%1'。</String>
+<String Name="1425">安裝程式偵測到檔案 '%1' 自從最初發行之後已經變更，或者檔案可能已經損毀。</String>
+<String Name="1426">初始化時發生錯誤。\r\n\r\n安裝程式現在將會結束。</String>
+<String Name="1427">下載必要的檔案時發生錯誤。您可以嘗試重新下載檔案或取消安裝。</String>
+<String Name="1429">找不到安裝程式需要的檔案 '%1'。</String>
+<String Name="1430">應用程式 '%1' 的安裝需要有 Internet Explorer 3.0 (含) 以上版本。</String>
+<String Name="1432">安裝程式無法繼續，因為另一個安裝需要重新開機。您要立即重新開機嗎?</String>
+<String Name="1433">安裝程式無法繼續，因為另一個安裝需要重新開機。請聯絡您的系統管理員。</String>
+<String Name="1435">找不到應用程式檔案 '%1'。</String>
+<String Name="1436">您已選擇不接受使用者授權合約。\r\n安裝程式現在將會結束。</String>
+<String Name="1437">您已選擇不要安裝。\r\n安裝程式現在將會結束。</String>
+<String Name="1438">無法將使用者授權合約寫入磁碟以供檢視。</String>
+<String Name="1442">安裝程式偵測到檔案 '%1' 的發行者無法驗證。</String>
+<String Name="1443">安裝程式偵測到檔案 '%1' 自從最初發行之後已經變更。</String>
+<String Name="1444">下載下列資源時發生錯誤:</String>
+<String Name="1446">嘗試安裝 '%1' 時發生下列錯誤:\r\n"%2"</String>
+<String Name="1447">無法從 '%1' 安裝應用程式，因為沒有網路連接。請稍後再嘗試安裝。</String>
+<String Name="1448">無法修改 '%1'。檔案可能是唯讀檔或已鎖定。</String>
+<String Name="1449">此產品是專為 %1 平台設計的，但正安裝在 %2 上。請向製造商取得正確的安裝程式。</String>
+</Strings>
+<Fonts>
+<Font Name="BaseFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-12</Height>
+      <Weight>0</Weight>
+    </Font>
+<Font Name="BoldFont">
+      <FontName>MS Shell Dlg</FontName>
+      <CharSet>0</CharSet>
+      <Height>-12</Height>
+      <Weight>700</Weight>
+    </Font>
+</Fonts>
+</Resources>
