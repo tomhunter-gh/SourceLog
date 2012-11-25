@@ -34,9 +34,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.CrashTestDummy", "SourceLog.Plugin.DummyTestPlugin\SourceLog.Plugin.CrashTestDummy.csproj", "{619E918E-6259-44F3-B33F-69E7801AC512}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickOnceHostWeb", "ClickOnceHostWeb\ClickOnceHostWeb.csproj", "{13D2D40A-4C7B-432F-A800-EC15FEF56B51}"
-	ProjectSection(ProjectDependencies) = postProject
-		{14A92497-D94E-4F6A-A6CE-54C5F027B62D} = {14A92497-D94E-4F6A-A6CE-54C5F027B62D}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
