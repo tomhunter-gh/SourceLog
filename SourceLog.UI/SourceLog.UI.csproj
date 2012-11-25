@@ -18,6 +18,8 @@
     <WarningLevel>4</WarningLevel>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishDir>$(OutDir)</PublishDir>
+    <GenerateBootstrapperSdkPath>$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bootstrapper</GenerateBootstrapperSdkPath>
+    <SdkToolsPath>$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bin</SdkToolsPath>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -37,8 +39,6 @@
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-	<GenerateBootstrapperSdkPath>$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bootstrapper</GenerateBootstrapperSdkPath>
-	<SdkToolsPath>$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bin</SdkToolsPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -72,7 +72,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DiffPlex">
@@ -247,7 +247,7 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.-->
   <Target Name="BeforeBuild">
-	<Copy SourceFiles="$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bin\SignTool.exe" DestinationFolder="$(MSBuildProjectDirectory)" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bin\SignTool.exe" DestinationFolder="$(MSBuildProjectDirectory)" />
   </Target>
   <!--<Target Name="AfterPublish" DependsOnTargets="Publish">
 	<ItemGroup>
