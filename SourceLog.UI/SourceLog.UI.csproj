@@ -244,9 +244,10 @@
     </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
+       Other similar extension points exist, see Microsoft.Common.targets.-->
   <Target Name="BeforeBuild">
-  </Target>-->
+	<Copy SourceFiles="$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bin\SignTool.exe" DestinationFolder="$(MSBuildProjectDirectory)" />
+  </Target>
   <!--<Target Name="AfterPublish" DependsOnTargets="Publish">
 	<ItemGroup>
 		<DeploymentSourceFiles Include="bin\$(Configuration)\app.publish\**\*.*"/>
