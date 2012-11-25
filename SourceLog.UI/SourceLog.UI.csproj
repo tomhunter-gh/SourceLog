@@ -38,6 +38,7 @@
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
 	<GenerateBootstrapperSdkPath>$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bootstrapper</GenerateBootstrapperSdkPath>
+	<SdkToolsPath>$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bin</SdkToolsPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
