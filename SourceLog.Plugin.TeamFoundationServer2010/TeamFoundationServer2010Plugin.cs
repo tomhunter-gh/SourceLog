@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SourceLog.Interface;
-using SourceLog.Model;
 using System.Threading;
 using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.VersionControl.Client;
@@ -13,7 +12,7 @@ using System.IO;
 
 namespace SourceLog.Plugin.TeamFoundationServer2010
 {
-	public class TeamFoundationServer2010Plugin : ILogProvider<ChangedFile>
+	public class TeamFoundationServer2010Plugin : ILogProvider
 	{
 		private Timer _timer;
 		private readonly Object _lockObject = new Object();
@@ -63,18 +62,18 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 						var changesetId = changeset.ChangesetId;
 						Debug.WriteLine(" [TFS]Creating LogEntry for Changeset " + changesetId);
 
-						var logEntry = new LogEntry
+						var logEntry = new LogEntryDto
 						{
 							Author = changeset.Committer,
 							CommittedDate = changeset.CreationDate,
 							Message = changeset.Comment,
 							Revision = changesetId.ToString(),
-							ChangedFiles = new List<ChangedFile>()
+							ChangedFiles = new List<ChangedFileDto>()
 						};
 
 						foreach (var change in changeset.Changes)
 						{
-							var changedFile = new ChangedFile { FileName = change.Item.ServerItem };
+							var changedFile = new ChangedFileDto { FileName = change.Item.ServerItem };
 							if (change.Item.ItemType != ItemType.File)
 							{
 								changedFile.OldVersion = String.Empty;
@@ -112,7 +111,7 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 							logEntry.ChangedFiles.Add(changedFile);
 						}
 
-						var args = new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry };
+						var args = new NewLogEntryEventArgs { LogEntry = logEntry };
 						NewLogEntry(this, args);
 					}
 					MaxDateTimeRetrieved = history.Max(c => c.CreationDate);
@@ -129,7 +128,7 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 			}
 		}
 
-		private void SetChangeType(ChangedFile changedFile, Change change)
+		private void SetChangeType(ChangedFileDto changedFile, Change change)
 		{
 			if (change.ChangeType.HasFlag(TFS.ChangeType.Add))
 				changedFile.ChangeType = Interface.ChangeType.Added;
@@ -140,7 +139,7 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 				changedFile.ChangeType = Interface.ChangeType.Modified;
 		}
 
-		public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;
+		public event NewLogEntryEventHandler NewLogEntry;
 		public event LogProviderExceptionEventHandler LogProviderException;
 	}
 }

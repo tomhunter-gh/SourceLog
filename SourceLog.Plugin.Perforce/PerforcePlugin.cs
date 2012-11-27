@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SourceLog.Interface;
-using SourceLog.Model;
 using System.Threading;
 using P4COM;
 using System.IO;
@@ -11,7 +10,7 @@ using System.Diagnostics;
 
 namespace SourceLog.Plugin.Perforce
 {
-	public class PerforcePlugin : ILogProvider<ChangedFile>
+	public class PerforcePlugin : ILogProvider
 	{
 		private Timer _timer;
 		private readonly Object _lockObject = new Object();
@@ -32,7 +31,7 @@ namespace SourceLog.Plugin.Perforce
 			{
 				try
 				{
-					List<LogEntry> logEntries = new List<LogEntry>();
+					List<LogEntryDto> logEntries = new List<LogEntryDto>();
 					P4COM.p4 p4 = new P4COM.p4();
 					p4.Connect();
 					var p4changes = p4.run("changes -t -l -s submitted -m 30 \"" + SettingsXml + "\"");
@@ -47,8 +46,8 @@ namespace SourceLog.Plugin.Perforce
 
 					foreach (var logEntry in logEntries.OrderBy(le => le.CommittedDate))
 					{
-						logEntry.ChangedFiles = new List<ChangedFile>();
-						ChangedFile changedFile;
+						logEntry.ChangedFiles = new List<ChangedFileDto>();
+						ChangedFileDto changedFile;
 
 						// grab changed files
 						var p4files = p4.run("files @=" + logEntry.Revision);
@@ -121,7 +120,7 @@ namespace SourceLog.Plugin.Perforce
 							logEntry.ChangedFiles.Add(changedFile);
 						}
 
-						var args = new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry };
+						var args = new NewLogEntryEventArgs { LogEntry = logEntry };
 						NewLogEntry(this, args);
 					}
 
@@ -143,7 +142,7 @@ namespace SourceLog.Plugin.Perforce
 			}
 		}
 
-		public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;
+		public event NewLogEntryEventHandler NewLogEntry;
 		public event LogProviderExceptionEventHandler LogProviderException;
 	}
 }

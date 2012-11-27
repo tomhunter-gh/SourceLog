@@ -55,10 +55,6 @@
       <Project>{3BCDD879-B6F0-447D-B102-A0373933CA05}</Project>
       <Name>SourceLog.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SourceLog.Model\SourceLog.Model.csproj">
-      <Project>{80C8B2E9-4326-454C-B325-F0B1D1251550}</Project>
-      <Name>SourceLog.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="CrashTestDummyWindow.xaml">

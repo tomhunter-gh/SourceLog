@@ -1,14 +1,14 @@
 ﻿using System;
-using SourceLog.Model;
 using System.Text.RegularExpressions;
+using SourceLog.Interface;
 
 namespace SourceLog.Plugin.Perforce
 {
 	public static class PerforceLogParser
 	{
-		internal static LogEntry Parse(string changesetString)
+		internal static LogEntryDto Parse(string changesetString)
 		{
-			var logEntry = new LogEntry();
+			var logEntry = new LogEntryDto();
 
 			const string pattern = @"Change\s(?<revision>\d+)\son\s(?<datetime>\d{4}/\d{2}/\d{2}\s\d{2}:\d{2}:\d{2})\sby\s(?<author>\w+)@\w+\n\n\t(?<message>.*)";
 			var r = new Regex(pattern);
@@ -31,9 +31,9 @@ namespace SourceLog.Plugin.Perforce
 			return logEntry;
 		}
 
-		internal static ChangedFile ParseP4File(string file)
+		internal static ChangedFileDto ParseP4File(string file)
 		{
-			var changedFile = new ChangedFile();
+			var changedFile = new ChangedFileDto();
 			const string pattern = @"(?<filename>[^#]*)#(?<revision>\d+)\s-\s(?<action>\w+)\schange\s(?<changeNumber>\d+)\s\((?<filetype>\w+(\+\w+)?)\)";
 			var r = new Regex(pattern);
 			var match = r.Match(file);

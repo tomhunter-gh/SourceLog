@@ -1,11 +1,11 @@
 ﻿namespace SourceLog.Interface
 {
-	public interface IChangedFile
+	public class ChangedFileDto
 	{
-		ChangeType ChangeType { get; set; }
-		string FileName { get; set; }
-		string OldVersion { get; set; }
-		string NewVersion { get; set; }
+		public ChangeType ChangeType { get; set; }
+		public string FileName { get; set; }
+		public string OldVersion { get; set; }
+		public string NewVersion { get; set; }
 	}
 
 	public enum ChangeType

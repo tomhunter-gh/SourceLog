@@ -2,7 +2,7 @@
 
 namespace SourceLog.Interface
 {
-	public interface ILogProvider<T> where T : IChangedFile
+	public interface ILogProvider
 	{
 		/// <summary>
 		/// Represents plugin specific repo connection information
@@ -17,12 +17,12 @@ namespace SourceLog.Interface
 		/// </summary>
 		void Initialise();
 
-		event NewLogEntryEventHandler<T> NewLogEntry;
+		event NewLogEntryEventHandler NewLogEntry;
 
 		event LogProviderExceptionEventHandler LogProviderException;
 	}
 
-	public delegate void NewLogEntryEventHandler<T>(object sender, NewLogEntryEventArgs<T> e) where T : IChangedFile;
+	public delegate void NewLogEntryEventHandler(object sender, NewLogEntryEventArgs e);
 
 	public delegate void LogProviderExceptionEventHandler(object sender, LogProviderExceptionEventArgs args);
 }

@@ -12,7 +12,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SourceLog.Interface;
-using SourceLog.Model;
 
 namespace SourceLog.Plugin.CrashTestDummy
 {

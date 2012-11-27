@@ -8,11 +8,10 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Newtonsoft.Json;
 using SourceLog.Interface;
-using SourceLog.Model;
 
 namespace SourceLog.Plugin.GitHub
 {
-	public class GitHubLogProvider : ILogProvider<ChangedFile>
+	public class GitHubLogProvider : ILogProvider
 	{
 		private Timer _timer;
 		private readonly Object _lockObject = new Object();
@@ -52,7 +51,7 @@ namespace SourceLog.Plugin.GitHub
 		}
 
 
-		public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;
+		public event NewLogEntryEventHandler NewLogEntry;
 		public event LogProviderExceptionEventHandler LogProviderException;
 
 		private void CheckForNewLogEntries(object state)
@@ -72,13 +71,13 @@ namespace SourceLog.Plugin.GitHub
 						foreach (var commitEntry in repoLog.Where(x => DateTime.Parse(x.commit.committer.date) > MaxDateTimeRetrieved)
 							.OrderBy(x => DateTime.Parse(x.commit.committer.date)))
 						{
-							var logEntry = new LogEntry
+							var logEntry = new LogEntryDto
 								{
 									Revision = commitEntry.sha.Substring(0, 7),
 									Author = commitEntry.commit.committer.name,
 									CommittedDate = DateTime.Parse(commitEntry.commit.committer.date),
 									Message = commitEntry.commit.message,
-									ChangedFiles = new List<ChangedFile>()
+									ChangedFiles = new List<ChangedFileDto>()
 								};
 
 							var fullCommitEntry = JsonConvert.DeserializeObject<CommitEntry>(
@@ -92,7 +91,7 @@ namespace SourceLog.Plugin.GitHub
 							// process changed files in parallel
 							fullCommitEntry.files.AsParallel().ForAll(file =>
 							{
-								var changedFile = new ChangedFile
+								var changedFile = new ChangedFileDto
 									{
 										FileName = file.filename,
 										//NewVersion = GitHubApiGet(file.raw_url),
@@ -144,7 +143,7 @@ namespace SourceLog.Plugin.GitHub
 								logEntry.ChangedFiles.Add(changedFile);
 							});
 
-							var args = new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry };
+							var args = new NewLogEntryEventArgs { LogEntry = logEntry };
 
 							NewLogEntry(this, args);
 						}

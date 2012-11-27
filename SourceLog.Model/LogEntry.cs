@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace SourceLog.Model
 {
-	public class LogEntry : ILogEntry<ChangedFile>, INotifyPropertyChanged
+	public class LogEntry : INotifyPropertyChanged
 	{
 		public int LogEntryId { get; set; }
 		public LogSubscription LogSubscription { get; set; }
@@ -29,6 +29,20 @@ namespace SourceLog.Model
 		}
 
 		public List<ChangedFile> ChangedFiles { get; set; }
+
+		public LogEntry() { }
+
+		public LogEntry(LogEntryDto dto)
+		{
+			Revision = dto.Revision;
+			CommittedDate = dto.CommittedDate;
+			Message = dto.Message;
+			Author = dto.Author;
+
+			ChangedFiles = new List<ChangedFile>();
+
+			dto.ChangedFiles.ForEach(changedFileDto => ChangedFiles.Add(new ChangedFile(changedFileDto)));
+		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
 

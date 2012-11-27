@@ -13,11 +13,11 @@ namespace SourceLog.Model.Tests
 		[TestMethod]
 		public void LeadingTabsAreDisplayed()
 		{
-			var changedFile = new ChangedFile();
-			changedFile.OldVersion = "\t@ ,";
-			changedFile.NewVersion = "\t @ ";
+			var changedFileDto = new ChangedFileDto();
+			changedFileDto.OldVersion = "\t@ ,";
+			changedFileDto.NewVersion = "\t @ ";
 
-			var logEntry = new LogEntry { ChangedFiles = new List<ChangedFile> { changedFile } };
+			var logEntry = new LogEntryDto { ChangedFiles = new List<ChangedFileDto> { changedFileDto } };
 
 			var mockContext = new Mock<ISourceLogContext>();
 			var logSubscription = new LogSubscription(() => mockContext.Object)
@@ -29,10 +29,12 @@ namespace SourceLog.Model.Tests
 			var fakeLogSubscriptionDbSet = new FakeLogSubscriptionDbSet { logSubscription };
 			mockContext.Setup(m => m.LogSubscriptions).Returns(fakeLogSubscriptionDbSet);
 
-			mockContext.Setup(m => m.LogEntries).Returns(new FakeDbSet<LogEntry>());
+			var logEntriesDbSet = new FakeDbSet<LogEntry>();
+			mockContext.Setup(m => m.LogEntries).Returns(logEntriesDbSet);
 
-			logSubscription.AddNewLogEntry(this, new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry });
+			logSubscription.AddNewLogEntry(this, new NewLogEntryEventArgs { LogEntry = logEntry });
 
+			var changedFile = logEntriesDbSet.First().ChangedFiles.First();
 			var textRange = new TextRange(changedFile.LeftFlowDocument.ContentStart, changedFile.LeftFlowDocument.ContentEnd);
 			Assert.IsTrue(textRange.Text.StartsWith("\t"));
 		}

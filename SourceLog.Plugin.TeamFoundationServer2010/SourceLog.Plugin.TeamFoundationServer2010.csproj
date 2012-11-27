@@ -78,18 +78,15 @@
       <Project>{3BCDD879-B6F0-447D-B102-A0373933CA05}</Project>
       <Name>SourceLog.Interface</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SourceLog.Model\SourceLog.Model.csproj">
-      <Project>{80C8B2E9-4326-454C-B325-F0B1D1251550}</Project>
-      <Name>SourceLog.Model</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(SolutionDir)SourceLog.UI\bin\$(ConfigurationName)\Plugins\$(TargetName)"
-copy /Y "$(TargetDir)*.*" "$(SolutionDir)SourceLog.UI\bin\$(ConfigurationName)\Plugins\$(TargetName)"</PostBuildEvent>
+    <PostBuildEvent>mkdir "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"
+copy /Y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"
+copy /Y "$(TargetDir)Microsoft.TeamFoundation*" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

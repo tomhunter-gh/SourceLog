@@ -4,11 +4,10 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using SourceLog.Interface;
-using SourceLog.Model;
 
 namespace SourceLog.Plugin.CrashTestDummy
 {
-	public class CrashTestDummyPlugin : ILogProvider<ChangedFile>
+	public class CrashTestDummyPlugin : ILogProvider
 	{
 		public string SettingsXml { get; set; }
 		public DateTime MaxDateTimeRetrieved { get; set; }
@@ -33,21 +32,21 @@ namespace SourceLog.Plugin.CrashTestDummy
 
 		}
 
-		public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;
+		public event NewLogEntryEventHandler NewLogEntry;
 		public event LogProviderExceptionEventHandler LogProviderException;
 
 		public void FireNewLogEntry()
 		{
-			var args = new NewLogEntryEventArgs<ChangedFile>
+			var args = new NewLogEntryEventArgs
 				{
-					LogEntry = new LogEntry
+					LogEntry = new LogEntryDto
 						{
 							Author = "Tom",
 							CommittedDate = DateTime.Now,
 							Message = "Test message..",
-							ChangedFiles = new List<ChangedFile>
+							ChangedFiles = new List<ChangedFileDto>
 								{
-									new ChangedFile
+									new ChangedFileDto
 										{
 											ChangeType = ChangeType.Modified,
 											FileName = "C:\\temp\\file.ext",

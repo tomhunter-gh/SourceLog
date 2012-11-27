@@ -6,6 +6,7 @@ using System.Threading;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace SourceLog.Model
 {
@@ -26,7 +27,7 @@ namespace SourceLog.Model
 			}
 		}
 
-		public ILogProvider<ChangedFile> LogProvider { get; set; }
+		public ILogProvider LogProvider { get; set; }
 		private readonly SynchronizationContext _uiThread;
 		private Func<ISourceLogContext> SourceLogContextProvider { get; set; }
 
@@ -55,7 +56,7 @@ namespace SourceLog.Model
 		public void LoadLogProviderPlugin()
 		{
 			Type type = LogProviderPluginManager.LogProviderPluginTypes[LogProviderTypeName];
-			LogProvider = Activator.CreateInstance(type) as ILogProvider<ChangedFile>;
+			LogProvider = Activator.CreateInstance(type) as ILogProvider;
 			LogProvider.NewLogEntry += AddNewLogEntry;
 			LogProvider.LogProviderException += LogProviderLogProviderException;
 			LogProvider.SettingsXml = Url;
@@ -79,11 +80,11 @@ namespace SourceLog.Model
 			Logger.Write(logEntry);
 		}
 
-		public void AddNewLogEntry(object sender, NewLogEntryEventArgs<ChangedFile> e)
+		public void AddNewLogEntry(object sender, NewLogEntryEventArgs e)
 		{
-			var logEntry = (LogEntry)e.LogEntry;
+			var logEntry = new LogEntry(e.LogEntry);
 
-			GenerateFlowDocuments(e.LogEntry);
+			GenerateFlowDocuments(logEntry);
 
 			using (var db = SourceLogContextProvider())
 			{
@@ -110,7 +111,7 @@ namespace SourceLog.Model
 			
 		}
 
-		private static void GenerateFlowDocuments(ILogEntry<ChangedFile> logEntry)
+		private static void GenerateFlowDocuments(LogEntry logEntry)
 		{
 			logEntry.ChangedFiles.AsParallel().ForAll(changedFile =>
 			{

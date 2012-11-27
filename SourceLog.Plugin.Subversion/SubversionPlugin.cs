@@ -7,11 +7,10 @@ using System.Linq;
 using System.Threading;
 using SharpSvn;
 using SourceLog.Interface;
-using SourceLog.Model;
 
 namespace SourceLog.Plugin.Subversion
 {
-	public class SubversionPlugin : ILogProvider<ChangedFile>
+	public class SubversionPlugin : ILogProvider
 	{
 		private Timer _timer;
 		private readonly Object _lockObject = new Object();
@@ -47,18 +46,18 @@ namespace SourceLog.Plugin.Subversion
 							{
 								var revision = svnLogEntry.Revision;
 								Debug.WriteLine(" Creating LogEntry for revision " + revision);
-								var logEntry = new LogEntry
+								var logEntry = new LogEntryDto
 									{
 										Author = svnLogEntry.Author,
 										CommittedDate = svnLogEntry.Time,
 										Message = svnLogEntry.LogMessage,
 										Revision = revision.ToString(),
-										ChangedFiles = new List<ChangedFile>()
+										ChangedFiles = new List<ChangedFileDto>()
 									};
 
 								ProcessChangedPaths(svnLogEntry, revision, logEntry);
 
-								var args = new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry };
+								var args = new NewLogEntryEventArgs { LogEntry = logEntry };
 								NewLogEntry(this, args);
 							}
 							MaxDateTimeRetrieved = svnLogEntries.Max(x => x.Time);
@@ -77,7 +76,7 @@ namespace SourceLog.Plugin.Subversion
 			}
 		}
 
-		private void ProcessChangedPaths(SvnLoggingEventArgs svnLogEntry, long revision, ILogEntry<ChangedFile> logEntry)
+		private void ProcessChangedPaths(SvnLoggingEventArgs svnLogEntry, long revision, LogEntryDto logEntry)
 		{
 			svnLogEntry.ChangedPaths.AsParallel().WithDegreeOfParallelism(10).ForAll(changedPath =>
 			{
@@ -85,7 +84,7 @@ namespace SourceLog.Plugin.Subversion
 				Debug.WriteLine("  [SubversionPlugin] Processing path " + changedPath.Path);
 				using (var parallelSvnClient = new SvnClient())
 				{
-					var changedFile = new ChangedFile { FileName = changedPath.Path };
+					var changedFile = new ChangedFileDto { FileName = changedPath.Path };
 
 					var nodeKind = changedPath.NodeKind;
 					if (nodeKind == SvnNodeKind.Unknown)
@@ -184,7 +183,7 @@ namespace SourceLog.Plugin.Subversion
 			}
 		}
 
-		public event NewLogEntryEventHandler<ChangedFile> NewLogEntry;
+		public event NewLogEntryEventHandler NewLogEntry;
 		public event LogProviderExceptionEventHandler LogProviderException;
 	}
 }

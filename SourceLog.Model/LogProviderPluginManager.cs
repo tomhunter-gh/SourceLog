@@ -42,7 +42,7 @@ namespace SourceLog.Model
 					try
 					{
 						Assembly assembly = Assembly.LoadFile(fileInfo.FullName);
-						foreach (Type type in assembly.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(ILogProvider<ChangedFile>))))
+						foreach (Type type in assembly.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(ILogProvider))))
 						{
 							logProviderPluginTypeList.Add(assembly.FullName, type);
 						}

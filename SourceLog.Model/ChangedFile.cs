@@ -9,7 +9,7 @@ using SourceLog.Interface;
 
 namespace SourceLog.Model
 {
-	public class ChangedFile : IChangedFile
+	public class ChangedFile
 	{
 		public int ChangedFileId { get; set; }
 
@@ -41,7 +41,8 @@ namespace SourceLog.Model
 
 		private string _newVersion;
 		[NotMapped]
-		public string NewVersion {
+		public string NewVersion
+		{
 			get
 			{
 				return _newVersion;
@@ -100,6 +101,16 @@ namespace SourceLog.Model
 			}
 		}
 		private FlowDocument _rightFlowDocument;
+
+		public ChangedFile() { }
+
+		public ChangedFile(ChangedFileDto dto)
+		{
+			ChangeType = dto.ChangeType;
+			FileName = dto.FileName;
+			OldVersion = dto.OldVersion;
+			NewVersion = dto.NewVersion;
+		}
 
 		private static byte[] FlowDocumentToByteArray(FlowDocument flowDocument)
 		{

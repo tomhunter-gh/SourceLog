@@ -30,27 +30,29 @@ namespace SourceLog.Model.Tests
 			var fakeLogSubscriptionDbSet = new FakeLogSubscriptionDbSet { logSubscription };
 			mockContext.Setup(m => m.LogSubscriptions).Returns(fakeLogSubscriptionDbSet);
 
-			mockContext.Setup(m => m.LogEntries).Returns(new FakeDbSet<LogEntry>());
+			var logEntriesDbSet = new FakeDbSet<LogEntry>();
+			mockContext.Setup(m => m.LogEntries).Returns(logEntriesDbSet);
 
-			var changedFile = new ChangedFile();
+			var changedFileDto = new ChangedFileDto();
 
 			using (var reader = new StreamReader("jquery.signalR.core.js.oldversion"))
 			{
-				changedFile.OldVersion = reader.ReadToEnd();
+				changedFileDto.OldVersion = reader.ReadToEnd();
 			}
 
 			using (var reader = new StreamReader("jquery.signalR.core.js.newversion"))
 			{
-				changedFile.NewVersion = reader.ReadToEnd();
+				changedFileDto.NewVersion = reader.ReadToEnd();
 			}
 
-			var logEntry = new LogEntry
+			var logEntry = new LogEntryDto
 			{
-				ChangedFiles = new List<ChangedFile> { changedFile }
+				ChangedFiles = new List<ChangedFileDto> { changedFileDto }
 			};
 
-			logSubscription.AddNewLogEntry(this, new NewLogEntryEventArgs<ChangedFile> { LogEntry = logEntry });
+			logSubscription.AddNewLogEntry(this, new NewLogEntryEventArgs { LogEntry = logEntry });
 
+			var changedFile = logEntriesDbSet.First().ChangedFiles.First();
 
 			Assert.IsTrue(changedFile.LeftFlowDocumentData.Length <= 5219,
 				"changedFile.LeftFlowDocumentData.Length: " + changedFile.LeftFlowDocumentData.Length);

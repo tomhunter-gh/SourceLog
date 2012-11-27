@@ -2,8 +2,8 @@
 
 namespace SourceLog.Interface
 {
-	public class NewLogEntryEventArgs<T> : EventArgs where T : IChangedFile
+	public class NewLogEntryEventArgs : EventArgs
 	{
-		public ILogEntry<T> LogEntry { get; set; }
+		public LogEntryDto LogEntry { get; set; }
 	}
 }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace SourceLog.Interface
 {
-	public interface ILogEntry<T> where T : IChangedFile
+	public class LogEntryDto
 	{
-		string Revision { get; set; }
-		DateTime CommittedDate { get; set; }
-		string Message { get; set; }
-		string Author { get; set; }
+		public string Revision { get; set; }
+		public DateTime CommittedDate { get; set; }
+		public string Message { get; set; }
+		public string Author { get; set; }
 
-		List<T> ChangedFiles { get; set; }
+		public List<ChangedFileDto> ChangedFiles { get; set; }
 	}
 }
