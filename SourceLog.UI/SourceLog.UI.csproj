@@ -34,7 +34,26 @@
     <ProductName>SourceLog</ProductName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+		<!--
+		AssemblyMajorVersion="$(AssemblyMajorVersion)"
+		AssemblyMinorVersion="$(AssemblyMinorVersion)"
+		AssemblyBuildNumber="$(AssemblyBuildNumber)"
+		AssemblyRevision="$(AssemblyRevision)"
+		AssemblyFileMajorVersion="$(AssemblyFileMajorVersion)"
+		AssemblyFileMinorVersion="$(AssemblyFileMinorVersion)"
+		AssemblyFileBuildNumber="$(AssemblyFileBuildNumber)"
+		AssemblyFileRevision="$(AssemblyFileRevision)"
+		-->
+	<AssemblyMajorVersion>$([System.DateTime]::Now.ToString(`yyyy`))</AssemblyMajorVersion>
+	<AssemblyMinorVersion>$([System.DateTime]::Now.ToString(`MM`))</AssemblyMinorVersion>
+	<AssemblyBuildNumber>$([System.DateTime]::Now.ToString(`dd`))</AssemblyBuildNumber>
+	<AssemblyRevision>$([System.DateTime]::Now.ToString(`HHmm`))</AssemblyRevision>
+	<AssemblyFileMajorVersion>$(AssemblyMajorVersion)</AssemblyFileMajorVersion>
+	<AssemblyFileMinorVersion>$(AssemblyMinorVersion)</AssemblyFileMinorVersion>
+	<AssemblyFileBuildNumber>$(AssemblyBuildNumber)</AssemblyFileBuildNumber>
+	<AssemblyFileRevision>$(AssemblyRevision)</AssemblyFileRevision>
+	
+    <ApplicationVersion>$(AssemblyMajorVersion).$(AssemblyMinorVersion).$(AssemblyBuildNumber).$(AssemblyRevision)</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -128,6 +147,7 @@
     </ApplicationDefinition>
     <Compile Include="CustomFlowDocumentScrollViewer.cs" />
     <Compile Include="FontInfo.cs" />
+    <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="LogToHasUnreadEntriesFlagConverter.cs" />
     <Compile Include="Migrations\201208280821049_Migration10.cs" />
     <Compile Include="Migrations\201208280821049_Migration10.Designer.cs">
@@ -287,8 +307,43 @@
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.-->
+	<UsingTask AssemblyFile="..\Lib\MSBuildExtensionPack\4.0.6.0\MSBuild.ExtensionPack.dll" TaskName="MSBuild.ExtensionPack.Framework.AssemblyInfo"/>
   <Target Name="BeforeBuild">
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bin\SignTool.exe" DestinationFolder="$(MSBuildProjectDirectory)" />
+    <!--<Copy SourceFiles="$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bin\SignTool.exe" DestinationFolder="$(MSBuildProjectDirectory)" />-->
+	<AssemblyInfo AssemblyInfoFiles="Properties\GlobalAssemblyInfo.cs"
+                      AssemblyMajorVersion="$(AssemblyMajorVersion)"
+                      AssemblyMinorVersion="$(AssemblyMinorVersion)"
+                      AssemblyBuildNumber="$(AssemblyBuildNumber)"
+                      AssemblyRevision="$(AssemblyRevision)"
+                      AssemblyFileMajorVersion="$(AssemblyFileMajorVersion)"
+                      AssemblyFileMinorVersion="$(AssemblyFileMinorVersion)"
+                      AssemblyFileBuildNumber="$(AssemblyFileBuildNumber)"
+                      AssemblyFileRevision="$(AssemblyFileRevision)"
+                      >
+					  <!--
+					  AssemblyBuildNumberType="$(AssemblyBuildNumberType)"
+                      AssemblyBuildNumberFormat="$(AssemblyBuildNumberFormat)"
+                      AssemblyRevisionType="$(AssemblyRevisionType)"
+                      AssemblyRevisionFormat="$(AssemblyRevisionFormat)"
+                      AssemblyFileBuildNumberType="$(AssemblyFileBuildNumberType)"
+                      AssemblyFileBuildNumberFormat="$(AssemblyFileBuildNumberFormat)"
+                      AssemblyFileRevisionType="$(AssemblyFileRevisionType)"
+                      AssemblyFileRevisionFormat="$(AssemblyFileRevisionFormat)"
+                      ComVisible="$(AssemblyComVisible)"
+                      Guid="$(AssemblyGuid)"
+                      AssemblyCompany="$(AssemblyCompany)"
+                      AssemblyConfiguration="$(AssemblyConfiguration)"
+                      AssemblyCopyright="$(AssemblyCopyright)"
+                      AssemblyCulture="$(AssemblyCulture)"
+                      AssemblyDescription="$(AssemblyDescription)"
+                      AssemblyProduct="$(AssemblyProduct)"
+                      AssemblyTitle="$(AssemblyTitle)"
+                      AssemblyIncludeSigningInformation="$(AssemblyIncludeSigningInformation)"
+                      AssemblyDelaySign="$(AssemblyDelaySign)"
+                      AssemblyKeyFile="$(AssemblyKeyFile)"
+                      AssemblyKeyName="$(AssemblyKeyName)"
+					  -->
+		</AssemblyInfo>
   </Target>
   <!--<Target Name="AfterPublish" DependsOnTargets="Publish">
 	<ItemGroup>
