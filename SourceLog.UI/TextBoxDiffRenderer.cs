@@ -17,10 +17,10 @@ namespace SourceLog
 		private readonly string _rightText;
 		private readonly Grid _rightGrid;
 
-		private SideBySideDiffBuilder differ;
+		private SideBySideDiffBuilder _differ;
 
-		private readonly object mutex = new object();
-		private bool inDiff;
+		private readonly object _mutex = new object();
+		private bool _inDiff;
 
 		private readonly FontInfo _currentFont;
 
@@ -42,22 +42,22 @@ namespace SourceLog
 
 		public void GenerateDiffView()
 		{
-			if (inDiff) return;
-			lock (mutex)
+			if (_inDiff) return;
+			lock (_mutex)
 			{
-				if (inDiff) return;
-				inDiff = true;
+				if (_inDiff) return;
+				_inDiff = true;
 			}
 
-			differ = new SideBySideDiffBuilder(new Differ());
+			_differ = new SideBySideDiffBuilder(new Differ());
 
 
-			var diffRes = differ.BuildDiffModel(_leftText, _rightText);
+			var diffRes = _differ.BuildDiffModel(_leftText, _rightText);
 
 			FirstModifiedLine = diffRes.NewText.Lines.FindIndex(l => l.Type != ChangeType.Unchanged);
 			GenerateDiffPanes(diffRes.OldText, diffRes.NewText);
 
-			inDiff = false;
+			_inDiff = false;
 		}
 
 		private void GenerateDiffPanes(DiffPaneModel leftDiff, DiffPaneModel rightDiff)
@@ -147,7 +147,7 @@ namespace SourceLog
 			}
 		}
 
-		private void PlaceRectangleInGrid(Grid grid, int lineNumber, SolidColorBrush fillColor, double left, double? width)
+		private void PlaceRectangleInGrid(Panel grid, int lineNumber, Brush fillColor, double left, double? width)
 		{
 			var rectLineHeight = _currentFont.LineHeight;
 			const double rectTopOffset = 0;
@@ -166,7 +166,6 @@ namespace SourceLog
 			};
 
 			grid.Children.Insert(grid.Children.Count - 1, rectangle);
-			//grid.Children.Add(rectangle);
 		}
 	}
 }

@@ -5,8 +5,6 @@ using System.Linq;
 using System.Threading;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
-using System.Data.Entity;
-using System.Collections.Generic;
 
 namespace SourceLog.Model
 {

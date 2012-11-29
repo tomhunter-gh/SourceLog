@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
-using SourceLog.Interface;
 
 namespace SourceLog.Model
 {

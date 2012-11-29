@@ -189,8 +189,7 @@ namespace SourceLog.Plugin.GitHub
 				{
 					throw new GitHubApiRateLimitException("RateLimit-Remaining = 0", ex);
 				}
-				else
-					throw;
+				throw;
 			}
 		}
 	}

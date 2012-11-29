@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using SourceLog.Interface;
 
 namespace SourceLog.Model
@@ -21,7 +20,7 @@ namespace SourceLog.Model
 			}
 		}
 
-		public static DirectoryInfo pluginsDirectory
+		public static DirectoryInfo PluginsDirectory
 		{
 			get
 			{
@@ -35,7 +34,7 @@ namespace SourceLog.Model
 			
 			var logProviderPluginTypeList = new Dictionary<string, Type>();
 
-			foreach (var pluginDirectory in pluginsDirectory.GetDirectories())
+			foreach (var pluginDirectory in PluginsDirectory.GetDirectories())
 			{
 				foreach (FileInfo fileInfo in pluginDirectory.GetFiles("*.dll"))
 				{
@@ -59,7 +58,7 @@ namespace SourceLog.Model
 
 		static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
 		{
-			foreach (var pluginDirectory in pluginsDirectory.GetDirectories())
+			foreach (var pluginDirectory in PluginsDirectory.GetDirectories())
 			{
 				string assemblyPath = Path.Combine(pluginDirectory.FullName, new AssemblyName(args.Name).Name + ".dll");
 				if (File.Exists(assemblyPath))
