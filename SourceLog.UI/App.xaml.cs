@@ -17,6 +17,9 @@ namespace SourceLog
 		public App()
 		{
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomainUnhandledException;
+
+			var logEntry = new LogEntry {Message = "Application starting..", Severity = TraceEventType.Information};
+			Logger.Write(logEntry);
 		}
 
 		static void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)

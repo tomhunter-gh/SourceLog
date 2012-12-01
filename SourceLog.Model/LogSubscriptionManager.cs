@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
+using EntLib = Microsoft.Practices.EnterpriseLibrary.Logging;
 
 namespace SourceLog.Model
 {
@@ -15,6 +17,11 @@ namespace SourceLog.Model
 				{
 					using (var db = new SourceLogContext())
 					{
+						EntLib.Logger.Write(new EntLib.LogEntry
+							{
+								Message = "Initialising LogSubscriptions..",
+								Severity = TraceEventType.Information
+							});
 						db.LogSubscriptions.Include(s => s.Log).ToList().ForEach(EnsureInitialised);
 						_logSubscriptions = new ObservableCollection<LogSubscription>(db.LogSubscriptions.ToList());
 					}

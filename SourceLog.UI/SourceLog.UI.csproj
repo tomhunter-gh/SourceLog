@@ -32,6 +32,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>http://sourcelog.apphb.com/</UpdateUrl>
     <ProductName>SourceLog</ProductName>
+    <PublisherName>SourceLog</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>0.0.0.0</ApplicationVersion>
@@ -281,6 +282,18 @@
     <Content Include="Plugins\Subversion\Subversion.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Icon.ico">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
