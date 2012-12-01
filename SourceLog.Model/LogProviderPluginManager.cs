@@ -43,7 +43,7 @@ namespace SourceLog.Model
 						Assembly assembly = Assembly.LoadFile(fileInfo.FullName);
 						foreach (Type type in assembly.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(ILogProvider))))
 						{
-							logProviderPluginTypeList.Add(assembly.FullName, type);
+							logProviderPluginTypeList.Add(assembly.GetName().Name, type);
 						}
 					}
 					catch (BadImageFormatException)

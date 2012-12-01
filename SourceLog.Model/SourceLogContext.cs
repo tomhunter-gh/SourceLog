@@ -11,19 +11,27 @@ namespace SourceLog.Model
 		public IDbSet<LogEntry> LogEntries { get; set; }
 		public IDbSet<ChangedFile> ChangedFiles { get; set; }
 
-		public SourceLogContext()
+		static SourceLogContext()
 		{
-			Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SourceLogContext>());
-			Configuration.ProxyCreationEnabled = false;
-
-			var databaseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData,Environment.SpecialFolderOption.Create),
-								 @"SourceLog");
+			var databaseDirectory = Path.Combine(
+					Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+					@"SourceLog"
+				);
 
 			Directory.CreateDirectory(databaseDirectory);
 
-			Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0",
-																		   databaseDirectory,
-																		   "Max Database Size=4000;Default Lock Timeout=30000");
+			Database.DefaultConnectionFactory = new SqlCeConnectionFactory(
+				"System.Data.SqlServerCe.4.0",
+				databaseDirectory,
+				"Max Database Size=4000;Default Lock Timeout=30000"
+			);
+
+			Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SourceLogContext>());
+		}
+
+		public SourceLogContext()
+		{
+			Configuration.ProxyCreationEnabled = false;
 		}
 	}
 }

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 
 namespace SourceLog
 {
@@ -12,5 +14,14 @@ namespace SourceLog
 	/// </summary>
 	public partial class App : Application
 	{
+		public App()
+		{
+			AppDomain.CurrentDomain.UnhandledException += CurrentDomainUnhandledException;
+		}
+
+		static void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
+		{
+			Logger.Write(e.ExceptionObject);
+		}
 	}
 }

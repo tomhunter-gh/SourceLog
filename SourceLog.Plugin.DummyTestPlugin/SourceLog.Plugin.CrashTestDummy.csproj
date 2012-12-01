@@ -67,8 +67,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(SolutionDir)SourceLog.UI\bin\$(ConfigurationName)\Plugins\$(TargetName)"
-copy /Y "$(TargetDir)*.dll" "$(SolutionDir)SourceLog.UI\bin\$(ConfigurationName)\Plugins\$(TargetName)"</PostBuildEvent>
+    <PostBuildEvent>mkdir "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"
+copy /Y "$(TargetDir)*.dll" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
