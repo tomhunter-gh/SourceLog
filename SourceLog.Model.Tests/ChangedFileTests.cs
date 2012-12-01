@@ -50,10 +50,10 @@ namespace SourceLog.Model.Tests
 
 			var changedFile = logEntriesDbSet.First().ChangedFiles.First();
 
-			Assert.IsTrue(changedFile.LeftFlowDocumentData.Length <= 5219,
+			Assert.IsTrue(changedFile.LeftFlowDocumentData.Length <= 5382,
 				"changedFile.LeftFlowDocumentData.Length: " + changedFile.LeftFlowDocumentData.Length);
 
-			Assert.IsTrue(changedFile.RightFlowDocumentData.Length <= 5224,
+			Assert.IsTrue(changedFile.RightFlowDocumentData.Length <= 5382,
 				"changedFile.RightFlowDocumentData.Length: " + changedFile.RightFlowDocumentData.Length);
 		}
 	}

@@ -109,13 +109,13 @@ namespace SourceLog.Model
 			
 		}
 
-		private static void GenerateFlowDocuments(LogEntry logEntry)
+		private void GenerateFlowDocuments(LogEntry logEntry)
 		{
 			logEntry.ChangedFiles.AsParallel().ForAll(changedFile =>
 			{
 				Logger.Write(new Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
 					{
-						Message = "GeneratingFlowDocuments - Subscription: " + logEntry.LogSubscription.Name + ", File: " + changedFile.FileName,
+						Message = "GeneratingFlowDocuments - Subscription: " + Name + ", File: " + changedFile.FileName,
 						Severity = TraceEventType.Information
 					});
 
