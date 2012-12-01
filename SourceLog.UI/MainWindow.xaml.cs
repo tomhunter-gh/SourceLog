@@ -1,5 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -30,6 +33,12 @@ namespace SourceLog
 			StateChanged += MainWindowStateChanged;
 
 			ViewModel.NewLogEntry += ViewModelNewLogEntry;
+
+			lblVersion.Content = String.Format(
+				"Version: {0}; Build: {1}",
+				Assembly.GetExecutingAssembly().GetName().Version,
+				ConfigurationManager.AppSettings["appharbor.commit_id"] ?? "local"
+			);
 		}
 
 		void ViewModelNewLogEntry(object sender, NewLogEntryInfoEventHandlerArgs e)
@@ -39,7 +48,7 @@ namespace SourceLog
 			NotifyIcon.ShowCustomBalloon(balloon, PopupAnimation.Fade, 5000);
 		}
 
-		void MainWindowStateChanged(object sender, System.EventArgs e)
+		void MainWindowStateChanged(object sender, EventArgs e)
 		{
 			ShowInTaskbar = WindowState != WindowState.Minimized;
 		}
@@ -131,7 +140,7 @@ namespace SourceLog
 			{
 				e.Handled = true;
 				var eventArg = new MouseWheelEventArgs(
-					e.MouseDevice, e.Timestamp, e.Delta) {RoutedEvent = MouseWheelEvent, Source = sender};
+					e.MouseDevice, e.Timestamp, e.Delta) { RoutedEvent = MouseWheelEvent, Source = sender };
 				var parent = ((Control)sender).Parent as UIElement;
 				if (parent != null) parent.RaiseEvent(eventArg);
 			}

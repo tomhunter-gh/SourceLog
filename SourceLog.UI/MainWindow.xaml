@@ -34,9 +34,12 @@
 			<RowDefinition Height="4*" />
 		</Grid.RowDefinitions>
 
-		<StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal">
-			<Button Content="Add Subscription" Click="ButtonClick" Margin="5" Padding="3" />
-		</StackPanel>
+		<DockPanel Grid.Row="0" Grid.ColumnSpan="3">
+			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+				<Button Content="Add Subscription" Click="ButtonClick" Margin="5" Padding="3" />
+			</StackPanel>
+			<Label DockPanel.Dock="Right" Content="lblVersion" Height="28" Name="lblVersion" HorizontalAlignment="Right" />
+		</DockPanel>
 
 
 		<ListBox x:Name="lstSubscriptions" Grid.Row="1" Grid.RowSpan="5" ItemsSource="{Binding LogSubscriptions}" 
