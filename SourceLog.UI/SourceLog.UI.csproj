@@ -263,13 +263,13 @@
     <Content Include="Plugins\Subversion\SharpSvn.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Plugins\TeamFoundationServer2010\Microsoft.TeamFoundation.WorkItemTracking.Client.Cache.dll">
+    <Content Include="Plugins\TeamFoundationServer2010\Microsoft.TeamFoundation.Client.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Plugins\TeamFoundationServer2010\Microsoft.TeamFoundation.WorkItemTracking.Client.DataStore.dll">
+    <Content Include="Plugins\TeamFoundationServer2010\Microsoft.TeamFoundation.Common.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Plugins\TeamFoundationServer2010\Microsoft.TeamFoundation.WorkItemTracking.Client.RuleEngine.dll">
+    <Content Include="Plugins\TeamFoundationServer2010\Microsoft.TeamFoundation.VersionControl.Client.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Plugins\TeamFoundationServer2010\TeamFoundationServer2010.dll">
