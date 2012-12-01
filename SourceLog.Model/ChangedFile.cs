@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Windows.Documents;
 using System.Windows.Markup;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
 
 namespace SourceLog.Model
@@ -92,12 +93,7 @@ namespace SourceLog.Model
 			}
 			set
 			{
-				//_rightFlowDocument = value;
-				//var stopwatch = new Stopwatch();
-				//stopwatch.Start();
 				RightFlowDocumentData = FlowDocumentToByteArray(value);
-				//stopwatch.Stop();
-				//Debug.WriteLine("    FlowDocumentToByteArray() took " + stopwatch.ElapsedMilliseconds + "ms");
 			}
 		}
 		private FlowDocument _rightFlowDocument;
@@ -147,7 +143,11 @@ namespace SourceLog.Model
 			}
 			catch (Exception exception)
 			{
-				Debug.WriteLine(exception);
+				Logger.Write(new Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
+					{
+						Message = "Error deserialising FlowDocument: " + exception,
+						Severity = TraceEventType.Error
+					});
 				flowDocument = new FlowDocument();
 			}
 			return flowDocument;
@@ -158,7 +158,6 @@ namespace SourceLog.Model
 		{
 			if (s.Contains("\0\0\0\0"))
 			{
-				Debug.WriteLine("    [Binary]");
 				return "[Binary]";
 			}
 			return s;

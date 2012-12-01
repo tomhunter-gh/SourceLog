@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
 using System.Threading;
 using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.VersionControl.Client;
 using TFS = Microsoft.TeamFoundation.VersionControl.Client;
-using System.Diagnostics;
 using System.IO;
 
 namespace SourceLog.Plugin.TeamFoundationServer2010
@@ -36,7 +36,7 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 					string uri = settingsArray[0];
 					string sourceControlPath = "$" + settingsArray[1];
 
-					Uri tfsUri = new Uri(uri);
+					var tfsUri = new Uri(uri);
 					var projectCollection = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(tfsUri);
 
 					var vcs = projectCollection.GetService<VersionControlServer>();
@@ -59,7 +59,7 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 						history.Where(c => c.CreationDate > MaxDateTimeRetrieved).OrderBy(c => c.CreationDate))
 					{
 						var changesetId = changeset.ChangesetId;
-						Debug.WriteLine(" [TFS]Creating LogEntry for Changeset " + changesetId);
+						Logger.Write(new LogEntry { Message = "Creating LogEntry for Changeset " + changesetId, Categories = { "Plugin.TFS2010" } });
 
 						var logEntry = new LogEntryDto
 						{
@@ -117,7 +117,7 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 				}
 				catch (Exception ex)
 				{
-					var args = new LogProviderExceptionEventArgs {Exception = ex};
+					var args = new LogProviderExceptionEventArgs { Exception = ex };
 					LogProviderException(this, args);
 				}
 				finally
@@ -127,13 +127,12 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 			}
 		}
 
-		private void SetChangeType(ChangedFileDto changedFile, Change change)
+		private static void SetChangeType(ChangedFileDto changedFile, Change change)
 		{
 			if (change.ChangeType.HasFlag(TFS.ChangeType.Add))
 				changedFile.ChangeType = Interface.ChangeType.Added;
 			else if (change.ChangeType.HasFlag(TFS.ChangeType.Delete))
 				changedFile.ChangeType = Interface.ChangeType.Deleted;
-			//if (change.ChangeType.HasFlag(TFS.ChangeType.Edit))
 			else
 				changedFile.ChangeType = Interface.ChangeType.Modified;
 		}

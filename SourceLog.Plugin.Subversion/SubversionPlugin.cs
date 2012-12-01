@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SharpSvn;
 using SourceLog.Interface;
 
@@ -39,13 +40,11 @@ namespace SourceLog.Plugin.Subversion
 						{
 							var q = svnLogEntries
 								.Where(e => e.Time > MaxDateTimeRetrieved)
-								//.Where(e => e.Time.Year == 2012)
-								//.Where(e => e.Revision >= 56759)
 								.OrderBy(e => e.Time);
 							foreach (var svnLogEntry in q)
 							{
 								var revision = svnLogEntry.Revision;
-								Debug.WriteLine(" Creating LogEntry for revision " + revision);
+								Logger.Write(new LogEntry {Message = "Creating LogEntryDto for revision " + revision, Categories = {"Plugin.Subversion"}});
 								var logEntry = new LogEntryDto
 									{
 										Author = svnLogEntry.Author,
@@ -80,8 +79,7 @@ namespace SourceLog.Plugin.Subversion
 		{
 			svnLogEntry.ChangedPaths.AsParallel().WithDegreeOfParallelism(10).ForAll(changedPath =>
 			{
-				//var debugStartTime = DateTime.Now;
-				Debug.WriteLine("  [SubversionPlugin] Processing path " + changedPath.Path);
+				Logger.Write(new LogEntry {Message = "Processing path " + changedPath.Path, Categories = {"Plugin.Subversion"}});
 				using (var parallelSvnClient = new SvnClient())
 				{
 					var changedFile = new ChangedFileDto { FileName = changedPath.Path };
@@ -94,7 +92,7 @@ namespace SourceLog.Plugin.Subversion
 						parallelSvnClient.GetInfo(
 							new SvnUriTarget(
 								SettingsXml + changedPath.Path,
-							// If the file is deleted then using revision causes an exception
+								// If the file is deleted then using revision causes an exception
 								(changedPath.Action == SvnChangeAction.Delete ? revision - 1 : revision)
 							),
 							out svnInfo);
@@ -126,13 +124,13 @@ namespace SourceLog.Plugin.Subversion
 							}
 							catch (SvnRepositoryIOException e)
 							{
-								Debug.WriteLine(e.Message);
+								Logger.Write(new LogEntry { Message = "SvnRepositoryIOException: " + e, Categories = {"Plugin.Subversion"}, Severity = TraceEventType.Error});
 								changedFile.OldVersion = String.Empty;
 							}
 							catch (SvnFileSystemException ex)
 							{
 								// http://stackoverflow.com/questions/12939642/sharpsvn-getinfo-lastchangerevision-is-wrong
-								Debug.WriteLine(ex);
+								Logger.Write(new LogEntry { Message = "SvnFileSystemException: " + ex, Categories = {"Plugin.Subversion"}, Severity = TraceEventType.Warning});
 								changedFile.OldVersion = String.Empty;
 							}
 						}
@@ -166,8 +164,6 @@ namespace SourceLog.Plugin.Subversion
 
 					logEntry.ChangedFiles.Add(changedFile);
 				}
-
-				//Debug.WriteLine("Processed (" + new TimeSpan(DateTime.Now.Ticks - debugStartTime.Ticks) + ") " + changedPath.Path);
 			});
 		}
 

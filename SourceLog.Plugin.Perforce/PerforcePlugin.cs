@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
 using System.Threading;
 using P4COM;
 using System.IO;
-using System.Diagnostics;
 
 namespace SourceLog.Plugin.Perforce
 {
@@ -28,20 +28,14 @@ namespace SourceLog.Plugin.Perforce
 		{
 			if (Monitor.TryEnter(_lockObject))
 			{
+				Logger.Write(new LogEntry { Message = "Checking for new entries", Categories = { "Plugin.Perforce" } });
 				try
 				{
-					List<LogEntryDto> logEntries = new List<LogEntryDto>();
-					P4COM.p4 p4 = new P4COM.p4();
+					var p4 = new p4();
 					p4.Connect();
-					var p4changes = p4.run("changes -t -l -s submitted -m 30 \"" + SettingsXml + "\"");
-					//p4.Disconnect();
-					foreach (string changeset in p4changes)
-					{
-						var logEntry = PerforceLogParser.Parse(changeset);
-						if (logEntry.CommittedDate <= MaxDateTimeRetrieved)
-							continue;
-						logEntries.Add(logEntry);
-					}
+					var p4Changes = p4.run("changes -t -l -s submitted -m 30 \"" + SettingsXml + "\"");
+
+					var logEntries = p4Changes.Cast<string>().Select(PerforceLogParser.Parse).Where(logEntry => logEntry.CommittedDate > MaxDateTimeRetrieved).ToList();
 
 					foreach (var logEntry in logEntries.OrderBy(le => le.CommittedDate))
 					{
@@ -49,8 +43,8 @@ namespace SourceLog.Plugin.Perforce
 						ChangedFileDto changedFile;
 
 						// grab changed files
-						var p4files = p4.run("files @=" + logEntry.Revision);
-						foreach (string file in p4files)
+						var p4Files = p4.run("files @=" + logEntry.Revision);
+						foreach (string file in p4Files)
 						{
 							changedFile = PerforceLogParser.ParseP4File(file);
 							if (changedFile.ChangeType == ChangeType.Added
@@ -68,13 +62,13 @@ namespace SourceLog.Plugin.Perforce
 								{
 									changedFile.NewVersion = String.Empty;
 								}
-								
+
 								// Always create a new p4 object otherwise TempFilename doesn't always update
-								p4 p4Print = new p4();
+								var p4Print = new p4();
 								p4Print.Connect();
 								p4Print.run("print \"" + changedFile.FileName + "@" + logEntry.Revision + "\"");
 								string tempFilename = ((dynamic)p4Print).TempFilename;
-								Debug.WriteLine(" " + DateTime.Now.ToString("HH:mm:ss.fff tt") + " - [PerforcePlugin] changedFile.FileName: " + changedFile.FileName + "; tempFilename: " + tempFilename);
+
 								using (var streamReader = new StreamReader(tempFilename))
 								{
 									changedFile.NewVersion += streamReader.ReadToEnd();
@@ -91,7 +85,7 @@ namespace SourceLog.Plugin.Perforce
 							if (changedFile.ChangeType == ChangeType.Deleted
 								|| changedFile.ChangeType == ChangeType.Modified)
 							{
-								p4 p4Print = new p4();
+								var p4Print = new p4();
 								p4Print.Connect();
 								p4Print.run("print \"" + changedFile.FileName + "@" + (Int32.Parse(logEntry.Revision) - 1) + "\"");
 								string tempFilename = ((dynamic)p4Print).TempFilename;
@@ -113,8 +107,6 @@ namespace SourceLog.Plugin.Perforce
 							{
 								changedFile.OldVersion = String.Empty;
 							}
-
-							
 
 							logEntry.ChangedFiles.Add(changedFile);
 						}

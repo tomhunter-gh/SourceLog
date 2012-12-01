@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 using Newtonsoft.Json;
 using SourceLog.Interface;
 
@@ -33,9 +34,12 @@ namespace SourceLog.Plugin.GitHub
 
 		public void Initialise()
 		{
-			//Debug.WriteLine("GitHubPlugin: Initialising.");
-
-			//https://github.com/tomhunter-gh/SourceLog
+			Logger.Write(new LogEntry
+				{
+					Message = "Plugin initialising",
+					Categories = {"Plugin.GitHub"},
+					Severity = TraceEventType.Information
+				});
 
 			const string pattern = @"https://github.com/(?<username>[^/]+)/(?<reponame>[^/]+)/?";
 			var r = new Regex(pattern);
@@ -60,7 +64,8 @@ namespace SourceLog.Plugin.GitHub
 			{
 				try
 				{
-					//Debug.WriteLine("GitHubPlugin: Checking for new entries. Thread: " + Thread.CurrentThread.ManagedThreadId);
+					Logger.Write(new LogEntry {Message = "Checking for new entries", Categories = {"Plugin.GitHub"}});
+
 					var repoLog = JsonConvert.DeserializeObject<RepoLog>(GitHubApiGet(
 						"https://api.github.com/repos/" + _username + "/"
 						+ _reponame + "/commits"
@@ -152,7 +157,7 @@ namespace SourceLog.Plugin.GitHub
 				}
 				catch (GitHubApiRateLimitException)
 				{
-					Debug.WriteLine("[GitHubPlugin] GitHubApiRateLimitException - sleeping for 1 hr");
+					Logger.Write(new LogEntry { Message = "[GitHubPlugin] GitHubApiRateLimitException - sleeping for 1 hr", Categories = {"Plugin.GitHub"}});
 					Thread.Sleep(TimeSpan.FromHours(1));
 				}
 				catch (Exception ex)
@@ -171,7 +176,7 @@ namespace SourceLog.Plugin.GitHub
 
 		static string GitHubApiGet(string uri)
 		{
-			Debug.WriteLine(" [GitHubPlugin] GitHubApiGet: " + uri);
+			Logger.Write(new LogEntry { Message = "GitHubApiGet: " + uri, Categories = {"Plugin.GitHub"}});
 			var request = WebRequest.Create(uri);
 			try
 			{

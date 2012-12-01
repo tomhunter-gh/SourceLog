@@ -113,7 +113,11 @@ namespace SourceLog.Model
 		{
 			logEntry.ChangedFiles.AsParallel().ForAll(changedFile =>
 			{
-				Debug.WriteLine("   GeneratingFlowDocument: " + changedFile.FileName);
+				Logger.Write(new Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
+					{
+						Message = "GeneratingFlowDocuments - Subscription: " + logEntry.LogSubscription.Name + ", File: " + changedFile.FileName,
+						Severity = TraceEventType.Information
+					});
 
 				var diff = new SideBySideFlowDocumentDiffGenerator(changedFile.OldVersion, changedFile.NewVersion);
 				changedFile.LeftFlowDocument = diff.LeftDocument;

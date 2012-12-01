@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
 
 namespace SourceLog.Plugin.Perforce
@@ -8,8 +10,9 @@ namespace SourceLog.Plugin.Perforce
 	{
 		internal static LogEntryDto Parse(string changesetString)
 		{
-			var logEntry = new LogEntryDto();
+			Logger.Write(new LogEntry { Message = "Parsing changeset: " + changesetString, Categories = { "Plugin.Perforce" } });
 
+			var logEntry = new LogEntryDto();
 			const string pattern = @"Change\s(?<revision>\d+)\son\s(?<datetime>\d{4}/\d{2}/\d{2}\s\d{2}:\d{2}:\d{2})\sby\s(?<author>\w+)@\w+\n\n\t(?<message>.*)";
 			var r = new Regex(pattern);
 			var match = r.Match(changesetString);
@@ -27,12 +30,18 @@ namespace SourceLog.Plugin.Perforce
 				logEntry.Message = match.Groups["message"].Value;
 
 			}
+			else
+			{
+				Logger.Write(new LogEntry { Message = "Parsing changeset failed: " + changesetString, Categories = { "Plugin.Perforce" }, Severity = TraceEventType.Error });
+			}
 
 			return logEntry;
 		}
 
 		internal static ChangedFileDto ParseP4File(string file)
 		{
+			Logger.Write(new LogEntry { Message = "Parsing file: " + file, Categories = { "Plugin.Perforce" } });
+
 			var changedFile = new ChangedFileDto();
 			const string pattern = @"(?<filename>[^#]*)#(?<revision>\d+)\s-\s(?<action>\w+)\schange\s(?<changeNumber>\d+)\s\((?<filetype>\w+(\+\w+)?)\)";
 			var r = new Regex(pattern);
@@ -42,23 +51,26 @@ namespace SourceLog.Plugin.Perforce
 				changedFile.FileName = match.Groups["filename"].Value;
 				switch (match.Groups["action"].Value)
 				{
-					case "add" :
-						changedFile.ChangeType = Interface.ChangeType.Added;
+					case "add":
+						changedFile.ChangeType = ChangeType.Added;
 						break;
-					case "edit" :
-						changedFile.ChangeType = Interface.ChangeType.Modified;
+					case "edit":
+						changedFile.ChangeType = ChangeType.Modified;
 						break;
-					case "delete" :
-						changedFile.ChangeType = Interface.ChangeType.Deleted;
+					case "delete":
+						changedFile.ChangeType = ChangeType.Deleted;
 						break;
-					case "branch" :
-						changedFile.ChangeType = Interface.ChangeType.Copied;
+					case "branch":
+						changedFile.ChangeType = ChangeType.Copied;
 						break;
-					case "integrate" :
-						changedFile.ChangeType = Interface.ChangeType.Modified;
+					case "integrate":
+						changedFile.ChangeType = ChangeType.Modified;
 						break;
 				}
-
+			}
+			else
+			{
+				Logger.Write(new LogEntry { Message = "Parsing file failed: " + file, Categories = { "Plugin.Perforce" }, Severity = TraceEventType.Error });
 			}
 
 			return changedFile;
