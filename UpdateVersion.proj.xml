@@ -23,9 +23,17 @@
 					  AssemblyFileBuildNumber="$(AssemblyFileBuildNumber)"
 					  AssemblyFileRevision="$(AssemblyFileRevision)"
 					  />
+		
+		<ItemGroup>
+			<Namespaces Include="ns">
+				<Prefix>ns</Prefix>
+				<Uri>http://schemas.microsoft.com/developer/msbuild/2003</Uri>
+			</Namespaces>
+		</ItemGroup>
 		<MSBuild.ExtensionPack.Xml.XmlFile TaskAction="UpdateElement" 
 										   File="$(MSBuildThisFileDirectory)\SourceLog.UI\SourceLog.UI.csproj" 
-										   XPath="/Project/PropertyGroup/ApplicationVersion" 
+										   Namespaces="@(Namespaces)"
+										   XPath="/ns:Project/ns:PropertyGroup/ns:ApplicationVersion" 
 										   InnerText="$(AssemblyMajorVersion).$(AssemblyMinorVersion).$(AssemblyBuildNumber).$(AssemblyRevision)"/>
 	</Target>
 </Project>
