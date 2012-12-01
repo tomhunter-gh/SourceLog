@@ -345,6 +345,7 @@
 					  -->
 		</AssemblyInfo>
 		<Message Text="AppHarborBuild: $(AppHarborBuild)" />
+		<Exec Command="set" />
   </Target>
   <!--<Target Name="AfterPublish" DependsOnTargets="Publish">
 	<ItemGroup>
