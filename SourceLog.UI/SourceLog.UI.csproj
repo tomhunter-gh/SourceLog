@@ -344,6 +344,7 @@
                       AssemblyKeyName="$(AssemblyKeyName)"
 					  -->
 		</AssemblyInfo>
+		<Message Text="AppHarborBuild: $(AppHarborBuild)" />
   </Target>
   <!--<Target Name="AfterPublish" DependsOnTargets="Publish">
 	<ItemGroup>
