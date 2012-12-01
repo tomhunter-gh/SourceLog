@@ -44,6 +44,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SourceLog.UI\Properties\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CrashTestDummyPlugin.cs" />
     <Compile Include="CrashTestDummyWindow.xaml.cs">
       <DependentUpon>CrashTestDummyWindow.xaml</DependentUpon>

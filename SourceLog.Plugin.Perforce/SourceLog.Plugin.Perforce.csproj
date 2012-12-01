@@ -66,6 +66,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SourceLog.UI\Properties\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="PerforceLogParser.cs" />
     <Compile Include="PerforcePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -73,6 +73,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SourceLog.UI\Properties\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ChangedFile.cs" />
     <Compile Include="ISourceLogContext.cs" />
     <Compile Include="LogEntryInfo.cs" />
