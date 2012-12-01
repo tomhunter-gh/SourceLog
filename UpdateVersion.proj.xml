@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="UpdateVersion" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<UsingTask AssemblyFile="Lib\MSBuildExtensionPack\4.0.6.0\MSBuild.ExtensionPack.dll" TaskName="MSBuild.ExtensionPack.Framework.AssemblyInfo"/>
+	<UsingTask AssemblyFile="Lib\MSBuildExtensionPack\4.0.6.0\MSBuild.ExtensionPack.dll" TaskName="MSBuild.ExtensionPack.Xml.XmlFile"/>
+	<PropertyGroup>
+		<AssemblyMajorVersion>$([System.DateTime]::Now.ToString(`yyyy`))</AssemblyMajorVersion>
+		<AssemblyMinorVersion>$([System.DateTime]::Now.ToString(`MM`))</AssemblyMinorVersion>
+		<AssemblyBuildNumber>$([System.DateTime]::Now.ToString(`dd`))</AssemblyBuildNumber>
+		<AssemblyRevision>$([System.DateTime]::Now.ToString(`HHmm`))</AssemblyRevision>
+		<AssemblyFileMajorVersion>$(AssemblyMajorVersion)</AssemblyFileMajorVersion>
+		<AssemblyFileMinorVersion>$(AssemblyMinorVersion)</AssemblyFileMinorVersion>
+		<AssemblyFileBuildNumber>$(AssemblyBuildNumber)</AssemblyFileBuildNumber>
+		<AssemblyFileRevision>$(AssemblyRevision)</AssemblyFileRevision>
+	</PropertyGroup>
+	<Target Name="UpdateVersion" Condition="'$(USERNAME.StartsWith(`apphb`))'=='True'">
+		<AssemblyInfo AssemblyInfoFiles="$(MSBuildThisFileDirectory)\SourceLog.UI\Properties\GlobalAssemblyInfo.cs"
+					  AssemblyMajorVersion="$(AssemblyMajorVersion)"
+					  AssemblyMinorVersion="$(AssemblyMinorVersion)"
+					  AssemblyBuildNumber="$(AssemblyBuildNumber)"
+					  AssemblyRevision="$(AssemblyRevision)"
+					  AssemblyFileMajorVersion="$(AssemblyFileMajorVersion)"
+					  AssemblyFileMinorVersion="$(AssemblyFileMinorVersion)"
+					  AssemblyFileBuildNumber="$(AssemblyFileBuildNumber)"
+					  AssemblyFileRevision="$(AssemblyFileRevision)"
+					  />
+		<MSBuild.ExtensionPack.Xml.XmlFile TaskAction="UpdateElement" 
+										   File="$(MSBuildThisFileDirectory)\SourceLog.UI\SourceLog.UI.csproj" 
+										   XPath="/Project/PropertyGroup/ApplicationVersion" 
+										   InnerText="$(AssemblyMajorVersion).$(AssemblyMinorVersion).$(AssemblyBuildNumber).$(AssemblyRevision)"/>
+	</Target>
+</Project>

@@ -27,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Local.testsettings = Local.testsettings
 		SourceLog.vsmdi = SourceLog.vsmdi
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+		UpdateVersion.proj.xml = UpdateVersion.proj.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.Perforce", "SourceLog.Plugin.Perforce\SourceLog.Plugin.Perforce.csproj", "{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}"
