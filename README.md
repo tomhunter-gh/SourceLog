@@ -5,6 +5,11 @@ SourceLog is a source control repository monitor application that tracks changes
 
 ![SourceLog Main Window](https://raw.github.com/tomhunter-gh/SourceLog/97a3d47b28e95963cdd332e67c1e2e28a0002e99/Documentation/Images/MainWindow.png "SourceLog Main Window")
 
+[See more screenshots..](https://github.com/tomhunter-gh/SourceLog/wiki/SourceLog-Screenshots)
+
+Implementation
+--------------
+
 The application is implemented using WPF and .NET 4. The log data is stored in a SQL Server Compact Edition 4.0 database and accessed using Entity Framework 4.1 Code First.
 
 Supported Version Control Systems
