@@ -14,7 +14,7 @@ namespace SourceLog.Plugin.Subversion
 	public class SubversionPlugin : ILogProvider
 	{
 		private Timer _timer;
-		private readonly Object _lockObject = new Object();
+		static readonly Object _lockObject = new Object();
 
 		public string SettingsXml { get; set; }
 
