@@ -19,7 +19,9 @@ Supported Version Control Systems
 Status
 ------
 
-The application is currently a work in progress and the current focus is on a [version 1](https://github.com/tomhunter-gh/SourceLog/issues?milestone=1) release.
+SourceLog is packaged into a ClickOnce installer and hosted on [AppHarbor](https://appharbor.com/).  The current version can be installed from the following URL: http://sourcelog.apphb.com/SourceLog.application
+
+The application is currently a work in progress and the current focus is on a [version 1](https://github.com/tomhunter-gh/SourceLog/issues?milestone=1) release. 
 
 - - -
 
