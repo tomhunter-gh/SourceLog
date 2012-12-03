@@ -73,7 +73,8 @@ namespace SourceLog.Plugin.GitHub
 
 					if (repoLog.Count() > 0)
 					{
-						foreach (var commitEntry in repoLog.Where(x => DateTime.Parse(x.commit.committer.date) > MaxDateTimeRetrieved)
+						var maxDateTimeRetrievedAtStartOfProcessing = MaxDateTimeRetrieved;
+						foreach (var commitEntry in repoLog.Where(x => DateTime.Parse(x.commit.committer.date) > maxDateTimeRetrievedAtStartOfProcessing)
 							.OrderBy(x => DateTime.Parse(x.commit.committer.date)))
 						{
 							var logEntry = new LogEntryDto
@@ -151,8 +152,8 @@ namespace SourceLog.Plugin.GitHub
 							var args = new NewLogEntryEventArgs { LogEntry = logEntry };
 
 							NewLogEntry(this, args);
+							MaxDateTimeRetrieved = logEntry.CommittedDate;
 						}
-						MaxDateTimeRetrieved = repoLog.Max(x => DateTime.Parse(x.commit.committer.date));
 					}
 				}
 				catch (GitHubApiRateLimitException)
