@@ -266,9 +266,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Visual.C++.10.0.x86">
+    <BootstrapperPackage Include="Microsoft.Visual.C++.9.0.x86">
       <Visible>False</Visible>
-      <ProductName>Visual C++ 2010 Runtime Libraries %28x86%29</ProductName>
+      <ProductName>Visual C++ 2008 SP1 Runtime Libraries %28x86%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
