@@ -22,5 +22,14 @@ namespace SourceLog
 		{
 			Logger.Write(e.ExceptionObject);
 		}
+
+		private void ApplicationExit(object sender, ExitEventArgs e)
+		{
+			Logger.Write(new LogEntry
+				{
+					Message = "Application closing..",
+					Severity = TraceEventType.Information
+				});
+		}
 	}
 }

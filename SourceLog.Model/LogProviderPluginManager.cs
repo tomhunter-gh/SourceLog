@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
 
 namespace SourceLog.Model
@@ -46,10 +48,21 @@ namespace SourceLog.Model
 							logProviderPluginTypeList.Add(assembly.GetName().Name, type);
 						}
 					}
-					catch (BadImageFormatException)
-					{ }
-					catch (FileLoadException)
-					{ }
+					//catch (BadImageFormatException)
+					//{ }
+					//catch (FileLoadException)
+					//{ }
+					catch (Exception ex)
+					{
+						Logger.Write(new Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
+							{
+								Message = "Exception in LoadLogProviderPluginTypeList: " + Environment.NewLine
+								+ " " + ex + Environment.NewLine
+								+ "\tpluginDirectory: " + pluginDirectory + Environment.NewLine
+								+ "\tfileInfo.FullName: " + fileInfo.FullName + Environment.NewLine,
+								Severity = TraceEventType.Error
+							});
+					}
 				}
 			}
 
