@@ -37,7 +37,7 @@ namespace SourceLog.Plugin.GitHub
 			Logger.Write(new LogEntry
 				{
 					Message = "Plugin initialising",
-					Categories = {"Plugin.GitHub"},
+					Categories = { "Plugin.GitHub" },
 					Severity = TraceEventType.Information
 				});
 
@@ -64,7 +64,7 @@ namespace SourceLog.Plugin.GitHub
 			{
 				try
 				{
-					Logger.Write(new LogEntry {Message = "Checking for new entries", Categories = {"Plugin.GitHub"}});
+					Logger.Write(new LogEntry { Message = "Checking for new entries", Categories = { "Plugin.GitHub" } });
 
 					var repoLog = JsonConvert.DeserializeObject<RepoLog>(GitHubApiGet(
 						"https://api.github.com/repos/" + _username + "/"
@@ -156,11 +156,6 @@ namespace SourceLog.Plugin.GitHub
 						}
 					}
 				}
-				catch (GitHubApiRateLimitException)
-				{
-					Logger.Write(new LogEntry { Message = "[GitHubPlugin] GitHubApiRateLimitException - sleeping for 1 hr", Categories = {"Plugin.GitHub"}});
-					Thread.Sleep(TimeSpan.FromHours(1));
-				}
 				catch (Exception ex)
 				{
 					var args = new LogProviderExceptionEventArgs { Exception = ex };
@@ -177,7 +172,7 @@ namespace SourceLog.Plugin.GitHub
 
 		static string GitHubApiGet(string uri)
 		{
-			Logger.Write(new LogEntry { Message = "GitHubApiGet: " + uri, Categories = {"Plugin.GitHub"}});
+			Logger.Write(new LogEntry { Message = "GitHubApiGet: " + uri, Categories = { "Plugin.GitHub" } });
 			var request = WebRequest.Create(uri);
 			try
 			{
@@ -193,7 +188,28 @@ namespace SourceLog.Plugin.GitHub
 			{
 				if (ex.Response.Headers["X-RateLimit-Remaining"] == "0")
 				{
-					throw new GitHubApiRateLimitException("RateLimit-Remaining = 0", ex);
+					Logger.Write(new LogEntry { Message = "GitHub API rate limit met - sleeping for 1 hr", Categories = { "Plugin.GitHub" } });
+					Thread.Sleep(TimeSpan.FromHours(1));
+					return GitHubApiGet(uri);
+				}
+				else
+				{
+					try
+					{
+						var response = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
+						if (response == "Error: blob is too big")
+							return response + System.Environment.NewLine
+								+ "URI: " + uri;
+						else
+						{
+							//ex.Response.Headers.
+							throw new Exception(response, ex);
+						}
+					}
+					catch
+					{
+						throw ex;
+					}
 				}
 				throw;
 			}
