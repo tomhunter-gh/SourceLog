@@ -19,12 +19,12 @@ namespace SourceLog
 	/// </summary>
 	public partial class NewSubscriptionWindow : Window
 	{
-		private NewSubscriptionWindowViewModel vm;
+		private readonly NewSubscriptionWindowViewModel _vm;
 
 		public NewSubscriptionWindow()
 		{
-			vm = new NewSubscriptionWindowViewModel();
-			DataContext = vm;
+			_vm = new NewSubscriptionWindowViewModel();
+			DataContext = _vm;
 			
 
 			InitializeComponent();
@@ -32,7 +32,7 @@ namespace SourceLog
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			vm.AddSubscription(LogSubscriptionNameTextBox.Text, (string)LogProviderPluginDropDown.SelectedValue, UrlTextBox.Text);
+			_vm.AddSubscription(LogSubscriptionNameTextBox.Text, (string)LogProviderPluginDropDown.SelectedValue, UrlTextBox.Text);
 			Close();
 		}
 

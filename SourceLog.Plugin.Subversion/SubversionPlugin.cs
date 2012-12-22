@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -14,7 +15,7 @@ namespace SourceLog.Plugin.Subversion
 	public class SubversionPlugin : ILogProvider
 	{
 		private Timer _timer;
-		static readonly Object _lockObject = new Object();
+		static readonly Object LockObject = new Object();
 
 		public string SettingsXml { get; set; }
 
@@ -22,16 +23,25 @@ namespace SourceLog.Plugin.Subversion
 
 		public void Initialise()
 		{
+			Logger.Write(new LogEntry
+			{
+				Message = "Plugin initialising (" + SettingsXml + ")",
+				Categories = { "Plugin.Subversion" },
+				Severity = TraceEventType.Information
+			});
+
 			_timer = new Timer(CheckForNewLogEntries);
 			_timer.Change(0, 15000);
 		}
 
 		private void CheckForNewLogEntries(object state)
 		{
-			if (Monitor.TryEnter(_lockObject))
+			if (Monitor.TryEnter(LockObject))
 			{
 				try
 				{
+					Logger.Write(new LogEntry { Message = "Checking for new entries", Categories = { "Plugin.Subversion" } });
+
 					using (var svnClient = new SvnClient())
 					{
 						var uri = new Uri(SettingsXml);
@@ -50,7 +60,7 @@ namespace SourceLog.Plugin.Subversion
 										Author = svnLogEntry.Author,
 										CommittedDate = svnLogEntry.Time,
 										Message = svnLogEntry.LogMessage,
-										Revision = revision.ToString(),
+										Revision = revision.ToString(CultureInfo.InvariantCulture),
 										ChangedFiles = new List<ChangedFileDto>()
 									};
 
@@ -70,14 +80,14 @@ namespace SourceLog.Plugin.Subversion
 				}
 				finally
 				{
-					Monitor.Exit(_lockObject);
+					Monitor.Exit(LockObject);
 				}
 			}
 		}
 
 		private void ProcessChangedPaths(SvnLoggingEventArgs svnLogEntry, long revision, LogEntryDto logEntry)
 		{
-			svnLogEntry.ChangedPaths.AsParallel().WithDegreeOfParallelism(10).ForAll(changedPath =>
+			svnLogEntry.ChangedPaths.AsParallel().WithDegreeOfParallelism(1).ForAll(changedPath =>
 			{
 				Logger.Write(new LogEntry {Message = "Processing path " + changedPath.Path, Categories = {"Plugin.Subversion"}});
 				using (var parallelSvnClient = new SvnClient())
@@ -109,7 +119,6 @@ namespace SourceLog.Plugin.Subversion
 						if (changedPath.Action == SvnChangeAction.Modify || changedPath.Action == SvnChangeAction.Delete)
 						{
 							// Use GetInfo to get the last change revision
-							SvnInfoEventArgs previousRevisionInfo;
 							var previousRevisionUri = new SvnUriTarget(SettingsXml + changedPath.Path, revision - 1);
 							try
 							{
@@ -117,6 +126,7 @@ namespace SourceLog.Plugin.Subversion
 								// a previous version doesn't exist for a Modify action.  I'm not sure how
 								// you can have a modify without a previous version (surely everything
 								// starts with an add..?
+								SvnInfoEventArgs previousRevisionInfo;
 								parallelSvnClient.GetInfo(previousRevisionUri, out previousRevisionInfo);
 								changedFile.OldVersion = ReadFileVersion(
 									parallelSvnClient, SettingsXml + changedPath.Path,

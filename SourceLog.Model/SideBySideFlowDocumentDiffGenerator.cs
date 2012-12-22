@@ -169,8 +169,8 @@ namespace SourceLog.Model
 			if (line == null)
 				return 0;
 
-			return line.Where(c => c == '\t').Count()*_tabWidth
-					+ line.Where(c => c != '\t').Count()*_characterWidth;
+			return line.Count(c => c == '\t')*_tabWidth
+					+ line.Count(c => c != '\t')*_characterWidth;
 		}
 
 		private Paragraph RenderDiffWords(DiffPiece line)

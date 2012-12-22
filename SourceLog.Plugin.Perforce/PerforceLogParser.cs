@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
@@ -20,7 +21,7 @@ namespace SourceLog.Plugin.Perforce
 			{
 				int revision;
 				if (Int32.TryParse(match.Groups["revision"].Value, out revision))
-					logEntry.Revision = revision.ToString();
+					logEntry.Revision = revision.ToString(CultureInfo.InvariantCulture);
 
 				DateTime datetime;
 				if (DateTime.TryParse(match.Groups["datetime"].Value, out datetime))

@@ -81,7 +81,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(SolutionDir)SourceLog.UI\\Plugins\$(TargetName)"
+    <PostBuildEvent>mkdir "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"
 copy /Y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"
 copy /Y "$(TargetDir)Newtonsoft.Json.dll" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"</PostBuildEvent>
   </PropertyGroup>

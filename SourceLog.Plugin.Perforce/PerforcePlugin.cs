@@ -40,13 +40,12 @@ namespace SourceLog.Plugin.Perforce
 					foreach (var logEntry in logEntries.OrderBy(le => le.CommittedDate))
 					{
 						logEntry.ChangedFiles = new List<ChangedFileDto>();
-						ChangedFileDto changedFile;
 
 						// grab changed files
 						var p4Files = p4.run("files @=" + logEntry.Revision);
 						foreach (string file in p4Files)
 						{
-							changedFile = PerforceLogParser.ParseP4File(file);
+							ChangedFileDto changedFile = PerforceLogParser.ParseP4File(file);
 							if (changedFile.ChangeType == ChangeType.Added
 								|| changedFile.ChangeType == ChangeType.Copied
 								|| changedFile.ChangeType == ChangeType.Modified

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
@@ -66,7 +67,7 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 							Author = changeset.Committer,
 							CommittedDate = changeset.CreationDate,
 							Message = changeset.Comment,
-							Revision = changesetId.ToString(),
+							Revision = changesetId.ToString(CultureInfo.InvariantCulture),
 							ChangedFiles = new List<ChangedFileDto>()
 						};
 

@@ -12,7 +12,7 @@ using SourceLog.Interface;
 
 namespace SourceLog.Plugin.GitHub
 {
-	public class GitHubLogProvider : ILogProvider
+	public class GitHubPlugin : ILogProvider
 	{
 		private Timer _timer;
 		private readonly Object _lockObject = new Object();
@@ -71,7 +71,7 @@ namespace SourceLog.Plugin.GitHub
 						+ _reponame + "/commits"
 					));
 
-					if (repoLog.Count() > 0)
+					if (repoLog.Any())
 					{
 						var maxDateTimeRetrievedAtStartOfProcessing = MaxDateTimeRetrieved;
 						foreach (var commitEntry in repoLog.Where(x => DateTime.Parse(x.commit.committer.date) > maxDateTimeRetrievedAtStartOfProcessing)
@@ -192,26 +192,12 @@ namespace SourceLog.Plugin.GitHub
 					Thread.Sleep(TimeSpan.FromHours(1));
 					return GitHubApiGet(uri);
 				}
-				else
-				{
-					try
-					{
-						var response = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
-						if (response == "Error: blob is too big")
-							return response + System.Environment.NewLine
-								+ "URI: " + uri;
-						else
-						{
-							//ex.Response.Headers.
-							throw new Exception(response, ex);
-						}
-					}
-					catch
-					{
-						throw ex;
-					}
-				}
-				throw;
+
+				var response = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
+				if (response == "Error: blob is too big")
+					return response + Environment.NewLine + "URI: " + uri;
+
+				throw new Exception(response, ex);
 			}
 		}
 	}
