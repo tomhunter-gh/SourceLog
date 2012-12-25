@@ -12,6 +12,8 @@ Implementation
 
 The application is implemented using WPF and .NET 4. The log data is stored in a SQL Server Compact Edition 4.0 database and accessed using Entity Framework 4.1 Code First.
 
+Please see my blog post for further information: http://www.unhandledexception.info/sourcelog/
+
 Supported Version Control Systems
 ---------------------------------
 
@@ -34,15 +36,17 @@ The application is currently a work in progress and the current focus is on a [v
 Feedback
 --------
 
-Feedback is very much welcome and encouraged across, but not limited to, the following areas:
+Feedback and suggestions are very much welcome and I would be keen to get input on all the following areas:
 
 + The GitHub project page / [AppHarbor host page](http://sourcelog.apphb.com/)
 + The install experience
 + The features/functionality of the application
 + The design/architecture of the application
-+ The coding style and 
++ The coding style and conventions/consistency
 
+I would also be very happy to collaborate with others on further development of the application, so if this is something you’d be interested in, please drop me a line!
 
+tom@unhandledexception.info
 
 - - -
 
