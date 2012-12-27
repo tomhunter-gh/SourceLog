@@ -16,13 +16,13 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
     <PublishDir>$(OutDir)\_PublishedWebsites\ClickOnceHostWeb</PublishDir>
     <GenerateBootstrapperSdkPath>$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bootstrapper</GenerateBootstrapperSdkPath>
     <SdkToolsPath>$(MSBuildProjectDirectory)\..\Lib\Microsoft SDKs\Windows\v7.0A\Bin</SdkToolsPath>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>http://sourcelog.apphb.com/</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
+    <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Background</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -30,6 +30,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://sourcelog.apphb.com/</InstallUrl>
     <UpdateUrl>http://sourcelog.apphb.com/</UpdateUrl>
     <ProductName>SourceLog</ProductName>
     <PublisherName>SourceLog</PublisherName>
