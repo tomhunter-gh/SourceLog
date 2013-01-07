@@ -14,7 +14,7 @@ namespace SourceLog.Plugin.Perforce
 			Logger.Write(new LogEntry { Message = "Parsing changeset: " + changesetString, Categories = { "Plugin.Perforce" } });
 
 			var logEntry = new LogEntryDto();
-			const string pattern = @"Change\s(?<revision>\d+)\son\s(?<datetime>\d{4}/\d{2}/\d{2}\s\d{2}:\d{2}:\d{2})\sby\s(?<author>\w+)@\w+\n\n\t(?<message>.*)";
+			const string pattern = @"Change\s(?<revision>\d+)\son\s(?<datetime>\d{4}/\d{2}/\d{2}\s\d{2}:\d{2}:\d{2})\sby\s(?<author>[^@]+)@\w+\n\n\t(?<message>.*)";
 			var r = new Regex(pattern);
 			var match = r.Match(changesetString);
 			if (match.Success)

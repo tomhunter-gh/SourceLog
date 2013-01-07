@@ -33,7 +33,10 @@ namespace SourceLog.Plugin.Perforce
 				{
 					var p4 = new p4();
 					p4.Connect();
-					var p4Changes = p4.run("changes -t -l -s submitted -m 30 \"" + SettingsXml + "\"");
+					var repoPath = SettingsXml;
+					if (repoPath.EndsWith(@"/"))
+						repoPath += "...";
+					var p4Changes = p4.run("changes -t -l -s submitted -m 30 \"" + repoPath + "\"");
 
 					var logEntries = p4Changes.Cast<string>().Select(PerforceLogParser.Parse).Where(logEntry => logEntry.CommittedDate > MaxDateTimeRetrieved).ToList();
 

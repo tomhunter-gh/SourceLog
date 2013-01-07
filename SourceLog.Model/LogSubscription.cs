@@ -91,6 +91,8 @@ namespace SourceLog.Model
 				db.SaveChanges();
 			}
 
+			logEntry.UnloadChangedFiles();
+
 			if (_uiThread != null)
 			{
 				_uiThread.Post(entry =>
