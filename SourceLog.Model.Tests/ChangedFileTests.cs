@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+//using Moq;
 using SourceLog.Interface;
 
 namespace SourceLog.Model.Tests
@@ -15,19 +15,19 @@ namespace SourceLog.Model.Tests
 		[DeploymentItem(@"TestData\jquery.signalR.core.js.newversion")]
 		public void OldNewVersionTextStorageSizeThreshold()
 		{
-			var mockContext = new Mock<ISourceLogContext>();
+			//var mockContext = new Mock<ISourceLogContext>();
 			
-			var logSubscription = new LogSubscription (() => mockContext.Object)
-				{
-					LogSubscriptionId = 1,
-					Log = new TrulyObservableCollection<LogEntry>()
-				};
+			//var logSubscription = new LogSubscription (() => mockContext.Object)
+			//    {
+			//        LogSubscriptionId = 1,
+			//        Log = new TrulyObservableCollection<LogEntry>()
+			//    };
 
-			var fakeLogSubscriptionDbSet = new FakeLogSubscriptionDbSet { logSubscription };
-			mockContext.Setup(m => m.LogSubscriptions).Returns(fakeLogSubscriptionDbSet);
+			//var fakeLogSubscriptionDbSet = new FakeLogSubscriptionDbSet { logSubscription };
+			//mockContext.Setup(m => m.LogSubscriptions).Returns(fakeLogSubscriptionDbSet);
 
-			var logEntriesDbSet = new FakeDbSet<LogEntry>();
-			mockContext.Setup(m => m.LogEntries).Returns(logEntriesDbSet);
+			//var logEntriesDbSet = new FakeDbSet<LogEntry>();
+			//mockContext.Setup(m => m.LogEntries).Returns(logEntriesDbSet);
 
 			var changedFileDto = new ChangedFileDto();
 
@@ -41,14 +41,18 @@ namespace SourceLog.Model.Tests
 				changedFileDto.NewVersion = reader.ReadToEnd();
 			}
 
-			var logEntry = new LogEntryDto
+			var logEntryDto = new LogEntryDto
 			{
 				ChangedFiles = new List<ChangedFileDto> { changedFileDto }
 			};
 
-			logSubscription.AddNewLogEntry(this, new NewLogEntryEventArgs { LogEntry = logEntry });
+			//logSubscription.AddNewLogEntry(this, new NewLogEntryEventArgs { LogEntry = logEntryDto });
 
-			var changedFile = logEntriesDbSet.First().ChangedFiles.First();
+			var logEntry = new LogEntry(logEntryDto);
+
+			logEntry.GenerateFlowDocuments();
+
+			var changedFile = logEntry.ChangedFiles.First();
 
 			Assert.IsTrue(changedFile.LeftFlowDocumentData.Length <= 5382,
 				"changedFile.LeftFlowDocumentData.Length: " + changedFile.LeftFlowDocumentData.Length);

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Documents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+//using Moq;
 using SourceLog.Interface;
 
 namespace SourceLog.Model.Tests
@@ -13,28 +13,36 @@ namespace SourceLog.Model.Tests
 		[TestMethod]
 		public void LeadingTabsAreDisplayed()
 		{
-			var changedFileDto = new ChangedFileDto();
-			changedFileDto.OldVersion = "\t@ ,";
-			changedFileDto.NewVersion = "\t @ ";
+			var changedFileDto = new ChangedFileDto
+				{
+					OldVersion = "\t@ ,",
+					NewVersion = "\t @ "
+				};
 
-			var logEntry = new LogEntryDto { ChangedFiles = new List<ChangedFileDto> { changedFileDto } };
+			var logEntryDto = new LogEntryDto { ChangedFiles = new List<ChangedFileDto> { changedFileDto } };
 
-			var mockContext = new Mock<ISourceLogContext>();
-			var logSubscription = new LogSubscription(() => mockContext.Object)
-			{
-				LogSubscriptionId = 1,
-				Log = new TrulyObservableCollection<LogEntry>()
-			};
+			//var mockContext = new Mock<ISourceLogContext>();
+			//var logSubscription = new LogSubscription(() => mockContext.Object)
+			//{
+			//    LogSubscriptionId = 1,
+			//    Log = new TrulyObservableCollection<LogEntry>()
+			//};
 
-			var fakeLogSubscriptionDbSet = new FakeLogSubscriptionDbSet { logSubscription };
-			mockContext.Setup(m => m.LogSubscriptions).Returns(fakeLogSubscriptionDbSet);
+			//var fakeLogSubscriptionDbSet = new FakeLogSubscriptionDbSet { logSubscription };
+			//mockContext.Setup(m => m.LogSubscriptions).Returns(fakeLogSubscriptionDbSet);
 
-			var logEntriesDbSet = new FakeDbSet<LogEntry>();
-			mockContext.Setup(m => m.LogEntries).Returns(logEntriesDbSet);
+			//var logEntriesDbSet = new FakeDbSet<LogEntry>();
+			//mockContext.Setup(m => m.LogEntries).Returns(logEntriesDbSet);
 
-			logSubscription.AddNewLogEntry(this, new NewLogEntryEventArgs { LogEntry = logEntry });
+			//logSubscription.AddNewLogEntry(this, new NewLogEntryEventArgs { LogEntry = logEntry });
 
-			var changedFile = logEntriesDbSet.First().ChangedFiles.First();
+			var logEntry = new LogEntry(logEntryDto);
+
+			logEntry.GenerateFlowDocuments();
+
+			var changedFile = logEntry.ChangedFiles.First();
+
+			//var changedFile = logEntriesDbSet.First().ChangedFiles.First();
 			var textRange = new TextRange(changedFile.LeftFlowDocument.ContentStart, changedFile.LeftFlowDocument.ContentEnd);
 			Assert.IsTrue(textRange.Text.StartsWith("\t"));
 		}

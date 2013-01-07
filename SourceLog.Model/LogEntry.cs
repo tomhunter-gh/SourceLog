@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
 using System.Data.Entity;
 using System.Linq;
@@ -80,6 +82,23 @@ namespace SourceLog.Model
 					ChangedFiles = db.LogEntries.Where(x => x.LogEntryId == LogEntryId).Include(x => x.ChangedFiles).Single().ChangedFiles;
 				}
 			}
+		}
+
+		public void GenerateFlowDocuments()
+		{
+			ChangedFiles.AsParallel().ForAll(changedFile =>
+			{
+				Logger.Write(new Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
+				{
+					Message = "GeneratingFlowDocuments - File: " + changedFile.FileName,
+					Severity = TraceEventType.Information
+				});
+
+				var diff = new SideBySideFlowDocumentDiffGenerator(changedFile.OldVersion, changedFile.NewVersion);
+				changedFile.LeftFlowDocument = diff.LeftDocument;
+				changedFile.RightFlowDocument = diff.RightDocument;
+				changedFile.FirstModifiedLineVerticalOffset = diff.FirstModifiedLineVerticalOffset;
+			});
 		}
 	}
 }

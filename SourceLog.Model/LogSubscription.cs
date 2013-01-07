@@ -81,8 +81,7 @@ namespace SourceLog.Model
 		public void AddNewLogEntry(object sender, NewLogEntryEventArgs e)
 		{
 			var logEntry = new LogEntry(e.LogEntry);
-
-			GenerateFlowDocuments(logEntry);
+			logEntry.GenerateFlowDocuments();
 
 			using (var db = SourceLogContextProvider())
 			{
@@ -109,23 +108,6 @@ namespace SourceLog.Model
 					}, logEntry);
 			}
 			
-		}
-
-		private void GenerateFlowDocuments(LogEntry logEntry)
-		{
-			logEntry.ChangedFiles.AsParallel().ForAll(changedFile =>
-			{
-				Logger.Write(new Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
-					{
-						Message = "GeneratingFlowDocuments - Subscription: " + Name + ", File: " + changedFile.FileName,
-						Severity = TraceEventType.Information
-					});
-
-				var diff = new SideBySideFlowDocumentDiffGenerator(changedFile.OldVersion, changedFile.NewVersion);
-				changedFile.LeftFlowDocument = diff.LeftDocument;
-				changedFile.RightFlowDocument = diff.RightDocument;
-				changedFile.FirstModifiedLineVerticalOffset = diff.FirstModifiedLineVerticalOffset;
-			});
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
