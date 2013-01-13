@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.CrashTestD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickOnceHostWeb", "ClickOnceHostWeb\ClickOnceHostWeb.csproj", "{13D2D40A-4C7B-432F-A800-EC15FEF56B51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.Git", "SourceLog.Plugin.Git\SourceLog.Plugin.Git.csproj", "{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = SourceLog.vsmdi
@@ -149,6 +151,16 @@ Global
 		{13D2D40A-4C7B-432F-A800-EC15FEF56B51}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{13D2D40A-4C7B-432F-A800-EC15FEF56B51}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{13D2D40A-4C7B-432F-A800-EC15FEF56B51}.Release|x86.ActiveCfg = Release|Any CPU
+		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
