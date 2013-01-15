@@ -51,7 +51,7 @@ namespace SourceLog.Plugin.GitHub
 			}
 
 			_timer = new Timer(CheckForNewLogEntries);
-			//_timer.Change(0, 60000);
+			_timer.Change(0, 60000);
 		}
 
 
