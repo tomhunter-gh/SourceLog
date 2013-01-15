@@ -51,7 +51,7 @@ namespace SourceLog.Plugin.GitHub
 			}
 
 			_timer = new Timer(CheckForNewLogEntries);
-			_timer.Change(0, 60000);
+			//_timer.Change(0, 60000);
 		}
 
 
@@ -77,7 +77,7 @@ namespace SourceLog.Plugin.GitHub
 						foreach (var commitEntry in repoLog.Where(x => DateTime.Parse(x.commit.committer.date) > maxDateTimeRetrievedAtStartOfProcessing)
 							.OrderBy(x => DateTime.Parse(x.commit.committer.date)))
 						{
-							var logEntry = new LogEntryDto
+							var logEntryDto = new LogEntryDto
 								{
 									Revision = commitEntry.sha.Substring(0, 7),
 									Author = commitEntry.commit.committer.name,
@@ -97,7 +97,7 @@ namespace SourceLog.Plugin.GitHub
 							// process changed files in parallel
 							fullCommitEntry.files.AsParallel().ForAll(file =>
 							{
-								var changedFile = new ChangedFileDto
+								var changedFileDto = new ChangedFileDto
 									{
 										FileName = file.filename,
 										//NewVersion = GitHubApiGet(file.raw_url),
@@ -106,14 +106,14 @@ namespace SourceLog.Plugin.GitHub
 
 								if (file.status == "removed")
 								{
-									changedFile.ChangeType = ChangeType.Deleted;
-									changedFile.OldVersion = GitHubApiGet(file.raw_url);
-									changedFile.NewVersion = String.Empty;
+									changedFileDto.ChangeType = ChangeType.Deleted;
+									changedFileDto.OldVersion = GitHubApiGet(file.raw_url);
+									changedFileDto.NewVersion = String.Empty;
 								}
 								else
 								{
-									changedFile.ChangeType = ChangeType.Modified;
-									changedFile.NewVersion = GitHubApiGet(file.raw_url);
+									changedFileDto.ChangeType = ChangeType.Modified;
+									changedFileDto.NewVersion = GitHubApiGet(file.raw_url);
 
 									// get the previous version
 									// first get the list of commits for the file
@@ -125,34 +125,34 @@ namespace SourceLog.Plugin.GitHub
 										);
 
 									// get most recent commit before this one
-									var previousCommit = fileLog.Where(f => DateTime.Parse(f.commit.committer.date) < logEntry.CommittedDate)
+									var previousCommit = fileLog.Where(f => DateTime.Parse(f.commit.committer.date) < logEntryDto.CommittedDate)
 										.OrderByDescending(f => DateTime.Parse(f.commit.committer.date))
 										.FirstOrDefault();
 
 									if (previousCommit != null)
 									{
 										// get the raw contents of the path at the previous commit sha
-										changedFile.OldVersion = GitHubApiGet(
+										changedFileDto.OldVersion = GitHubApiGet(
 											"https://github.com/" + _username + "/"
 											+ _reponame + "/raw/"
 											+ previousCommit.sha + "/"
-											+ changedFile.FileName
+											+ changedFileDto.FileName
 											);
 									}
 									else
 									{
-										changedFile.OldVersion = String.Empty;
-										changedFile.ChangeType = ChangeType.Added;
+										changedFileDto.OldVersion = String.Empty;
+										changedFileDto.ChangeType = ChangeType.Added;
 									}
 								}
 
-								logEntry.ChangedFiles.Add(changedFile);
+								logEntryDto.ChangedFiles.Add(changedFileDto);
 							});
 
-							var args = new NewLogEntryEventArgs { LogEntry = logEntry };
+							var args = new NewLogEntryEventArgs { LogEntry = logEntryDto };
 
 							NewLogEntry(this, args);
-							MaxDateTimeRetrieved = logEntry.CommittedDate;
+							MaxDateTimeRetrieved = logEntryDto.CommittedDate;
 						}
 					}
 				}
