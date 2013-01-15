@@ -25,8 +25,7 @@ Supported Version Control Systems
 Install
 -------
 
-SourceLog is packaged into a ClickOnce installer and hosted on [AppHarbor](https://appharbor.com/).  The first-time installer (which includes [pre-requisites](https://github.com/tomhunter-gh/SourceLog/wiki/Application-pre-requisites)) is located here: http://sourcelog.apphb.com/Setup.exe
-After the pre-requisites have been installed, the application should be installed and updated automatically but the current version can be installed at any time using the following URL: http://sourcelog.apphb.com/SourceLog.application
+SourceLog is packaged into a ClickOnce installer and hosted on [AppHarbor](https://sourcelog.apphb.com/).
 
 Status
 ------
