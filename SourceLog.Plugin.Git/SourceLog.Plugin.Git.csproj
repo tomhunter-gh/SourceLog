@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SourceLog.Plugin.Git</RootNamespace>
-    <AssemblyName>SourceLog.Plugin.Git</AssemblyName>
+    <AssemblyName>Git</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LibGit2Sharp">
-      <HintPath>..\packages\LibGit2Sharp.0.9.5\lib\net35\LibGit2Sharp.dll</HintPath>
+    <Reference Include="LibGit2Sharp, Version=0.9.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Lib\LibGit2Sharp\vNext-95a50c31370c43aba6ee66b8705df45810dac0e8\LibGit2Sharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -53,17 +53,20 @@
       <Name>SourceLog.Interface</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
-if not exist "$(TargetDir)NativeBinaries" md "$(TargetDir)NativeBinaries"
-if not exist "$(TargetDir)NativeBinaries\x86" md "$(TargetDir)NativeBinaries\x86"
-xcopy /s /y "$(SolutionDir)packages\LibGit2Sharp.0.9.5\NativeBinaries\x86\*.*" "$(TargetDir)NativeBinaries\x86"
-if not exist "$(TargetDir)NativeBinaries\amd64" md "$(TargetDir)NativeBinaries\amd64"
-xcopy /s /y "$(SolutionDir)packages\LibGit2Sharp.0.9.5\NativeBinaries\amd64\*.*" "$(TargetDir)NativeBinaries\amd64"</PostBuildEvent>
+
+mkdir "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"
+copy /Y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"
+copy /Y "$(TargetDir)LibGit2Sharp.dll" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"
+
+if not exist "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries" md "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries"
+if not exist "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries\x86" md "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries\x86"
+xcopy /s /y "$(SolutionDir)Lib\LibGit2Sharp\vNext-95a50c31370c43aba6ee66b8705df45810dac0e8\NativeBinaries\x86\*.*" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries\x86"
+if not exist "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries\amd64" md "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries\amd64"
+xcopy /s /y "$(SolutionDir)Lib\LibGit2Sharp\vNext-95a50c31370c43aba6ee66b8705df45810dac0e8\NativeBinaries\amd64\*.*" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries\amd64"
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

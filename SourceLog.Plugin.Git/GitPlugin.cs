@@ -29,7 +29,7 @@ namespace SourceLog.Plugin.Git
 			});
 
 			_timer = new Timer(CheckForNewLogEntries);
-			_timer.Change(0, 30000);
+			_timer.Change(0, 15000);
 		}
 
 		private void CheckForNewLogEntries(object state)
@@ -39,13 +39,17 @@ namespace SourceLog.Plugin.Git
 				try
 				{
 					Logger.Write(new LogEntry { Message = "Checking for new entries", Categories = { "Plugin.Git" } });
-					
+
 					using (var repo = new Repository(SettingsXml))
 					{
+						repo.Fetch("origin");
 
-						foreach (var commit in repo.Branches["origin/HEAD"].Commits.Where(c => c.Committer.When > MaxDateTimeRetrieved).Take(30))
+						foreach (var commit in repo.Branches["origin/master"].Commits
+							.Where(c => c.Committer.When > MaxDateTimeRetrieved)
+							.Take(30)
+							.OrderBy(c => c.Committer.When))
 						{
-							var logEntry = new LogEntryDto()
+							var logEntryDto = new LogEntryDto
 								{
 									Revision = commit.Sha.Substring(0, 7),
 									Author = commit.Author.Name,
@@ -54,11 +58,44 @@ namespace SourceLog.Plugin.Git
 									ChangedFiles = new List<ChangedFileDto>()
 								};
 
-							TreeChanges changes = repo.Diff.Compare(commit.Parents.First().Tree, commit.Tree);
-							changes.First().
-							commit.Tree.
-						}
+							foreach (var change in repo.Diff.Compare(commit.Parents.First().Tree, commit.Tree))
+							{
+								// For GitLinks there isn't really a file to compare
+								// (actually I think there is but it comes in a separate change)
+								// See for example: https://github.com/libgit2/libgit2sharp/commit/a2efc1a4d433b9e3056b17645c8c1f146fcceecb
+								if (change.Mode == Mode.GitLink)
+									continue;
+								
+								var changeFileDto = new ChangedFileDto
+									{
+										FileName = change.Path,
+										ChangeType = GitChangeStatusToChangeType(change.Status)
 
+									};
+
+								switch (changeFileDto.ChangeType)
+								{
+									case ChangeType.Added:
+										changeFileDto.OldVersion = String.Empty;
+										changeFileDto.NewVersion = GetNewVersion(commit, change);
+										break;
+									case ChangeType.Deleted:
+										changeFileDto.OldVersion = GetOldVersion(commit, change);
+										changeFileDto.NewVersion = String.Empty;
+										break;
+									default:
+										changeFileDto.OldVersion = GetOldVersion(commit, change);
+										changeFileDto.NewVersion = GetNewVersion(commit, change);
+										break;
+								}
+
+								logEntryDto.ChangedFiles.Add(changeFileDto);
+							}
+
+							var args = new NewLogEntryEventArgs { LogEntry = logEntryDto };
+							NewLogEntry(this, args);
+							MaxDateTimeRetrieved = logEntryDto.CommittedDate;
+						}
 					}
 				}
 				catch (Exception ex)
@@ -70,6 +107,41 @@ namespace SourceLog.Plugin.Git
 				{
 					Monitor.Exit(_lockObject);
 				}
+			}
+		}
+
+		private string GetOldVersion(Commit commit, TreeEntryChanges change)
+		{
+			return Encoding.UTF8.GetString(((Blob)commit.Parents.First()[change.OldPath].Target).Content);
+		}
+
+		private string GetNewVersion(Commit commit, TreeEntryChanges change)
+		{
+			return Encoding.UTF8.GetString(((Blob)commit[change.Path].Target).Content);
+		}
+
+		private static ChangeType GitChangeStatusToChangeType(ChangeKind changeKind)
+		{
+			switch (changeKind)
+			{
+				case ChangeKind.Added:
+					return ChangeType.Added;
+				case ChangeKind.Deleted:
+					return ChangeType.Deleted;
+				case ChangeKind.Modified:
+					return ChangeType.Modified;
+				case ChangeKind.Renamed:
+					return ChangeType.Moved;
+				case ChangeKind.Copied:
+					return ChangeType.Copied;
+				case ChangeKind.Untracked:
+					return ChangeType.Deleted;
+				//case ChangeKind.Unmodified:
+				//    return ChangeType.Modified;
+				//case ChangeKind.Ignored:
+				//    return ChangeType.Modified;
+				default:
+					return ChangeType.Modified;
 			}
 		}
 
