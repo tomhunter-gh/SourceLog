@@ -36,9 +36,14 @@ namespace SourceLog
 			Close();
 		}
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+		private void btnCancel_Click(object sender, RoutedEventArgs e)
+		{
+			Close();
+		}
+
+		private void LogProviderPluginDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
+		}
 	}
 }

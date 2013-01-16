@@ -7,25 +7,26 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
+			<RowDefinition Name="rowURL" Height="Auto" />
+			<RowDefinition Name="rowCustomSettings" Height="Auto" />
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
-            <RowDefinition Height="115*" />
-        </Grid.RowDefinitions>
+			<RowDefinition Height="115*" />
+		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="Auto"></ColumnDefinition>
-			<ColumnDefinition></ColumnDefinition>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
 		
 		<Label Margin="6">Name: </Label>
 		<TextBox Name="LogSubscriptionNameTextBox" Grid.Column="1" Margin="6,6,0,6" Width="180" HorizontalAlignment="Left"></TextBox>
 		
 		<Label Grid.Row="1" Grid.Column="0" Margin="6">Type: </Label>
-		<ComboBox Name="LogProviderPluginDropDown" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding LogProviderPluginNames}" Margin="6" />
+		<ComboBox Name="LogProviderPluginDropDown" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding LogProviderPluginNames}" Margin="6" SelectionChanged="LogProviderPluginDropDown_SelectionChanged" />
 		
 		<Label Grid.Row="2" Grid.Column="0" Margin="6">URL: </Label>
 		<TextBox Name="UrlTextBox" Grid.Row="2" Grid.Column="1" Margin="6" TextWrapping="Wrap" AcceptsReturn="True" Height="40" />
 		
 		<Button Grid.Row="3" Grid.Column="1" Content="Add" Click="Button_Click" Margin="0,6,110,6" HorizontalAlignment="Right" Width="80" />
-        <Button Content="Cancel" Grid.Column="1" Grid.Row="3" Margin="0,6,19,0" Name="btnCancel" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="btnCancel_Click" />
-    </Grid>
+		<Button Content="Cancel" Grid.Column="1" Grid.Row="3" Margin="0,6,19,0" Name="btnCancel" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="btnCancel_Click" />
+	</Grid>
 </Window>
