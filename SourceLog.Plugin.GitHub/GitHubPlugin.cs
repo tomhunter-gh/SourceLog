@@ -193,6 +193,18 @@ namespace SourceLog.Plugin.GitHub
 					return GitHubApiGet(uri);
 				}
 
+				// Getting a 404 from the raw_url on a changed subproject.
+				// E.g. filename "libgit2" on this commit: 
+				//  https://github.com/libgit2/libgit2sharp/commit/39c2ed2233b3d99e33c031183e26996d1210c329
+				//  https://api.github.com/repos/libgit2/libgit2sharp/commits/39c2ed2233b3d99e33c031183e26996d1210c329
+				if (ex.Response.Headers["status"] == "404 Not Found")
+				{
+					return ex.Response.Headers["status"] + Environment.NewLine
+						   + "URI: " + uri + Environment.NewLine
+						   + Environment.NewLine
+						   + "Subproject link?";
+				}
+
 				var response = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
 				if (response == "Error: blob is too big")
 					return response + Environment.NewLine + "URI: " + uri;
