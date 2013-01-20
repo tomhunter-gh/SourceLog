@@ -11,22 +11,23 @@ namespace SourceLog
 		private readonly NewSubscriptionWindowViewModel _vm;
 		private readonly LogSubscription _logSubscription;
 
-		public NewSubscriptionWindow()
+		// used for adding a subscription
+		public NewSubscriptionWindow(MainWindowViewModel mainWindowViewModel)
 		{
-			
-		}
-
-		public NewSubscriptionWindow(MainWindowViewModel mainWindowViewModel) : this()
-		{
-			//_mainWindowViewModel = mainWindowViewModel;
 			_vm = new NewSubscriptionWindowViewModel(mainWindowViewModel);
 			DataContext = _vm;
 
-			InitializeComponent();
+			InitializeComponent(); 
 		}
 
-		public NewSubscriptionWindow(LogSubscription logSubscription) : this()
+		// used for editing a subscription
+		public NewSubscriptionWindow(LogSubscription logSubscription)
 		{
+			_vm = new NewSubscriptionWindowViewModel();
+			DataContext = _vm;
+
+			InitializeComponent(); 
+
 			txtName.Text = logSubscription.Name;
 			ddlPlugin.SelectedValue = logSubscription.LogProviderTypeName;
 			LogProviderPluginDropDownSelectionChanged(this, null);
