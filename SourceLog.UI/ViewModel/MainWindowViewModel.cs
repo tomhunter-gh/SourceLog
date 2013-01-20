@@ -24,12 +24,16 @@ namespace SourceLog.ViewModel
 			{
 				_selectedLogSubscription = value;
 				RaisePropertyChanged("Log");
-
+				
 				if (value != null)
 				{
 					SelectedLogEntry = value.Log.Count > 0 ? value.Log.Last() : null;
-
 					SelectedChangedFile = SelectedLogEntry != null ? SelectedLogEntry.ChangedFiles.FirstOrDefault() : null;
+				}
+				else
+				{
+					SelectedLogEntry = null;
+					SelectedChangedFile = null;
 				}
 			}
 		}
@@ -130,5 +134,10 @@ namespace SourceLog.ViewModel
 		}
 
 		public event NewLogEntryInfoEventHandler NewLogEntry;
+
+		public void DeleteSubscription(LogSubscription logSubscription)
+		{
+			LogSubscriptionManager.DeleteSubscription(logSubscription);
+		}
 	}
 }

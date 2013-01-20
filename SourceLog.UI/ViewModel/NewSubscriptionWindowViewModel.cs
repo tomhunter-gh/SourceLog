@@ -8,14 +8,22 @@ namespace SourceLog.ViewModel
 {
 	public class NewSubscriptionWindowViewModel
 	{
+		private readonly MainWindowViewModel _mainWindowViewModel;
+
 		public List<string> LogProviderPluginNames
 		{
 			get { return LogProviderPluginManager.LogProviderPluginTypes.Select(p => p.Key).ToList(); }
 		}
 
+		public NewSubscriptionWindowViewModel(MainWindowViewModel mainWindowViewModel)
+		{
+			_mainWindowViewModel = mainWindowViewModel;
+		}
+
 		public void AddSubscription(string name, string logProviderTypeName, string url)
 		{
-			MainWindowViewModel.LogSubscriptionManager.AddLogSubscription(name, logProviderTypeName, url);
+			var logSubscription = MainWindowViewModel.LogSubscriptionManager.AddLogSubscription(name, logProviderTypeName, url);
+			_mainWindowViewModel.SelectedLogSubscription = logSubscription;
 		}
 
 		public UserControl GetSubscriptionSettingsUiForPlugin(string pluginName)

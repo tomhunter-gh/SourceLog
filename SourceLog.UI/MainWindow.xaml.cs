@@ -55,7 +55,7 @@ namespace SourceLog
 
 		private void LstSubscriptionsSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			ViewModel.SelectedLogSubscription = e.AddedItems.Cast<LogSubscription>().First();
+			ViewModel.SelectedLogSubscription = e.AddedItems.Cast<LogSubscription>().FirstOrDefault();
 			FixDataGridSorting();
 		}
 
@@ -69,9 +69,9 @@ namespace SourceLog
 			);
 		}
 
-		private void ButtonClick(object sender, RoutedEventArgs e)
+		private void AddSubscriptionClick(object sender, RoutedEventArgs e)
 		{
-			var newSubscriptionWindow = new NewSubscriptionWindow { Owner = this };
+			var newSubscriptionWindow = new NewSubscriptionWindow(ViewModel) { Owner = this };
 			newSubscriptionWindow.ShowDialog();
 		}
 
@@ -144,6 +144,17 @@ namespace SourceLog
 				var parent = ((Control)sender).Parent as UIElement;
 				if (parent != null) parent.RaiseEvent(eventArg);
 			}
+		}
+
+		private void EditSubscription(object sender, RoutedEventArgs e)
+		{
+			var newSubscriptionWindow = new NewSubscriptionWindow((LogSubscription)lstSubscriptions.SelectedItem) { Owner = this };
+			newSubscriptionWindow.ShowDialog();
+		}
+
+		private void DeleteSubscription(object sender, RoutedEventArgs e)
+		{
+			ViewModel.DeleteSubscription((LogSubscription) lstSubscriptions.SelectedItem);
 		}
 	}
 }
