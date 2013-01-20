@@ -155,6 +155,9 @@
     <Compile Include="ShowWindowCommand.cs" />
     <Compile Include="SingleLineTextConverter .cs" />
     <Compile Include="SubscriptionLabelConverter.cs" />
+    <Compile Include="SubscriptionSettings.xaml.cs">
+      <DependentUpon>SubscriptionSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TextBoxDiffRenderer.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\NewSubscriptionWindowViewModel.cs" />
@@ -175,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NewSubscriptionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubscriptionSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
