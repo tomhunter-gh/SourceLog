@@ -150,5 +150,19 @@ namespace SourceLog.Model
 
 			LoadLogProviderPlugin();
 		}
+
+        public override bool Equals(object obj)
+        {
+            LogSubscription logSubscription = obj as LogSubscription;
+            if (logSubscription == null)
+                return false;
+            else
+                return LogSubscriptionId.Equals(logSubscription.LogSubscriptionId);
+        }
+
+        public override int GetHashCode()
+        {
+            return LogSubscriptionId.GetHashCode();
+        }
 	}
 }

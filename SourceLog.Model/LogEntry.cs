@@ -105,5 +105,19 @@ namespace SourceLog.Model
 				changedFile.FirstModifiedLineVerticalOffset = diff.FirstModifiedLineVerticalOffset;
 			});
 		}
+
+        public override bool Equals(object obj)
+        {
+            LogEntry logEntry = obj as LogEntry;
+            if (logEntry == null)
+                return false;
+            else
+                return LogEntryId.Equals(logEntry.LogEntryId);
+        }
+
+        public override int GetHashCode()
+        {
+            return LogEntryId.GetHashCode();
+        }
 	}
 }
