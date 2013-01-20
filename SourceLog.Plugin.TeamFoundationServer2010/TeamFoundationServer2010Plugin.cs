@@ -9,6 +9,7 @@ using Microsoft.TeamFoundation.Client;
 using Microsoft.TeamFoundation.VersionControl.Client;
 using TFS = Microsoft.TeamFoundation.VersionControl.Client;
 using System.IO;
+using System.Xml.Linq;
 
 namespace SourceLog.Plugin.TeamFoundationServer2010
 {
@@ -33,16 +34,20 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 			{
 				try
 				{
-					var settingsArray = SettingsXml.Split('$');
-					string uri = settingsArray[0];
-					string sourceControlPath = "$" + settingsArray[1];
+                    var settingsXml = XDocument.Parse(SettingsXml);
+                    var collectionUrl = settingsXml.Root.Element("CollectionURL").Value;
+                    var sourceLocation = settingsXml.Root.Element("SourceLocation").Value;
+                    
+                    //var settingsArray = SettingsXml.Split('$');
+					//string uri = settingsArray[0];
+					//string sourceControlPath = "$" + settingsArray[1];
 
-					var tfsUri = new Uri(uri);
+                    var tfsUri = new Uri(collectionUrl);
 					var projectCollection = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(tfsUri);
 
 					var vcs = projectCollection.GetService<VersionControlServer>();
 					var history = vcs.QueryHistory(
-						path: sourceControlPath,
+                        path: sourceLocation,
 						version: VersionSpec.Latest,
 						deletionId: 0,
 						recursion: RecursionType.Full,
