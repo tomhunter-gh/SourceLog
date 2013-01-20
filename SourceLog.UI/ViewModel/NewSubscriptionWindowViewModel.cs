@@ -20,6 +20,10 @@ namespace SourceLog.ViewModel
 			_mainWindowViewModel = mainWindowViewModel;
 		}
 
+		public NewSubscriptionWindowViewModel()
+		{
+		}
+
 		public void AddSubscription(string name, string logProviderTypeName, string url)
 		{
 			var logSubscription = MainWindowViewModel.LogSubscriptionManager.AddLogSubscription(name, logProviderTypeName, url);
