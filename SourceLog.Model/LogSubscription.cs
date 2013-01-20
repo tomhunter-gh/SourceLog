@@ -11,7 +11,16 @@ namespace SourceLog.Model
 	public class LogSubscription : INotifyPropertyChanged
 	{
 		public int LogSubscriptionId { get; set; }
-		public string Name { get; set; }
+		private string _name;
+		public string Name
+		{
+			get { return _name; }
+			set
+			{
+				_name = value;
+				NotifyPropertyChanged("Name");
+			}
+		}
 		public string Url { get; set; }
 		public string LogProviderTypeName { get; set; }
 		private TrulyObservableCollection<LogEntry> _log;
@@ -41,12 +50,12 @@ namespace SourceLog.Model
 			SourceLogContextProvider = sourceLogContextProvider;
 		}
 
-		public LogSubscription(string name, string vcsLogProviderName, string url)
+		public LogSubscription(string name, string pluginName, string url)
 			: this()
 		{
 			Name = name;
 			Url = url;
-			LogProviderTypeName = vcsLogProviderName;
+			LogProviderTypeName = pluginName;
 
 			LoadLogProviderPlugin();
 		}
@@ -101,13 +110,13 @@ namespace SourceLog.Model
 						var logEntryInfo = new NewLogEntryInfoEventHandlerArgs
 							{
 								LogSubscriptionName = Name,
-								Author = ((LogEntry) entry).Author,
-								Message = ((LogEntry) entry).Message
+								Author = ((LogEntry)entry).Author,
+								Message = ((LogEntry)entry).Message
 							};
 						NewLogEntry(this, logEntryInfo);
 					}, logEntry);
 			}
-			
+
 		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -121,5 +130,25 @@ namespace SourceLog.Model
 		}
 
 		public event NewLogEntryInfoEventHandler NewLogEntry;
+
+		public void Update(string name, string pluginName, string settingsXml)
+		{
+			using (var db = new SourceLogContext())
+			{
+				db.LogSubscriptions.Attach(this);
+				
+				Name = name;
+				LogProviderTypeName = pluginName;
+				Url = settingsXml;
+				
+				db.SaveChanges();
+			}
+
+			// Not sure if this is necessary
+			LogProvider.NewLogEntry -= AddNewLogEntry;
+			LogProvider.LogProviderException -= LogProviderLogProviderException;
+
+			LoadLogProviderPlugin();
+		}
 	}
 }

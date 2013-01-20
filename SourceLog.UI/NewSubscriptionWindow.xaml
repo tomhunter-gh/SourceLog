@@ -14,20 +14,26 @@
 			<ColumnDefinition Width="Auto" />
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
-		
-		<Label Margin="6">Name: </Label>
-		<TextBox Name="LogSubscriptionNameTextBox" Grid.Column="1" Margin="6,6,0,6" Width="180" HorizontalAlignment="Left"></TextBox>
-		
-		<Label Grid.Row="1" Grid.Column="0" Margin="6">Type: </Label>
-		<ComboBox Name="LogProviderPluginDropDown" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding LogProviderPluginNames}" Margin="6" SelectionChanged="LogProviderPluginDropDown_SelectionChanged" />
-		
+
+		<Label Margin="6">Name:</Label>
+		<TextBox Name="txtName" Grid.Column="1" Margin="6" Width="180" HorizontalAlignment="Left" />
+
+		<Label Grid.Row="1" Grid.Column="0" Margin="6">Type:</Label>
+		<ComboBox Name="ddlPlugin" Grid.Row="1" Grid.Column="1" Margin="6"
+				  ItemsSource="{Binding LogProviderPluginNames}"
+				  SelectionChanged="LogProviderPluginDropDownSelectionChanged" />
+
 		<!--<Label Grid.Row="2" Grid.Column="0" Margin="6">URL: </Label>
 		<TextBox Name="UrlTextBox" Grid.Row="2" Grid.Column="1" Margin="6" TextWrapping="Wrap" AcceptsReturn="True" Height="40" />-->
 		<GroupBox Name="grpSettings" Grid.Row="2" Grid.ColumnSpan="2" Header="Settings" Margin="6">
-			<SourceLog:SubscriptionSettings></SourceLog:SubscriptionSettings>
+			<SourceLog:SubscriptionSettings />
 		</GroupBox>
-		
-		<Button Grid.Row="3" Grid.Column="1" Content="Add" Click="Button_Click" Margin="0,6,110,6" HorizontalAlignment="Right" Width="80" />
-		<Button Content="Cancel" Grid.Column="1" Grid.Row="3" Margin="0,6,19,0" Name="btnCancel" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="btnCancel_Click" />
+
+		<Button Name="btnAdd" Content="Add" Grid.Row="3" Grid.Column="1" Margin="0,6,110,6" 
+				HorizontalAlignment="Right" Width="80" Click="BtnAddClick" />
+		<Button Name="btnUpdate" Content="Update" Grid.Row="3" Grid.Column="1" Margin="0,6,110,6" 
+				HorizontalAlignment="Right" Width="80" Click="BtnUpdateClick" Visibility="Hidden" />
+		<Button Name="btnCancel" Content="Cancel" Grid.Column="1" Grid.Row="3" Margin="0,6,19,0" 
+				VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="BtnCancelClick" />
 	</Grid>
 </Window>

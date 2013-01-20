@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
@@ -13,6 +14,7 @@ namespace SourceLog.Model
 	public class LogEntry : INotifyPropertyChanged
 	{
 		public int LogEntryId { get; set; }
+		[Required]
 		public LogSubscription LogSubscription { get; set; }
 		public string Revision { get; set; }
 		public DateTime CommittedDate { get; set; }
@@ -62,7 +64,10 @@ namespace SourceLog.Model
 				{
 					using (var db = new SourceLogContext())
 					{
-						db.LogEntries.Find(LogEntryId).Read = true;
+						//var logEntry = db.LogEntries.Find(LogEntryId);
+						var logEntry = db.LogEntries.Where(le => le.LogEntryId == LogEntryId).Include(le => le.LogSubscription).Single();
+						db.LogEntries.Attach(logEntry);
+						logEntry.Read = true;
 						db.SaveChanges();
 					}
 				});

@@ -36,7 +36,7 @@
 
 		<DockPanel Grid.Row="0" Grid.ColumnSpan="3">
 			<StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-				<Button Content="Add Subscription" Click="ButtonClick" Margin="5" Padding="3" />
+				<Button Content="Add Subscription" Click="AddSubscriptionClick" Margin="5" Padding="3" />
 			</StackPanel>
 			<Label DockPanel.Dock="Right" Content="lblVersion" Height="28" Name="lblVersion" HorizontalAlignment="Right" />
 		</DockPanel>
@@ -44,6 +44,15 @@
 
 		<ListBox x:Name="lstSubscriptions" Grid.Row="1" Grid.RowSpan="5" ItemsSource="{Binding LogSubscriptions}" 
 			SelectionChanged="LstSubscriptionsSelectionChanged" SelectedItem="{Binding SelectedLogSubscription}">
+			<ListBox.Resources>
+				<ContextMenu x:Key="SubscriptionContextMenu">
+					<MenuItem Header="Edit" Click="EditSubscription" />
+					<MenuItem Header="Delete" Click="DeleteSubscription" />
+				</ContextMenu>
+				<Style TargetType="{x:Type ListBoxItem}">
+					<Setter Property="ContextMenu" Value="{StaticResource SubscriptionContextMenu}" />
+				</Style>
+			</ListBox.Resources>
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<TextBlock>
@@ -66,6 +75,12 @@
 								<Binding Path="Log" />
 							</MultiBinding>
 						</TextBlock.Text>
+						<!--<TextBlock.ContextMenu>
+							<ContextMenu>
+								<MenuItem Header="Edit" Click="MenuItem_Click" />
+								<MenuItem Header="Delete" Click="MenuItem_Click_1" />
+							</ContextMenu>
+						</TextBlock.ContextMenu>-->
 					</TextBlock>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
@@ -129,7 +144,7 @@
 					</DataGridTextColumn.ElementStyle>
 				</DataGridTextColumn>
 				<DataGridTextColumn Header="Date" Binding="{Binding Path=CommittedDate, StringFormat={}\{0:HH:mm:ss dd MMMM yyyy\}}" />
-				<DataGridTextColumn Header="Author" Binding="{Binding Path=Author}" />
+				<DataGridTextColumn Header="Author" Binding="{Binding Path=Author}" Width="120" />
 				<DataGridTextColumn Header="Message" Binding="{Binding Path=Message, Converter={StaticResource SingleLineTextConverter}}" Width="*" />
 				<!--<DataGridTemplateColumn Header="Message">
 					<DataGridTemplateColumn.CellTemplate>

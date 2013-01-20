@@ -13,6 +13,8 @@ namespace SourceLog.Model
 	public class ChangedFile
 	{
 		public int ChangedFileId { get; set; }
+		[Required]
+		public LogEntry LogEntry { get; set; }
 
 		// EF 4.1 doesn't support Enums, so we need two fields
 		public string ChangeTypeValue { get; set; }

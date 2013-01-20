@@ -1,55 +1,69 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using SourceLog.Interface;
+using SourceLog.Model;
 using SourceLog.ViewModel;
 
 namespace SourceLog
 {
-	/// <summary>
-	/// Interaction logic for NewSubscriptionWindow.xaml
-	/// </summary>
-	public partial class NewSubscriptionWindow : Window
+	public partial class NewSubscriptionWindow
 	{
 		private readonly NewSubscriptionWindowViewModel _vm;
+		private readonly LogSubscription _logSubscription;
 
 		public NewSubscriptionWindow()
 		{
-			_vm = new NewSubscriptionWindowViewModel();
-			DataContext = _vm;
 			
+		}
+
+		public NewSubscriptionWindow(MainWindowViewModel mainWindowViewModel) : this()
+		{
+			//_mainWindowViewModel = mainWindowViewModel;
+			_vm = new NewSubscriptionWindowViewModel(mainWindowViewModel);
+			DataContext = _vm;
 
 			InitializeComponent();
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		public NewSubscriptionWindow(LogSubscription logSubscription) : this()
+		{
+			txtName.Text = logSubscription.Name;
+			ddlPlugin.SelectedValue = logSubscription.LogProviderTypeName;
+			LogProviderPluginDropDownSelectionChanged(this, null);
+			((ISubscriptionSettings) grpSettings.Content).SettingsXml = logSubscription.Url;
+
+			btnAdd.Visibility = Visibility.Hidden;
+			btnUpdate.Visibility = Visibility.Visible;
+
+			_logSubscription = logSubscription;
+		}
+
+		private void LogProviderPluginDropDownSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var ui = _vm.GetSubscriptionSettingsUiForPlugin((string) ddlPlugin.SelectedValue);
+			grpSettings.Content = ui ?? new SubscriptionSettings();
+		}
+
+		private void BtnAddClick(object sender, RoutedEventArgs e)
 		{
 			var settingsXml = ((ISubscriptionSettings) grpSettings.Content).SettingsXml;
 			_vm.AddSubscription(
-				LogSubscriptionNameTextBox.Text, 
-				(string)LogProviderPluginDropDown.SelectedValue, 
+				txtName.Text, 
+				(string)ddlPlugin.SelectedValue, 
 				settingsXml);
 			Close();
 		}
 
-		private void btnCancel_Click(object sender, RoutedEventArgs e)
+		private void BtnUpdateClick(object sender, RoutedEventArgs e)
 		{
+			var settingsXml = ((ISubscriptionSettings) grpSettings.Content).SettingsXml;
+			_logSubscription.Update(txtName.Text, (string) ddlPlugin.SelectedValue, settingsXml);
 			Close();
 		}
 
-		private void LogProviderPluginDropDown_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void BtnCancelClick(object sender, RoutedEventArgs e)
 		{
-			var ui = _vm.GetSubscriptionSettingsUiForPlugin((string) LogProviderPluginDropDown.SelectedValue);
-			grpSettings.Content = ui ?? new SubscriptionSettings();
+			Close();
 		}
 	}
 }
