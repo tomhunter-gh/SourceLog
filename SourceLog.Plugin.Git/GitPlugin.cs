@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Xml.Linq;
 using LibGit2Sharp;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
@@ -40,11 +41,16 @@ namespace SourceLog.Plugin.Git
 				{
 					Logger.Write(new LogEntry { Message = "Checking for new entries", Categories = { "Plugin.Git" } });
 
-					using (var repo = new Repository(SettingsXml))
-					{
-						repo.Fetch("origin");
+					var settingsXml = XDocument.Parse(SettingsXml);
+					var directory = settingsXml.Root.Element("Directory").Value;
+					var remote = settingsXml.Root.Element("Remote").Value;
+					var branch = settingsXml.Root.Element("Branch").Value;
 
-						foreach (var commit in repo.Branches["origin/master"].Commits
+					using (var repo = new Repository(directory))
+					{
+						repo.Fetch(remote);
+
+						foreach (var commit in repo.Branches[remote + "/" + branch].Commits
 							.Where(c => c.Committer.When > MaxDateTimeRetrieved)
 							.Take(30)
 							.OrderBy(c => c.Committer.When))
@@ -110,12 +116,12 @@ namespace SourceLog.Plugin.Git
 			}
 		}
 
-		private string GetOldVersion(Commit commit, TreeEntryChanges change)
+		private static string GetOldVersion(Commit commit, TreeEntryChanges change)
 		{
 			return Encoding.UTF8.GetString(((Blob)commit.Parents.First()[change.OldPath].Target).Content);
 		}
 
-		private string GetNewVersion(Commit commit, TreeEntryChanges change)
+		private static string GetNewVersion(Commit commit, TreeEntryChanges change)
 		{
 			return Encoding.UTF8.GetString(((Blob)commit[change.Path].Target).Content);
 		}

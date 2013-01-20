@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Controls;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
 
@@ -84,6 +85,39 @@ namespace SourceLog.Model
 		public static void Refresh()
 		{
 			_logProviderPluginTypes = LoadLogProviderPluginTypeList();
+		}
+
+		public static UserControl GetSubscriptionSettingsUiForPlugin(string pluginName)
+		{
+			var pluginDirectory = PluginsDirectory.GetDirectories().Where(d => d.Name == pluginName).FirstOrDefault();
+			if(pluginDirectory != null)
+			{
+				foreach (FileInfo fileInfo in pluginDirectory.GetFiles("*.dll"))
+				{
+					try
+					{
+						Assembly assembly = Assembly.LoadFile(fileInfo.FullName);
+						var type =
+							assembly.GetTypes().Where(t => t.GetInterfaces().Contains(typeof (ISubscriptionSettings))).FirstOrDefault();
+						if (type != null)
+						{
+							return Activator.CreateInstance(type) as UserControl;
+						}
+					}
+					catch (Exception ex)
+					{
+						Logger.Write(new Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
+						{
+							Message = "Exception in GetSubscriptionSettingsUiForPlugin: " + Environment.NewLine
+							+ " " + ex + Environment.NewLine
+							+ "\tpluginDirectory: " + pluginDirectory + Environment.NewLine
+							+ "\tfileInfo.FullName: " + fileInfo.FullName + Environment.NewLine,
+							Severity = TraceEventType.Error
+						});
+					}
+				}
+			}
+			return null;
 		}
 	}
 }

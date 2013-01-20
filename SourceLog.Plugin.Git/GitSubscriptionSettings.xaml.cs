@@ -1,27 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Xml.Linq;
+using SourceLog.Interface;
 
 namespace SourceLog.Plugin.Git
 {
 	/// <summary>
 	/// Interaction logic for GitSubscriptionSettings.xaml
 	/// </summary>
-	public partial class GitSubscriptionSettings : UserControl
+	public partial class GitSubscriptionSettings : ISubscriptionSettings
 	{
 		public GitSubscriptionSettings()
 		{
 			InitializeComponent();
+		}
+
+		public string SettingsXml
+		{
+			get
+			{
+				return new XDocument(
+					new XElement("Settings",
+						new XElement("Directory", txtDirectory.Text),
+						new XElement("Remote", txtRemote.Text),
+						new XElement("Branch", txtBranch.Text))
+				).ToString();
+			}
+			set
+			{
+				var settingsXml = XDocument.Parse(value);
+				txtDirectory.Text = settingsXml.Root.Element("Directory").Value;
+				txtRemote.Text = settingsXml.Root.Element("Remote").Value;
+				txtBranch.Text = settingsXml.Root.Element("Branch").Value;
+			}
 		}
 	}
 }

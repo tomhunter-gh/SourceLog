@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 using SourceLog.Model;
 
 namespace SourceLog.ViewModel
@@ -14,6 +16,11 @@ namespace SourceLog.ViewModel
 		public void AddSubscription(string name, string logProviderTypeName, string url)
 		{
 			MainWindowViewModel.LogSubscriptionManager.AddLogSubscription(name, logProviderTypeName, url);
+		}
+
+		public UserControl GetSubscriptionSettingsUiForPlugin(string pluginName)
+		{
+			return LogProviderPluginManager.GetSubscriptionSettingsUiForPlugin(pluginName);
 		}
 	}
 }
