@@ -79,7 +79,7 @@ namespace SourceLog
 		{
 			foreach (var readItem in e.RemovedItems.Cast<LogEntry>())
 			{
-				ViewModel.MarkEntryRead(readItem);
+				ViewModel.MarkLogEntryAsRead.Execute(readItem);
 			}
 			if (e.AddedItems.Count > 0)
 			{
@@ -155,6 +155,11 @@ namespace SourceLog
 		private void DeleteSubscription(object sender, RoutedEventArgs e)
 		{
 			ViewModel.DeleteSubscription((LogSubscription) lstSubscriptions.SelectedItem);
+		}
+
+		private void MarkAllLogEntriesAsRead(object sender, RoutedEventArgs e)
+		{
+			ViewModel.MarkAllLogEntriesAsRead((LogSubscription) lstSubscriptions.SelectedItem);
 		}
 	}
 }

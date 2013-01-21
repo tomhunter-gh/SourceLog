@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Input;
 using SourceLog.Model;
 
 namespace SourceLog.ViewModel
@@ -69,6 +70,7 @@ namespace SourceLog.ViewModel
 
 				RaisePropertyChanged("SelectedLogEntryChangedFiles");
 				RaisePropertyChanged("SelectedLogEntryMessage");
+				RaisePropertyChanged("SelectedLogEntry");
 			}
 		}
 
@@ -112,16 +114,13 @@ namespace SourceLog.ViewModel
 		{
 			SelectedLogSubscription = LogSubscriptionManager.LogSubscriptions.FirstOrDefault();
 			LogSubscriptionManager.NewLogEntry += (o, e) => NewLogEntry(o, e);
+			_markLogEntryAsRead = new MarkAsReadCommand();
 		}
 
-		public void MarkEntryRead(LogEntry readItem)
-		{
-			if (!readItem.Read)
-			{
-				readItem.Read = true;
-				readItem.MarkAsReadAndSave();
-			}
-		}
+		//public void MarkEntryRead(LogEntry readItem)
+		//{
+			
+		//}
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -138,6 +137,17 @@ namespace SourceLog.ViewModel
 		public void DeleteSubscription(LogSubscription logSubscription)
 		{
 			LogSubscriptionManager.DeleteSubscription(logSubscription);
+		}
+
+		private readonly ICommand _markLogEntryAsRead;
+		public ICommand MarkLogEntryAsRead { get { return _markLogEntryAsRead; } }
+
+		public void MarkAllLogEntriesAsRead(LogSubscription logSubscription)
+		{
+			foreach (var logEntry in logSubscription.Log)
+			{
+				MarkLogEntryAsRead.Execute(logEntry);
+			}
 		}
 	}
 }

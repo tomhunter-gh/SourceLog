@@ -106,18 +106,17 @@ namespace SourceLog.Model
 			});
 		}
 
-        public override bool Equals(object obj)
-        {
-            LogEntry logEntry = obj as LogEntry;
-            if (logEntry == null)
-                return false;
-            else
-                return LogEntryId.Equals(logEntry.LogEntryId);
-        }
+		public override bool Equals(object obj)
+		{
+			var logEntry = obj as LogEntry;
+			if (logEntry == null)
+				return false;
+			return LogEntryId.Equals(logEntry.LogEntryId);
+		}
 
-        public override int GetHashCode()
-        {
-            return LogEntryId.GetHashCode();
-        }
+		public override int GetHashCode()
+		{
+			return LogEntryId.GetHashCode();
+		}
 	}
 }

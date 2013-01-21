@@ -139,6 +139,7 @@
     </ApplicationDefinition>
     <Compile Include="CustomFlowDocumentScrollViewer.cs" />
     <Compile Include="FontInfo.cs" />
+    <Compile Include="MarkAsReadCommand.cs" />
     <Compile Include="Properties\GlobalAssemblyInfo.cs" />
     <Compile Include="LogToHasUnreadEntriesFlagConverter.cs" />
     <Compile Include="Migrations\201208280821049_Migration10.cs" />
@@ -371,12 +372,12 @@
   <ItemGroup>
     <PublishFile Include="Icon.ico">
       <Visible>False</Visible>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
