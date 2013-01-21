@@ -164,5 +164,11 @@ namespace SourceLog.Model
         {
             return LogSubscriptionId.GetHashCode();
         }
-	}
+
+        internal void UnsubscribeEvents()
+        {
+            LogProvider.NewLogEntry -= AddNewLogEntry;
+            LogProvider.LogProviderException -= LogProviderLogProviderException;
+        }
+    }
 }
