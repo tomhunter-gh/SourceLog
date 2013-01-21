@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
+    <RegisterForComInterop>false</RegisterForComInterop>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -72,6 +73,7 @@
     <Compile Include="PerforceLogParser.cs" />
     <Compile Include="PerforcePlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registrar.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SourceLog.Interface\SourceLog.Interface.csproj">
@@ -82,10 +84,17 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Lib\P4COM\p4com.dll">
+      <Link>p4com.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"
-copy /Y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"</PostBuildEvent>
+copy /Y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"
+copy /Y "$(TargetDir)p4com.dll" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

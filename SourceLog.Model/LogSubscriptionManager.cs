@@ -58,7 +58,8 @@ namespace SourceLog.Model
 
 		public void DeleteSubscription(LogSubscription logSubscription)
 		{
-			using (var db = new SourceLogContext())
+            logSubscription.UnsubscribeEvents();
+            using (var db = new SourceLogContext())
 			{
 				foreach (var logEntry in logSubscription.Log)
 				{
