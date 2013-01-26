@@ -10,17 +10,12 @@ using SourceLog.Interface;
 
 namespace SourceLog.Model
 {
-	public static class LogProviderPluginManager
+	public static class PluginManager
 	{
-		private static Dictionary<string, Type> _logProviderPluginTypes;
-		public static Dictionary<string, Type> LogProviderPluginTypes
+		private static Dictionary<string, Type> _pluginTypes;
+		public static Dictionary<string, Type> PluginTypes
 		{
-			get
-			{
-				if (_logProviderPluginTypes == null)
-					_logProviderPluginTypes = LoadLogProviderPluginTypeList();
-				return _logProviderPluginTypes;
-			}
+			get { return _pluginTypes ?? (_pluginTypes = LoadPluginTypeList()); }
 		}
 
 		public static DirectoryInfo PluginsDirectory
@@ -31,11 +26,11 @@ namespace SourceLog.Model
 			}
 		}
 
-		private static Dictionary<string, Type> LoadLogProviderPluginTypeList()
+		private static Dictionary<string, Type> LoadPluginTypeList()
 		{
-			AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+			AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainAssemblyResolve;
 			
-			var logProviderPluginTypeList = new Dictionary<string, Type>();
+			var pluginTypeList = new Dictionary<string, Type>();
 
 			foreach (var pluginDirectory in PluginsDirectory.GetDirectories())
 			{
@@ -44,9 +39,9 @@ namespace SourceLog.Model
 					try
 					{
 						Assembly assembly = Assembly.LoadFile(fileInfo.FullName);
-						foreach (Type type in assembly.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(ILogProvider))))
+						foreach (Type type in assembly.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IPlugin))))
 						{
-							logProviderPluginTypeList.Add(assembly.GetName().Name, type);
+							pluginTypeList.Add(assembly.GetName().Name, type);
 						}
 					}
 					//catch (BadImageFormatException)
@@ -57,7 +52,7 @@ namespace SourceLog.Model
 					{
 						Logger.Write(new Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
 							{
-								Message = "Exception in LoadLogProviderPluginTypeList: " + Environment.NewLine
+								Message = "Exception in " + typeof(PluginManager).Name + ": " + Environment.NewLine
 								+ " " + ex + Environment.NewLine
 								+ "\tpluginDirectory: " + pluginDirectory + Environment.NewLine
 								+ "\tfileInfo.FullName: " + fileInfo.FullName + Environment.NewLine,
@@ -67,10 +62,10 @@ namespace SourceLog.Model
 				}
 			}
 
-			return logProviderPluginTypeList;
+			return pluginTypeList;
 		}
 
-		static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+		static Assembly CurrentDomainAssemblyResolve(object sender, ResolveEventArgs args)
 		{
 			foreach (var pluginDirectory in PluginsDirectory.GetDirectories())
 			{
@@ -84,7 +79,7 @@ namespace SourceLog.Model
 
 		public static void Refresh()
 		{
-			_logProviderPluginTypes = LoadLogProviderPluginTypeList();
+			_pluginTypes = LoadPluginTypeList();
 		}
 
 		public static UserControl GetSubscriptionSettingsUiForPlugin(string pluginName)

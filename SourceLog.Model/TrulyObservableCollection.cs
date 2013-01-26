@@ -31,13 +31,8 @@ namespace SourceLog.Model
 
 		void ItemPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			var a = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
-
-			// TODO: remove reference to System.Windows.Threading.Dispatcher?
-			//if (Thread.CurrentThread.ManagedThreadId == Application.Current.Dispatcher.Thread.ManagedThreadId)
-			//{
-				OnCollectionChanged(a);
-			//}
+			var reset = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
+			OnCollectionChanged(reset);
 		}
 	}
 }

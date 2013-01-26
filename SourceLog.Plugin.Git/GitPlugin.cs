@@ -1,119 +1,93 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Xml.Linq;
 using LibGit2Sharp;
-using Microsoft.Practices.EnterpriseLibrary.Logging;
 using SourceLog.Interface;
 
 namespace SourceLog.Plugin.Git
 {
-	public class GitPlugin : ILogProvider
+	public class GitPlugin : Interface.Plugin
 	{
-		private Timer _timer;
-		private readonly Object _lockObject = new Object();
-
-		public string SettingsXml { get; set; }
-
-		public DateTime MaxDateTimeRetrieved { get; set; }
-
-		public void Initialise()
+		protected override void CheckForNewLogEntriesImpl()
 		{
-			Logger.Write(new LogEntry
+			string directory;
+			string remote;
+			string branch;
+			GetGitSettings(out directory, out remote, out branch);
+
+			using (var repo = new Repository(directory))
 			{
-				Message = "Plugin initialising",
-				Categories = { "Plugin.Git" },
-				Severity = TraceEventType.Information
-			});
+				repo.Fetch(remote);
 
-			_timer = new Timer(CheckForNewLogEntries);
-			_timer.Change(0, 15000);
-		}
-
-		private void CheckForNewLogEntries(object state)
-		{
-			if (Monitor.TryEnter(_lockObject))
-			{
-				try
+				foreach (var commit in repo.Branches[remote + "/" + branch].Commits
+					.Where(c => c.Committer.When > MaxDateTimeRetrieved)
+					.Take(30)
+					.OrderBy(c => c.Committer.When))
 				{
-					Logger.Write(new LogEntry { Message = "Checking for new entries", Categories = { "Plugin.Git" } });
-
-					var settingsXml = XDocument.Parse(SettingsXml);
-					var directory = settingsXml.Root.Element("Directory").Value;
-					var remote = settingsXml.Root.Element("Remote").Value;
-					var branch = settingsXml.Root.Element("Branch").Value;
-
-					using (var repo = new Repository(directory))
-					{
-						repo.Fetch(remote);
-
-						foreach (var commit in repo.Branches[remote + "/" + branch].Commits
-							.Where(c => c.Committer.When > MaxDateTimeRetrieved)
-							.Take(30)
-							.OrderBy(c => c.Committer.When))
-						{
-							var logEntryDto = new LogEntryDto
-								{
-									Revision = commit.Sha.Substring(0, 7),
-									Author = commit.Author.Name,
-									CommittedDate = commit.Committer.When.DateTime,
-									Message = commit.Message,
-									ChangedFiles = new List<ChangedFileDto>()
-								};
-
-							foreach (var change in repo.Diff.Compare(commit.Parents.First().Tree, commit.Tree))
-							{
-								// For GitLinks there isn't really a file to compare
-								// (actually I think there is but it comes in a separate change)
-								// See for example: https://github.com/libgit2/libgit2sharp/commit/a2efc1a4d433b9e3056b17645c8c1f146fcceecb
-								if (change.Mode == Mode.GitLink)
-									continue;
-								
-								var changeFileDto = new ChangedFileDto
-									{
-										FileName = change.Path,
-										ChangeType = GitChangeStatusToChangeType(change.Status)
-
-									};
-
-								switch (changeFileDto.ChangeType)
-								{
-									case ChangeType.Added:
-										changeFileDto.OldVersion = String.Empty;
-										changeFileDto.NewVersion = GetNewVersion(commit, change);
-										break;
-									case ChangeType.Deleted:
-										changeFileDto.OldVersion = GetOldVersion(commit, change);
-										changeFileDto.NewVersion = String.Empty;
-										break;
-									default:
-										changeFileDto.OldVersion = GetOldVersion(commit, change);
-										changeFileDto.NewVersion = GetNewVersion(commit, change);
-										break;
-								}
-
-								logEntryDto.ChangedFiles.Add(changeFileDto);
-							}
-
-							var args = new NewLogEntryEventArgs { LogEntry = logEntryDto };
-							NewLogEntry(this, args);
-							MaxDateTimeRetrieved = logEntryDto.CommittedDate;
-						}
-					}
-				}
-				catch (Exception ex)
-				{
-					var args = new LogProviderExceptionEventArgs { Exception = ex };
-					LogProviderException(this, args);
-				}
-				finally
-				{
-					Monitor.Exit(_lockObject);
+					ProcessLogEntry(repo, commit);
 				}
 			}
+		}
+
+		private void ProcessLogEntry(IRepository repo, Commit commit)
+		{
+			var logEntryDto = new LogEntryDto
+				{
+					Revision = commit.Sha.Substring(0, 7),
+					Author = commit.Author.Name,
+					CommittedDate = commit.Committer.When.DateTime,
+					Message = commit.Message,
+					ChangedFiles = new List<ChangedFileDto>()
+				};
+
+			foreach (var change in repo.Diff.Compare(commit.Parents.First().Tree, commit.Tree))
+			{
+				// For GitLinks there isn't really a file to compare
+				// (actually I think there is but it comes in a separate change)
+				// See for example: https://github.com/libgit2/libgit2sharp/commit/a2efc1a4d433b9e3056b17645c8c1f146fcceecb
+				if (change.Mode == Mode.GitLink)
+					continue;
+
+				var changeFileDto = new ChangedFileDto
+					{
+						FileName = change.Path,
+						ChangeType = GitChangeStatusToChangeType(change.Status)
+					};
+
+				switch (changeFileDto.ChangeType)
+				{
+					case ChangeType.Added:
+						changeFileDto.OldVersion = String.Empty;
+						changeFileDto.NewVersion = GetNewVersion(commit, change);
+						break;
+					case ChangeType.Deleted:
+						changeFileDto.OldVersion = GetOldVersion(commit, change);
+						changeFileDto.NewVersion = String.Empty;
+						break;
+					default:
+						changeFileDto.OldVersion = GetOldVersion(commit, change);
+						changeFileDto.NewVersion = GetNewVersion(commit, change);
+						break;
+				}
+
+				logEntryDto.ChangedFiles.Add(changeFileDto);
+			}
+
+			var args = new NewLogEntryEventArgs { LogEntry = logEntryDto };
+			OnNewLogEntry(args);
+			MaxDateTimeRetrieved = logEntryDto.CommittedDate;
+		}
+
+		private void GetGitSettings(out string directory, out string remote, out string branch)
+		{
+			var settingsXml = XDocument.Parse(SettingsXml);
+			// ReSharper disable PossibleNullReferenceException
+			directory = settingsXml.Root.Element("Directory").Value;
+			remote = settingsXml.Root.Element("Remote").Value;
+			branch = settingsXml.Root.Element("Branch").Value;
+			// ReSharper restore PossibleNullReferenceException
 		}
 
 		private static string GetOldVersion(Commit commit, TreeEntryChanges change)
@@ -150,8 +124,5 @@ namespace SourceLog.Plugin.Git
 					return ChangeType.Modified;
 			}
 		}
-
-		public event NewLogEntryEventHandler NewLogEntry;
-		public event LogProviderExceptionEventHandler LogProviderException;
 	}
 }

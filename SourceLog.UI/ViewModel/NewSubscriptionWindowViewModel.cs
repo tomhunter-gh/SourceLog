@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 using SourceLog.Model;
@@ -12,7 +11,7 @@ namespace SourceLog.ViewModel
 
 		public List<string> LogProviderPluginNames
 		{
-			get { return LogProviderPluginManager.LogProviderPluginTypes.Select(p => p.Key).ToList(); }
+			get { return PluginManager.PluginTypes.Select(p => p.Key).ToList(); }
 		}
 
 		public NewSubscriptionWindowViewModel(MainWindowViewModel mainWindowViewModel)
@@ -32,7 +31,7 @@ namespace SourceLog.ViewModel
 
 		public UserControl GetSubscriptionSettingsUiForPlugin(string pluginName)
 		{
-			return LogProviderPluginManager.GetSubscriptionSettingsUiForPlugin(pluginName);
+			return PluginManager.GetSubscriptionSettingsUiForPlugin(pluginName);
 		}
 	}
 }

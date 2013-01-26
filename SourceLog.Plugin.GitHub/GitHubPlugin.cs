@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,35 +11,13 @@ using SourceLog.Interface;
 
 namespace SourceLog.Plugin.GitHub
 {
-	public class GitHubPlugin : ILogProvider
+	public class GitHubPlugin : Interface.Plugin
 	{
-		private Timer _timer;
-		private readonly Object _lockObject = new Object();
-
 		private string _username;
 		private string _reponame;
 
-		public string SettingsXml
+		public new void Initialise()
 		{
-			get;
-			set;
-		}
-
-		public DateTime MaxDateTimeRetrieved
-		{
-			get;
-			set;
-		}
-
-		public void Initialise()
-		{
-			Logger.Write(new LogEntry
-				{
-					Message = "Plugin initialising",
-					Categories = { "Plugin.GitHub" },
-					Severity = TraceEventType.Information
-				});
-
 			const string pattern = @"https://github.com/(?<username>[^/]+)/(?<reponame>[^/]+)/?";
 			var r = new Regex(pattern);
 			var match = r.Match(SettingsXml);
@@ -50,124 +27,103 @@ namespace SourceLog.Plugin.GitHub
 				_reponame = match.Groups["reponame"].Value;
 			}
 
-			_timer = new Timer(CheckForNewLogEntries);
-			_timer.Change(0, 60000);
+			base.Initialise();
+			// 60 second interval to try and comply with 60 reqs per hour limit
+			// should really count how many instances of the GitHub plugin are alive
+			Timer.Change(0, 60000);
 		}
 
-
-		public event NewLogEntryEventHandler NewLogEntry;
-		public event LogProviderExceptionEventHandler LogProviderException;
-
-		private void CheckForNewLogEntries(object state)
+		protected override void CheckForNewLogEntriesImpl()
 		{
-			if (Monitor.TryEnter(_lockObject))
+			var repoLog = JsonConvert.DeserializeObject<RepoLog>(GitHubApiGet(
+				"https://api.github.com/repos/" + _username + "/"
+				+ _reponame + "/commits"
+			));
+
+			if (repoLog.Any())
 			{
-				try
+				var maxDateTimeRetrievedAtStartOfProcessing = MaxDateTimeRetrieved;
+				foreach (var commitEntry in repoLog.Where(x => DateTime.Parse(x.commit.committer.date) > maxDateTimeRetrievedAtStartOfProcessing)
+					.OrderBy(x => DateTime.Parse(x.commit.committer.date)))
 				{
-					Logger.Write(new LogEntry { Message = "Checking for new entries", Categories = { "Plugin.GitHub" } });
-
-					var repoLog = JsonConvert.DeserializeObject<RepoLog>(GitHubApiGet(
-						"https://api.github.com/repos/" + _username + "/"
-						+ _reponame + "/commits"
-					));
-
-					if (repoLog.Any())
-					{
-						var maxDateTimeRetrievedAtStartOfProcessing = MaxDateTimeRetrieved;
-						foreach (var commitEntry in repoLog.Where(x => DateTime.Parse(x.commit.committer.date) > maxDateTimeRetrievedAtStartOfProcessing)
-							.OrderBy(x => DateTime.Parse(x.commit.committer.date)))
+					var logEntry = new LogEntryDto
 						{
-							var logEntry = new LogEntryDto
-								{
-									Revision = commitEntry.sha.Substring(0, 7),
-									Author = commitEntry.commit.committer.name,
-									CommittedDate = DateTime.Parse(commitEntry.commit.committer.date),
-									Message = commitEntry.commit.message,
-									ChangedFiles = new List<ChangedFileDto>()
-								};
+							Revision = commitEntry.sha.Substring(0, 7),
+							Author = commitEntry.commit.committer.name,
+							CommittedDate = DateTime.Parse(commitEntry.commit.committer.date),
+							Message = commitEntry.commit.message,
+							ChangedFiles = new List<ChangedFileDto>()
+						};
 
-							var fullCommitEntry = JsonConvert.DeserializeObject<CommitEntry>(
+					var fullCommitEntry = JsonConvert.DeserializeObject<CommitEntry>(
+						GitHubApiGet(
+							"https://api.github.com/repos/" + _username + "/"
+							+ _reponame + "/commits/"
+							+ commitEntry.sha
+						)
+					);
+
+					// process changed files in parallel
+					fullCommitEntry.files.AsParallel().ForAll(file =>
+					{
+						var changedFile = new ChangedFileDto
+							{
+								FileName = file.filename,
+								//NewVersion = GitHubApiGet(file.raw_url),
+								//ChangeType = ChangeType.Modified
+							};
+
+						if (file.status == "removed")
+						{
+							changedFile.ChangeType = ChangeType.Deleted;
+							changedFile.OldVersion = GitHubApiGet(file.raw_url);
+							changedFile.NewVersion = String.Empty;
+						}
+						else
+						{
+							changedFile.ChangeType = ChangeType.Modified;
+							changedFile.NewVersion = GitHubApiGet(file.raw_url);
+
+							// get the previous version
+							// first get the list of commits for the file
+							var fileLog = JsonConvert.DeserializeObject<RepoLog>(
 								GitHubApiGet(
 									"https://api.github.com/repos/" + _username + "/"
-									+ _reponame + "/commits/"
-									+ commitEntry.sha
-								)
-							);
+									+ _reponame + "/commits?path=" + file.filename
+									)
+								);
 
-							// process changed files in parallel
-							fullCommitEntry.files.AsParallel().ForAll(file =>
+							// get most recent commit before this one
+							var previousCommit = fileLog.Where(f => DateTime.Parse(f.commit.committer.date) < logEntry.CommittedDate)
+								.OrderByDescending(f => DateTime.Parse(f.commit.committer.date))
+								.FirstOrDefault();
+
+							if (previousCommit != null)
 							{
-								var changedFile = new ChangedFileDto
-									{
-										FileName = file.filename,
-										//NewVersion = GitHubApiGet(file.raw_url),
-										//ChangeType = ChangeType.Modified
-									};
-
-								if (file.status == "removed")
-								{
-									changedFile.ChangeType = ChangeType.Deleted;
-									changedFile.OldVersion = GitHubApiGet(file.raw_url);
-									changedFile.NewVersion = String.Empty;
-								}
-								else
-								{
-									changedFile.ChangeType = ChangeType.Modified;
-									changedFile.NewVersion = GitHubApiGet(file.raw_url);
-
-									// get the previous version
-									// first get the list of commits for the file
-									var fileLog = JsonConvert.DeserializeObject<RepoLog>(
-										GitHubApiGet(
-											"https://api.github.com/repos/" + _username + "/"
-											+ _reponame + "/commits?path=" + file.filename
-											)
-										);
-
-									// get most recent commit before this one
-									var previousCommit = fileLog.Where(f => DateTime.Parse(f.commit.committer.date) < logEntry.CommittedDate)
-										.OrderByDescending(f => DateTime.Parse(f.commit.committer.date))
-										.FirstOrDefault();
-
-									if (previousCommit != null)
-									{
-										// get the raw contents of the path at the previous commit sha
-										changedFile.OldVersion = GitHubApiGet(
-											"https://github.com/" + _username + "/"
-											+ _reponame + "/raw/"
-											+ previousCommit.sha + "/"
-											+ changedFile.FileName
-											);
-									}
-									else
-									{
-										changedFile.OldVersion = String.Empty;
-										changedFile.ChangeType = ChangeType.Added;
-									}
-								}
-
-								logEntry.ChangedFiles.Add(changedFile);
-							});
-
-							var args = new NewLogEntryEventArgs { LogEntry = logEntry };
-
-							NewLogEntry(this, args);
-							MaxDateTimeRetrieved = logEntry.CommittedDate;
+								// get the raw contents of the path at the previous commit sha
+								changedFile.OldVersion = GitHubApiGet(
+									"https://github.com/" + _username + "/"
+									+ _reponame + "/raw/"
+									+ previousCommit.sha + "/"
+									+ changedFile.FileName
+									);
+							}
+							else
+							{
+								changedFile.OldVersion = String.Empty;
+								changedFile.ChangeType = ChangeType.Added;
+							}
 						}
-					}
-				}
-				catch (Exception ex)
-				{
-					var args = new LogProviderExceptionEventArgs { Exception = ex };
-					LogProviderException(this, args);
-				}
-				finally
-				{
-					Monitor.Exit(_lockObject);
-				}
 
+						logEntry.ChangedFiles.Add(changedFile);
+					});
+
+					var args = new NewLogEntryEventArgs { LogEntry = logEntry };
+
+					OnNewLogEntry(args);
+					MaxDateTimeRetrieved = logEntry.CommittedDate;
+				}
 			}
-
 		}
 
 		static string GitHubApiGet(string uri)
@@ -178,7 +134,11 @@ namespace SourceLog.Plugin.GitHub
 			{
 				using (var response = request.GetResponse())
 				{
+					// ReSharper disable PossibleNullReferenceException
+					// ReSharper disable AssignNullToNotNullAttribute
 					using (var reader = new StreamReader(response.GetResponseStream()))
+					// ReSharper restore AssignNullToNotNullAttribute
+					// ReSharper restore PossibleNullReferenceException
 					{
 						return reader.ReadToEnd();
 					}
@@ -205,7 +165,9 @@ namespace SourceLog.Plugin.GitHub
 						   + "Subproject link?";
 				}
 
+				// ReSharper disable AssignNullToNotNullAttribute
 				var response = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
+				// ReSharper restore AssignNullToNotNullAttribute
 				if (response == "Error: blob is too big")
 					return response + Environment.NewLine + "URI: " + uri;
 
@@ -213,6 +175,9 @@ namespace SourceLog.Plugin.GitHub
 			}
 		}
 	}
+
+	// Classes used for JSON deserialisation
+	// ReSharper disable InconsistentNaming
 
 	public class RepoLog : List<CommitEntry>
 	{ }
@@ -243,10 +208,5 @@ namespace SourceLog.Plugin.GitHub
 		public string raw_url { get; set; }
 	}
 
-	public class GitHubApiRateLimitException : Exception
-	{
-		public GitHubApiRateLimitException(string message, Exception innerException)
-			: base(message, innerException)
-		{ }
-	}
+	// ReSharper restore InconsistentNaming
 }

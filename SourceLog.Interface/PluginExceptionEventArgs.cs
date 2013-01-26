@@ -2,7 +2,7 @@
 
 namespace SourceLog.Interface
 {
-	public class LogProviderExceptionEventArgs
+	public class PluginExceptionEventArgs
 	{
 		public Exception Exception { get; set; }
 	}

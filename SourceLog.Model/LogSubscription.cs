@@ -22,7 +22,7 @@ namespace SourceLog.Model
 			}
 		}
 		public string Url { get; set; }
-		public string LogProviderTypeName { get; set; }
+		public string PluginTypeName { get; set; }
 		private TrulyObservableCollection<LogEntry> _log;
 		public TrulyObservableCollection<LogEntry> Log
 		{
@@ -34,7 +34,7 @@ namespace SourceLog.Model
 			}
 		}
 
-		public ILogProvider LogProvider { get; set; }
+		public IPlugin LogProvider { get; set; }
 		private readonly SynchronizationContext _uiThread;
 		private Func<ISourceLogContext> SourceLogContextProvider { get; set; }
 
@@ -55,17 +55,17 @@ namespace SourceLog.Model
 		{
 			Name = name;
 			Url = url;
-			LogProviderTypeName = pluginName;
+			PluginTypeName = pluginName;
 
-			LoadLogProviderPlugin();
+			LoadPlugin();
 		}
 
-		public void LoadLogProviderPlugin()
+		public void LoadPlugin()
 		{
-			Type type = LogProviderPluginManager.LogProviderPluginTypes[LogProviderTypeName];
-			LogProvider = Activator.CreateInstance(type) as ILogProvider;
+			var type = PluginManager.PluginTypes[PluginTypeName];
+			LogProvider = (IPlugin)Activator.CreateInstance(type);
 			LogProvider.NewLogEntry += AddNewLogEntry;
-			LogProvider.LogProviderException += LogProviderLogProviderException;
+			LogProvider.PluginException += LogProviderLogProviderException;
 			LogProvider.SettingsXml = Url;
 			DateTime maxDateTimeRetrieved = DateTime.MinValue;
 			if (Log != null && Log.Count > 0)
@@ -76,7 +76,7 @@ namespace SourceLog.Model
 			LogProvider.Initialise();
 		}
 
-		static void LogProviderLogProviderException(object sender, LogProviderExceptionEventArgs args)
+		static void LogProviderLogProviderException(object sender, PluginExceptionEventArgs args)
 		{
 			var logEntry =
 				new Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
@@ -138,7 +138,7 @@ namespace SourceLog.Model
 				db.LogSubscriptions.Attach(this);
 				
 				Name = name;
-				LogProviderTypeName = pluginName;
+				PluginTypeName = pluginName;
 				Url = settingsXml;
 				
 				db.SaveChanges();
@@ -146,29 +146,28 @@ namespace SourceLog.Model
 
 			// Not sure if this is necessary
 			LogProvider.NewLogEntry -= AddNewLogEntry;
-			LogProvider.LogProviderException -= LogProviderLogProviderException;
+			LogProvider.PluginException -= LogProviderLogProviderException;
 
-			LoadLogProviderPlugin();
+			LoadPlugin();
 		}
 
-        public override bool Equals(object obj)
-        {
-            LogSubscription logSubscription = obj as LogSubscription;
-            if (logSubscription == null)
-                return false;
-            else
-                return LogSubscriptionId.Equals(logSubscription.LogSubscriptionId);
-        }
+		public override bool Equals(object obj)
+		{
+			var logSubscription = obj as LogSubscription;
+			if (logSubscription == null)
+				return false;
+			return LogSubscriptionId.Equals(logSubscription.LogSubscriptionId);
+		}
 
-        public override int GetHashCode()
-        {
-            return LogSubscriptionId.GetHashCode();
-        }
+		public override int GetHashCode()
+		{
+			return LogSubscriptionId.GetHashCode();
+		}
 
-        internal void UnsubscribeEvents()
-        {
-            LogProvider.NewLogEntry -= AddNewLogEntry;
-            LogProvider.LogProviderException -= LogProviderLogProviderException;
-        }
-    }
+		internal void UnsubscribeEvents()
+		{
+			LogProvider.NewLogEntry -= AddNewLogEntry;
+			LogProvider.PluginException -= LogProviderLogProviderException;
+		}
+	}
 }

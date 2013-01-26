@@ -7,7 +7,7 @@ using SourceLog.Interface;
 
 namespace SourceLog.Plugin.CrashTestDummy
 {
-	public class CrashTestDummyPlugin : ILogProvider
+	public class CrashTestDummyPlugin : IPlugin
 	{
 		public string SettingsXml { get; set; }
 		public DateTime MaxDateTimeRetrieved { get; set; }
@@ -33,7 +33,7 @@ namespace SourceLog.Plugin.CrashTestDummy
 		}
 
 		public event NewLogEntryEventHandler NewLogEntry;
-		public event LogProviderExceptionEventHandler LogProviderException;
+		public event PluginExceptionEventHandler PluginException;
 
 		public void FireNewLogEntry()
 		{
@@ -57,7 +57,13 @@ namespace SourceLog.Plugin.CrashTestDummy
 						}
 				};
 
-			NewLogEntry(this, args);
+			if (NewLogEntry != null)
+				NewLogEntry(this, args);
+		}
+
+		public void Dispose()
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
