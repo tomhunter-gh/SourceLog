@@ -78,12 +78,11 @@
     </Compile>
     <Compile Include="ChangedFile.cs" />
     <Compile Include="ISourceLogContext.cs" />
-    <Compile Include="LogEntryInfo.cs" />
     <Compile Include="NewLogEntryInfoEventHandler.cs" />
     <Compile Include="NewLogEntryInfoEventHandlerArgs.cs" />
     <Compile Include="SourceLogContext.cs" />
     <Compile Include="LogEntry.cs" />
-    <Compile Include="LogProviderPluginManager.cs" />
+    <Compile Include="PluginManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LogSubscription.cs" />
     <Compile Include="LogSubscriptionManager.cs" />

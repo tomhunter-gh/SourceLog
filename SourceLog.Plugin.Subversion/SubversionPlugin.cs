@@ -12,76 +12,56 @@ using SourceLog.Interface;
 
 namespace SourceLog.Plugin.Subversion
 {
-	public class SubversionPlugin : ILogProvider
+	public class SubversionPlugin : Interface.Plugin
 	{
-		private Timer _timer;
-		static readonly Object LockObject = new Object();
+		// Need a static lock object as SharpSVN is not thread-safe
+		static readonly new Object LockObject = new Object();
 
-		public string SettingsXml { get; set; }
-
-		public DateTime MaxDateTimeRetrieved { get; set; }
-
-		public void Initialise()
+		protected override void CheckForNewLogEntriesImpl()
 		{
-			Logger.Write(new LogEntry
-			{
-				Message = "Plugin initialising (" + SettingsXml + ")",
-				Categories = { "Plugin.Subversion" },
-				Severity = TraceEventType.Information
-			});
+			if (!Monitor.TryEnter(LockObject))
+				return;
 
-			_timer = new Timer(CheckForNewLogEntries);
-			_timer.Change(0, 15000);
-		}
-
-		private void CheckForNewLogEntries(object state)
-		{
-			if (Monitor.TryEnter(LockObject))
+			try
 			{
-				try
+				using (var svnClient = new SvnClient())
 				{
-					Logger.Write(new LogEntry { Message = "Checking for new entries", Categories = { "Plugin.Subversion" } });
-
-					using (var svnClient = new SvnClient())
+					var uri = new Uri(SettingsXml);
+					Collection<SvnLogEventArgs> svnLogEntries;
+					if (svnClient.GetLog(uri, new SvnLogArgs { Limit = 30 }, out svnLogEntries))
 					{
-						var uri = new Uri(SettingsXml);
-						Collection<SvnLogEventArgs> svnLogEntries;
-						if (svnClient.GetLog(uri, new SvnLogArgs {Limit = 30}, out svnLogEntries))
+						var q = svnLogEntries
+							.Where(e => e.Time > MaxDateTimeRetrieved)
+							.OrderBy(e => e.Time);
+						foreach (var svnLogEntry in q)
 						{
-							var q = svnLogEntries
-								.Where(e => e.Time > MaxDateTimeRetrieved)
-								.OrderBy(e => e.Time);
-							foreach (var svnLogEntry in q)
-							{
-								var revision = svnLogEntry.Revision;
-								Logger.Write(new LogEntry {Message = "Creating LogEntryDto for revision " + revision, Categories = {"Plugin.Subversion"}});
-								var logEntry = new LogEntryDto
-									{
-										Author = svnLogEntry.Author,
-										CommittedDate = svnLogEntry.Time,
-										Message = svnLogEntry.LogMessage,
-										Revision = revision.ToString(CultureInfo.InvariantCulture),
-										ChangedFiles = new List<ChangedFileDto>()
-									};
+							var revision = svnLogEntry.Revision;
+							Logger.Write(new LogEntry
+								{
+									Message = "Creating LogEntryDto for revision " + revision,
+									Categories = { "Plugin." + GetType().Name }
+								});
+							var logEntry = new LogEntryDto
+								{
+									Author = svnLogEntry.Author,
+									CommittedDate = svnLogEntry.Time,
+									Message = svnLogEntry.LogMessage,
+									Revision = revision.ToString(CultureInfo.InvariantCulture),
+									ChangedFiles = new List<ChangedFileDto>()
+								};
 
-								ProcessChangedPaths(svnLogEntry, revision, logEntry);
+							ProcessChangedPaths(svnLogEntry, revision, logEntry);
 
-								var args = new NewLogEntryEventArgs { LogEntry = logEntry };
-								NewLogEntry(this, args);
-							}
-							MaxDateTimeRetrieved = svnLogEntries.Max(x => x.Time);
+							var args = new NewLogEntryEventArgs { LogEntry = logEntry };
+							OnNewLogEntry(args);
 						}
+						MaxDateTimeRetrieved = svnLogEntries.Max(x => x.Time);
 					}
 				}
-				catch (Exception ex)
-				{
-					var args = new LogProviderExceptionEventArgs { Exception = ex };
-					LogProviderException(this, args);
-				}
-				finally
-				{
-					Monitor.Exit(LockObject);
-				}
+			}
+			finally
+			{
+				Monitor.Exit(LockObject);
 			}
 		}
 
@@ -89,7 +69,7 @@ namespace SourceLog.Plugin.Subversion
 		{
 			svnLogEntry.ChangedPaths.AsParallel().WithDegreeOfParallelism(1).ForAll(changedPath =>
 			{
-				Logger.Write(new LogEntry {Message = "Processing path " + changedPath.Path, Categories = {"Plugin.Subversion"}});
+				Logger.Write(new LogEntry { Message = "Processing path " + changedPath.Path, Categories = { "Plugin.Subversion" } });
 				using (var parallelSvnClient = new SvnClient())
 				{
 					var changedFile = new ChangedFileDto { FileName = changedPath.Path };
@@ -102,7 +82,7 @@ namespace SourceLog.Plugin.Subversion
 						parallelSvnClient.GetInfo(
 							new SvnUriTarget(
 								SettingsXml + changedPath.Path,
-								// If the file is deleted then using revision causes an exception
+							// If the file is deleted then using revision causes an exception
 								(changedPath.Action == SvnChangeAction.Delete ? revision - 1 : revision)
 							),
 							out svnInfo);
@@ -134,13 +114,13 @@ namespace SourceLog.Plugin.Subversion
 							}
 							catch (SvnRepositoryIOException e)
 							{
-								Logger.Write(new LogEntry { Message = "SvnRepositoryIOException: " + e, Categories = {"Plugin.Subversion"}, Severity = TraceEventType.Error});
+								Logger.Write(new LogEntry { Message = "SvnRepositoryIOException: " + e, Categories = { "Plugin.Subversion" }, Severity = TraceEventType.Error });
 								changedFile.OldVersion = String.Empty;
 							}
 							catch (SvnFileSystemException ex)
 							{
 								// http://stackoverflow.com/questions/12939642/sharpsvn-getinfo-lastchangerevision-is-wrong
-								Logger.Write(new LogEntry { Message = "SvnFileSystemException: " + ex, Categories = {"Plugin.Subversion"}, Severity = TraceEventType.Warning});
+								Logger.Write(new LogEntry { Message = "SvnFileSystemException: " + ex, Categories = { "Plugin.Subversion" }, Severity = TraceEventType.Warning });
 								changedFile.OldVersion = String.Empty;
 							}
 						}
@@ -161,13 +141,13 @@ namespace SourceLog.Plugin.Subversion
 
 					switch (changedPath.Action)
 					{
-						case SvnChangeAction.Add :
+						case SvnChangeAction.Add:
 							changedFile.ChangeType = ChangeType.Added;
 							break;
-						case SvnChangeAction.Delete :
+						case SvnChangeAction.Delete:
 							changedFile.ChangeType = ChangeType.Deleted;
 							break;
-						default :
+						default:
 							changedFile.ChangeType = ChangeType.Modified;
 							break;
 					}
@@ -188,8 +168,5 @@ namespace SourceLog.Plugin.Subversion
 				return streamReader.ReadToEnd();
 			}
 		}
-
-		public event NewLogEntryEventHandler NewLogEntry;
-		public event LogProviderExceptionEventHandler LogProviderException;
 	}
 }

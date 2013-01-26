@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
@@ -36,7 +35,7 @@ namespace SourceLog.Model
 		{
 			if (s.LogProvider == null)
 			{
-				s.LoadLogProviderPlugin();
+				s.LoadPlugin();
 				s.NewLogEntry += (o, e) => NewLogEntry(o, e);
 			}
 		}
@@ -58,8 +57,9 @@ namespace SourceLog.Model
 
 		public void DeleteSubscription(LogSubscription logSubscription)
 		{
-            logSubscription.UnsubscribeEvents();
-            using (var db = new SourceLogContext())
+			logSubscription.LogProvider.Dispose();
+			logSubscription.UnsubscribeEvents();
+			using (var db = new SourceLogContext())
 			{
 				foreach (var logEntry in logSubscription.Log)
 				{

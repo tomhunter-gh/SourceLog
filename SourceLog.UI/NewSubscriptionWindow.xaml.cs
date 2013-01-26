@@ -29,7 +29,7 @@ namespace SourceLog
 			InitializeComponent(); 
 
 			txtName.Text = logSubscription.Name;
-			ddlPlugin.SelectedValue = logSubscription.LogProviderTypeName;
+			ddlPlugin.SelectedValue = logSubscription.PluginTypeName;
 			LogProviderPluginDropDownSelectionChanged(this, null);
 			((ISubscriptionSettings) grpSettings.Content).SettingsXml = logSubscription.Url;
 
