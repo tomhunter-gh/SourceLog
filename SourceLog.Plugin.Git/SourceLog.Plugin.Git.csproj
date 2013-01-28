@@ -100,10 +100,9 @@ copy /Y "$(TargetDir)LibGit2Sharp.dll" "$(SolutionDir)SourceLog.UI\Plugins\$(Tar
 if not exist "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries" md "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries"
 if not exist "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries\x86" md "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries\x86"
 xcopy /s /y "$(SolutionDir)Lib\LibGit2Sharp\vNext-95a50c31370c43aba6ee66b8705df45810dac0e8\NativeBinaries\x86\*.*" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries\x86"
-xcopy /s /y "$(SolutionDir)Lib\LibGit2Sharp\vNext-95a50c31370c43aba6ee66b8705df45810dac0e8\NativeBinaries\x86\*.dll" "$(SolutionDir)SourceLog.UI\x86"
+xcopy /s /y "$(SolutionDir)Lib\LibGit2Sharp\vNext-95a50c31370c43aba6ee66b8705df45810dac0e8\NativeBinaries\x86\*.dll" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)"
 if not exist "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries\amd64" md "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries\amd64"
 xcopy /s /y "$(SolutionDir)Lib\LibGit2Sharp\vNext-95a50c31370c43aba6ee66b8705df45810dac0e8\NativeBinaries\amd64\*.*" "$(SolutionDir)SourceLog.UI\Plugins\$(TargetName)\NativeBinaries\amd64"
-xcopy /s /y "$(SolutionDir)Lib\LibGit2Sharp\vNext-95a50c31370c43aba6ee66b8705df45810dac0e8\NativeBinaries\amd64\*.dll" "$(SolutionDir)SourceLog.UI\amd64"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
