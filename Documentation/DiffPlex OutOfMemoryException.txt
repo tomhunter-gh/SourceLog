@@ -1,0 +1,8 @@
+System.OutOfMemoryException occurred
+  Message=Exception of type 'System.OutOfMemoryException' was thrown.
+  Source=mscorlib
+  StackTrace:
+       at System.String.ReplaceInternal(String oldValue, String newValue)
+       at System.String.Replace(String oldValue, String newValue)
+       at DiffPlex.Differ.NormalizeNewlines(String str) in d:\Dev\DiffPlex\DiffPlex\Differ.cs:line 124
+  InnerException: 
