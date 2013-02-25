@@ -35,7 +35,7 @@ namespace SourceLog.Plugin.GitHub
 
 		protected override void CheckForNewLogEntriesImpl()
 		{
-			var repoLog = JsonConvert.DeserializeObject<RepoLog>(GitHubApiGet(
+			var repoLog = JsonConvert.DeserializeObject<RepoLog>(GitHubApiGetString(
 				"https://api.github.com/repos/" + _username + "/"
 				+ _reponame + "/commits"
 			));
@@ -56,7 +56,7 @@ namespace SourceLog.Plugin.GitHub
 						};
 
 					var fullCommitEntry = JsonConvert.DeserializeObject<CommitEntry>(
-						GitHubApiGet(
+						GitHubApiGetString(
 							"https://api.github.com/repos/" + _username + "/"
 							+ _reponame + "/commits/"
 							+ commitEntry.sha
@@ -76,18 +76,18 @@ namespace SourceLog.Plugin.GitHub
 						if (file.status == "removed")
 						{
 							changedFile.ChangeType = ChangeType.Deleted;
-							changedFile.OldVersion = GitHubApiGet(file.raw_url);
-							changedFile.NewVersion = String.Empty;
+							changedFile.OldVersion = GitHubApiGetBinary(file.raw_url);
+							changedFile.NewVersion = new byte[0];
 						}
 						else
 						{
 							changedFile.ChangeType = ChangeType.Modified;
-							changedFile.NewVersion = GitHubApiGet(file.raw_url);
+							changedFile.NewVersion = GitHubApiGetBinary(file.raw_url);
 
 							// get the previous version
 							// first get the list of commits for the file
 							var fileLog = JsonConvert.DeserializeObject<RepoLog>(
-								GitHubApiGet(
+								GitHubApiGetString(
 									"https://api.github.com/repos/" + _username + "/"
 									+ _reponame + "/commits?path=" + file.filename
 									)
@@ -101,7 +101,7 @@ namespace SourceLog.Plugin.GitHub
 							if (previousCommit != null)
 							{
 								// get the raw contents of the path at the previous commit sha
-								changedFile.OldVersion = GitHubApiGet(
+								changedFile.OldVersion = GitHubApiGetBinary(
 									"https://github.com/" + _username + "/"
 									+ _reponame + "/raw/"
 									+ previousCommit.sha + "/"
@@ -110,7 +110,7 @@ namespace SourceLog.Plugin.GitHub
 							}
 							else
 							{
-								changedFile.OldVersion = String.Empty;
+								changedFile.OldVersion = new byte[0];
 								changedFile.ChangeType = ChangeType.Added;
 							}
 						}
@@ -126,7 +126,7 @@ namespace SourceLog.Plugin.GitHub
 			}
 		}
 
-		static string GitHubApiGet(string uri)
+		static byte[] GitHubApiGetBinary(string uri)
 		{
 			Logger.Write(new LogEntry { Message = "GitHubApiGet: " + uri, Categories = { "Plugin.GitHub" } });
 			var request = WebRequest.Create(uri);
@@ -134,13 +134,10 @@ namespace SourceLog.Plugin.GitHub
 			{
 				using (var response = request.GetResponse())
 				{
-					// ReSharper disable PossibleNullReferenceException
-					// ReSharper disable AssignNullToNotNullAttribute
-					using (var reader = new StreamReader(response.GetResponseStream()))
-					// ReSharper restore AssignNullToNotNullAttribute
-					// ReSharper restore PossibleNullReferenceException
+					using (var memoryStream = new MemoryStream())
 					{
-						return reader.ReadToEnd();
+						response.GetResponseStream().CopyTo(memoryStream);
+						return memoryStream.ToArray();
 					}
 				}
 			}
@@ -150,7 +147,7 @@ namespace SourceLog.Plugin.GitHub
 				{
 					Logger.Write(new LogEntry { Message = "GitHub API rate limit met - sleeping for 1 hr", Categories = { "Plugin.GitHub" } });
 					Thread.Sleep(TimeSpan.FromHours(1));
-					return GitHubApiGet(uri);
+					return GitHubApiGetBinary(uri);
 				}
 
 				// Getting a 404 from the raw_url on a changed subproject.
@@ -159,20 +156,27 @@ namespace SourceLog.Plugin.GitHub
 				//  https://api.github.com/repos/libgit2/libgit2sharp/commits/39c2ed2233b3d99e33c031183e26996d1210c329
 				if (ex.Response.Headers["status"] == "404 Not Found")
 				{
-					return ex.Response.Headers["status"] + Environment.NewLine
+					return System.Text.Encoding.UTF8.GetBytes(
+						ex.Response.Headers["status"] + Environment.NewLine
 						   + "URI: " + uri + Environment.NewLine
 						   + Environment.NewLine
-						   + "Subproject link?";
+						   + "Subproject link?"
+					);
 				}
 
 				// ReSharper disable AssignNullToNotNullAttribute
 				var response = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
 				// ReSharper restore AssignNullToNotNullAttribute
 				if (response == "Error: blob is too big")
-					return response + Environment.NewLine + "URI: " + uri;
+					return System.Text.Encoding.UTF8.GetBytes(response + Environment.NewLine + "URI: " + uri);
 
 				throw new Exception(response, ex);
 			}
+		}
+
+		static string GitHubApiGetString(string uri)
+		{
+			return System.Text.Encoding.UTF8.GetString(GitHubApiGetBinary(uri));
 		}
 	}
 

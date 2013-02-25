@@ -31,14 +31,22 @@ namespace SourceLog.Model.Tests
 
 			var changedFileDto = new ChangedFileDto();
 
-			using (var reader = new StreamReader("jquery.signalR.core.js.oldversion"))
+			using (var reader = new FileStream("jquery.signalR.core.js.oldversion",FileMode.Open))
 			{
-				changedFileDto.OldVersion = reader.ReadToEnd();
+				using (var memoryStream = new MemoryStream())
+				{
+					reader.CopyTo(memoryStream);
+					changedFileDto.OldVersion = memoryStream.ToArray();
+				}
 			}
 
-			using (var reader = new StreamReader("jquery.signalR.core.js.newversion"))
+			using (var reader = new FileStream("jquery.signalR.core.js.newversion", FileMode.Open))
 			{
-				changedFileDto.NewVersion = reader.ReadToEnd();
+				using (var memoryStream = new MemoryStream())
+				{
+					reader.CopyTo(memoryStream);
+					changedFileDto.NewVersion = memoryStream.ToArray();
+				}
 			}
 
 			var logEntryDto = new LogEntryDto
@@ -54,10 +62,10 @@ namespace SourceLog.Model.Tests
 
 			var changedFile = logEntry.ChangedFiles.First();
 
-			Assert.IsTrue(changedFile.LeftFlowDocumentData.Length <= 5382,
+			Assert.IsTrue(changedFile.LeftFlowDocumentData.Length <= 5388,
 				"changedFile.LeftFlowDocumentData.Length: " + changedFile.LeftFlowDocumentData.Length);
 
-			Assert.IsTrue(changedFile.RightFlowDocumentData.Length <= 5382,
+			Assert.IsTrue(changedFile.RightFlowDocumentData.Length <= 5383,
 				"changedFile.RightFlowDocumentData.Length: " + changedFile.RightFlowDocumentData.Length);
 		}
 	}

@@ -15,8 +15,8 @@ namespace SourceLog.Model.Tests
 		{
 			var changedFileDto = new ChangedFileDto
 				{
-					OldVersion = "\t@ ,",
-					NewVersion = "\t @ "
+					OldVersion = System.Text.Encoding.UTF8.GetBytes("\t@ ,"),
+					NewVersion = System.Text.Encoding.UTF8.GetBytes("\t @ ")
 				};
 
 			var logEntryDto = new LogEntryDto { ChangedFiles = new List<ChangedFileDto> { changedFileDto } };

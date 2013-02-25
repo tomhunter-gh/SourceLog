@@ -59,12 +59,12 @@ namespace SourceLog.Plugin.Git
 				switch (changeFileDto.ChangeType)
 				{
 					case ChangeType.Added:
-						changeFileDto.OldVersion = String.Empty;
+						changeFileDto.OldVersion = new byte[0];
 						changeFileDto.NewVersion = GetNewVersion(commit, change);
 						break;
 					case ChangeType.Deleted:
 						changeFileDto.OldVersion = GetOldVersion(commit, change);
-						changeFileDto.NewVersion = String.Empty;
+						changeFileDto.NewVersion = new byte[0];
 						break;
 					default:
 						changeFileDto.OldVersion = GetOldVersion(commit, change);
@@ -90,14 +90,14 @@ namespace SourceLog.Plugin.Git
 			// ReSharper restore PossibleNullReferenceException
 		}
 
-		private static string GetOldVersion(Commit commit, TreeEntryChanges change)
+		private static byte[] GetOldVersion(Commit commit, TreeEntryChanges change)
 		{
-			return Encoding.UTF8.GetString(((Blob)commit.Parents.First()[change.OldPath].Target).Content);
+			return ((Blob)commit.Parents.First()[change.OldPath].Target).Content;
 		}
 
-		private static string GetNewVersion(Commit commit, TreeEntryChanges change)
+		private static byte[] GetNewVersion(Commit commit, TreeEntryChanges change)
 		{
-			return Encoding.UTF8.GetString(((Blob)commit[change.Path].Target).Content);
+			return ((Blob)commit[change.Path].Target).Content;
 		}
 
 		private static ChangeType GitChangeStatusToChangeType(ChangeKind changeKind)

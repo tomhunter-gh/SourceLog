@@ -59,34 +59,36 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 					var changedFile = new ChangedFileDto { FileName = change.Item.ServerItem };
 					if (change.Item.ItemType != ItemType.File)
 					{
-						changedFile.OldVersion = String.Empty;
-						changedFile.NewVersion = String.Empty;
+						changedFile.OldVersion = new byte[0];
+						changedFile.NewVersion = new byte[0];
 						continue;
 					}
 
 					if (change.ChangeType.HasFlag(TFS.ChangeType.Delete))
 					{
-						changedFile.NewVersion = String.Empty;
+						changedFile.NewVersion = new byte[0];
 					}
 					else
 					{
-						using (var streamreader = new StreamReader(change.Item.DownloadFile()))
+						using (var memoryStream = new MemoryStream())
 						{
-							changedFile.NewVersion = streamreader.ReadToEnd();
+							change.Item.DownloadFile().CopyTo(memoryStream);
+							changedFile.NewVersion = memoryStream.ToArray();
 						}
 					}
 
 					var previousVersion = vcs.GetItem(change.Item.ItemId, changesetId - 1, true);
 					if (previousVersion != null)
 					{
-						using (var previousVersionStreamreader = new StreamReader(previousVersion.DownloadFile()))
+						using (var previousVersionMemoryStream = new MemoryStream())
 						{
-							changedFile.OldVersion = previousVersionStreamreader.ReadToEnd();
+							previousVersion.DownloadFile().CopyTo(previousVersionMemoryStream);
+							changedFile.OldVersion = previousVersionMemoryStream.ToArray();
 						}
 					}
 					else
 					{
-						changedFile.OldVersion = String.Empty;
+						changedFile.OldVersion = new byte[0];
 					}
 
 					SetChangeType(changedFile, change);

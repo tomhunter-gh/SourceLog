@@ -50,8 +50,8 @@ namespace SourceLog.Plugin.CrashTestDummy
 										{
 											ChangeType = ChangeType.Modified,
 											FileName = "C:\\temp\\file.ext",
-											OldVersion = "Old",
-											NewVersion = "New"
+											OldVersion = System.Text.Encoding.UTF8.GetBytes("Old"),
+											NewVersion = System.Text.Encoding.UTF8.GetBytes("New")
 										}
 								}
 						}

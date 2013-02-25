@@ -91,8 +91,8 @@ namespace SourceLog.Plugin.Subversion
 
 					if (nodeKind != SvnNodeKind.File)
 					{
-						changedFile.OldVersion = String.Empty;
-						changedFile.NewVersion = String.Empty;
+						changedFile.OldVersion = new byte[0];
+						changedFile.NewVersion = new byte[0];
 					}
 					else
 					{
@@ -115,18 +115,18 @@ namespace SourceLog.Plugin.Subversion
 							catch (SvnRepositoryIOException e)
 							{
 								Logger.Write(new LogEntry { Message = "SvnRepositoryIOException: " + e, Categories = { "Plugin.Subversion" }, Severity = TraceEventType.Error });
-								changedFile.OldVersion = String.Empty;
+								changedFile.OldVersion = new byte[0];
 							}
 							catch (SvnFileSystemException ex)
 							{
 								// http://stackoverflow.com/questions/12939642/sharpsvn-getinfo-lastchangerevision-is-wrong
 								Logger.Write(new LogEntry { Message = "SvnFileSystemException: " + ex, Categories = { "Plugin.Subversion" }, Severity = TraceEventType.Warning });
-								changedFile.OldVersion = String.Empty;
+								changedFile.OldVersion = new byte[0];
 							}
 						}
 						else
 						{
-							changedFile.OldVersion = String.Empty;
+							changedFile.OldVersion = new byte[0];
 						}
 
 						if (changedPath.Action == SvnChangeAction.Modify || changedPath.Action == SvnChangeAction.Add)
@@ -135,7 +135,7 @@ namespace SourceLog.Plugin.Subversion
 						}
 						else
 						{
-							changedFile.NewVersion = String.Empty;
+							changedFile.NewVersion = new byte[0];
 						}
 					}
 
@@ -157,15 +157,13 @@ namespace SourceLog.Plugin.Subversion
 			});
 		}
 
-		private static string ReadFileVersion(SvnClient svnClient, string uriString, long revision)
+		private static byte[] ReadFileVersion(SvnClient svnClient, string uriString, long revision)
 		{
 			using (var versionStream = new MemoryStream())
 			{
 				var versionTarget = new SvnUriTarget(uriString, revision);
 				svnClient.Write(versionTarget, versionStream);
-				var streamReader = new StreamReader(versionStream);
-				versionStream.Position = 0;
-				return streamReader.ReadToEnd();
+				return versionStream.ToArray();
 			}
 		}
 	}

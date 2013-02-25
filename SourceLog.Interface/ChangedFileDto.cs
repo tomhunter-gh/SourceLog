@@ -4,8 +4,8 @@
 	{
 		public ChangeType ChangeType { get; set; }
 		public string FileName { get; set; }
-		public string OldVersion { get; set; }
-		public string NewVersion { get; set; }
+		public byte[] OldVersion { get; set; }
+		public byte[] NewVersion { get; set; }
 	}
 
 	public enum ChangeType
