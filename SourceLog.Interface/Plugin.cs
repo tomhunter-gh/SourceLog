@@ -13,7 +13,7 @@ namespace SourceLog.Interface
 		public string SettingsXml { get; set; }
 
 		public DateTime MaxDateTimeRetrieved { get; set; }
-		public void Initialise()
+		public virtual void Initialise()
 		{
 			Logger.Write(new LogEntry
 			{

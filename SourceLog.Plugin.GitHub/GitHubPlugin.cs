@@ -16,7 +16,7 @@ namespace SourceLog.Plugin.GitHub
 		private string _username;
 		private string _reponame;
 
-		public new void Initialise()
+		public override void Initialise()
 		{
 			const string pattern = @"https://github.com/(?<username>[^/]+)/(?<reponame>[^/]+)/?";
 			var r = new Regex(pattern);
