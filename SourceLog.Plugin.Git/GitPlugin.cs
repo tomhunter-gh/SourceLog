@@ -22,9 +22,9 @@ namespace SourceLog.Plugin.Git
 				repo.Fetch(remote);
 
 				foreach (var commit in repo.Branches[remote + "/" + branch].Commits
-					.Where(c => c.Committer.When > MaxDateTimeRetrieved)
+					.Where(c => c.Committer.When.UtcDateTime > MaxDateTimeRetrieved)
 					.Take(30)
-					.OrderBy(c => c.Committer.When))
+					.OrderBy(c => c.Committer.When.UtcDateTime))
 				{
 					ProcessLogEntry(repo, commit);
 				}
@@ -37,7 +37,7 @@ namespace SourceLog.Plugin.Git
 				{
 					Revision = commit.Sha.Substring(0, 7),
 					Author = commit.Author.Name,
-					CommittedDate = commit.Committer.When.DateTime,
+					CommittedDate = commit.Committer.When.UtcDateTime,
 					Message = commit.Message,
 					ChangedFiles = new List<ChangedFileDto>()
 				};
