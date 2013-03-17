@@ -37,7 +37,7 @@ namespace SourceLog
 			lblVersion.Content = String.Format(
 				"Version: {0}; Build: {1}",
 				Assembly.GetExecutingAssembly().GetName().Version,
-				ConfigurationManager.AppSettings["appharbor.commit_id"] ?? "local"
+				ConfigurationManager.AppSettings["build_server"] ?? "local"
 			);
 		}
 

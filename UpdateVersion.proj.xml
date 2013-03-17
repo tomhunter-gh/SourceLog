@@ -35,5 +35,7 @@
 										   Namespaces="@(Namespaces)"
 										   XPath="/ns:Project/ns:PropertyGroup/ns:ApplicationVersion" 
 										   InnerText="$(AssemblyMajorVersion).$(AssemblyMinorVersion).$(AssemblyBuildNumber).$(AssemblyRevision)"/>
+
+		<XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)\SourceLog.UI\App.Config" Query="configuration/appSettings/add[@key = 'build_server']/@value" Value="$(COMPUTERNAME)" />
 	</Target>
 </Project>
