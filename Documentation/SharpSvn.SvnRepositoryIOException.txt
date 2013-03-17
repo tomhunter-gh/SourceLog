@@ -1,0 +1,10 @@
+SharpSvn.SvnRepositoryIOException occurred
+  HResult=-2146233088
+  Message=URL 'http://sharpsvn.open.collab.net/svn/sharpsvn/trunk/trunk/src/SharpSvn/EventArgs/SvnLogEventArgs.h' non-existent in revision 2216
+  Source=SharpSvn
+  Line=0
+  OperatingSystemErrorCode=0
+  SubversionErrorCode=170000
+  StackTrace:
+       at SharpSvn.SvnClientArgs.HandleResult(SvnClientContext client, SvnException error, Object targets) in g:\dist\src\sharpsvn\svnclientargs.cpp:line 78
+  InnerException: 

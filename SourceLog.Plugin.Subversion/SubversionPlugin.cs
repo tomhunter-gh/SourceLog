@@ -31,7 +31,7 @@ namespace SourceLog.Plugin.Subversion
 					if (svnClient.GetLog(uri, new SvnLogArgs { Limit = 30 }, out svnLogEntries))
 					{
 						var q = svnLogEntries
-							.Where(e => e.Time > MaxDateTimeRetrieved)
+							.Where(e => e.Time.PrecisionFix() > MaxDateTimeRetrieved)
 							.OrderBy(e => e.Time);
 						foreach (var svnLogEntry in q)
 						{
@@ -55,7 +55,7 @@ namespace SourceLog.Plugin.Subversion
 							var args = new NewLogEntryEventArgs { LogEntry = logEntry };
 							OnNewLogEntry(args);
 						}
-						MaxDateTimeRetrieved = svnLogEntries.Max(x => x.Time);
+						MaxDateTimeRetrieved = svnLogEntries.Max(x => x.Time).PrecisionFix();
 					}
 				}
 			}
@@ -79,14 +79,27 @@ namespace SourceLog.Plugin.Subversion
 					{
 						// Use GetInfo to get the NodeKind
 						SvnInfoEventArgs svnInfo;
-						parallelSvnClient.GetInfo(
-							new SvnUriTarget(
-								SettingsXml + changedPath.Path,
-							// If the file is deleted then using revision causes an exception
-								(changedPath.Action == SvnChangeAction.Delete ? revision - 1 : revision)
-							),
-							out svnInfo);
-						nodeKind = svnInfo.NodeKind;
+						try
+						{
+							parallelSvnClient.GetInfo(
+								new SvnUriTarget(
+									SettingsXml + changedPath.Path,
+								// If the file is deleted then using revision causes an exception
+									(changedPath.Action == SvnChangeAction.Delete ? revision - 1 : revision)
+								),
+								out svnInfo);
+							nodeKind = svnInfo.NodeKind;
+						}
+						catch (SvnRepositoryIOException svnRepositoryIoException)
+						{
+							Logger.Write(new LogEntry
+								{
+									Message = svnRepositoryIoException.ToString(),
+									Categories = { "Plugin.Subversion" },
+									Severity = TraceEventType.Warning
+								});
+						}
+
 					}
 
 					if (nodeKind != SvnNodeKind.File)
