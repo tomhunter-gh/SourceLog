@@ -90,6 +90,15 @@ namespace SourceLog.Model
 		public void AddNewLogEntry(object sender, NewLogEntryEventArgs e)
 		{
 			var logEntry = new LogEntry(e.LogEntry);
+			if (Log.Count(l => l.Revision == logEntry.Revision) > 0)
+			{
+				Logger.Write(new Microsoft.Practices.EnterpriseLibrary.Logging.LogEntry
+					{
+						Message = String.Format("Subscription \"{2}\" already contains revision {0}, date (ticks) {1}", logEntry.Revision, logEntry.CommittedDate.Ticks, Name),
+						Severity = TraceEventType.Error
+					});
+			}
+
 			logEntry.GenerateFlowDocuments();
 
 			using (var db = SourceLogContextProvider())
