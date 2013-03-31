@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 
@@ -8,13 +9,17 @@ namespace SourceLog
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
-	public partial class App : Application
+	public partial class App
 	{
 		public App()
 		{
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomainUnhandledException;
 
-			var logEntry = new LogEntry {Message = "Application starting..", Severity = TraceEventType.Information};
+			var logEntry = new LogEntry
+				{
+					Message = String.Format("Application starting.. (version: {0})", Assembly.GetExecutingAssembly().GetName().Version),
+					Severity = TraceEventType.Information
+				};
 			Logger.Write(logEntry);
 		}
 
