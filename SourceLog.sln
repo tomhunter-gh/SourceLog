@@ -1,6 +1,14 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F3C259E6-9A20-4887-BB15-22714E09DAD5}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		SourceLog.vsmdi = SourceLog.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+		UpdateVersion.proj.xml = UpdateVersion.proj.xml
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.UI", "SourceLog.UI\SourceLog.UI.csproj", "{14A92497-D94E-4F6A-A6CE-54C5F027B62D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{FA3CF659-D0F2-433A-8EE3-66ADF7CB48E6} = {FA3CF659-D0F2-433A-8EE3-66ADF7CB48E6}
@@ -23,14 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.TeamFounda
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Model.Tests", "SourceLog.Model.Tests\SourceLog.Model.Tests.csproj", "{41F2B842-1CA5-4403-BDD1-8150FA2C31C8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F3C259E6-9A20-4887-BB15-22714E09DAD5}"
-	ProjectSection(SolutionItems) = preProject
-		Local.testsettings = Local.testsettings
-		SourceLog.vsmdi = SourceLog.vsmdi
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
-		UpdateVersion.proj.xml = UpdateVersion.proj.xml
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.Perforce", "SourceLog.Plugin.Perforce\SourceLog.Plugin.Perforce.csproj", "{5A73F5FF-E805-4A5F-A506-87C8E12FEBDA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.CrashTestDummy", "SourceLog.Plugin.DummyTestPlugin\SourceLog.Plugin.CrashTestDummy.csproj", "{619E918E-6259-44F3-B33F-69E7801AC512}"
@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClickOnceHostWeb", "ClickOn
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.Git", "SourceLog.Plugin.Git\SourceLog.Plugin.Git.csproj", "{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceLog.Plugin.Mercurial", "SourceLog.Plugin.Mercurial\SourceLog.Plugin.Mercurial.csproj", "{33FA32A9-3FE6-4354-A896-1BABCE5D0CB5}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -165,6 +167,16 @@ Global
 		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0FE89CBE-432F-4EC5-AB3A-5DB70A6F8786}.Release|x86.ActiveCfg = Release|Any CPU
+		{33FA32A9-3FE6-4354-A896-1BABCE5D0CB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33FA32A9-3FE6-4354-A896-1BABCE5D0CB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33FA32A9-3FE6-4354-A896-1BABCE5D0CB5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{33FA32A9-3FE6-4354-A896-1BABCE5D0CB5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{33FA32A9-3FE6-4354-A896-1BABCE5D0CB5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{33FA32A9-3FE6-4354-A896-1BABCE5D0CB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33FA32A9-3FE6-4354-A896-1BABCE5D0CB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33FA32A9-3FE6-4354-A896-1BABCE5D0CB5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{33FA32A9-3FE6-4354-A896-1BABCE5D0CB5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{33FA32A9-3FE6-4354-A896-1BABCE5D0CB5}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
