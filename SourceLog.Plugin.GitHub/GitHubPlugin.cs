@@ -130,6 +130,8 @@ namespace SourceLog.Plugin.GitHub
 		{
 			Logger.Write(new LogEntry { Message = "GitHubApiGet: " + uri, Categories = { "Plugin.GitHub" } });
 			var request = WebRequest.Create(uri);
+			((HttpWebRequest)request).UserAgent = "SourceLog";
+			
 			try
 			{
 				using (var response = request.GetResponse())
