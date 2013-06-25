@@ -3,7 +3,7 @@ SourceLog
 
 SourceLog is a source control repository monitor application that tracks changes committed to a repository and displays details of each change including a side by side diff of each file changed.  The application allows the user to track changes to any number of repositories through "subscriptions" to repository paths. A number of version control systems are supported through a plugin model. Users are notified as changes are committed to the repository and new changes are marked as unread and displayed in bold.
 
-![SourceLog Main Window](https://raw.github.com/tomhunter-gh/SourceLog/97a3d47b28e95963cdd332e67c1e2e28a0002e99/Documentation/Images/MainWindow.png "SourceLog Main Window")
+![SourceLog Main Window](https://raw.github.com/tomhunter-gh/SourceLog/master/Documentation/Images/MainWindow.png "SourceLog Main Window")
 
 [More screenshots on the wiki..](https://github.com/tomhunter-gh/SourceLog/wiki/SourceLog-Screenshots)
 
@@ -19,7 +19,7 @@ Supported Version Control Systems
 
 + Git
 + GitHub (via the [GitHub API](http://developer.github.com/v3/))
-+ Mercurial
++ Mercurial (thanks to [cl3m](https://github.com/cl3m)!)
 + Subversion
 + Team Foundation Server 2010
 + Perforce
