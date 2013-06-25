@@ -17,7 +17,9 @@ Please see my blog post for further information: http://www.unhandledexception.i
 Supported Version Control Systems
 ---------------------------------
 
++ Git
 + GitHub (via the [GitHub API](http://developer.github.com/v3/))
++ Mercurial
 + Subversion
 + Team Foundation Server 2010
 + Perforce
@@ -30,20 +32,20 @@ SourceLog is packaged into a ClickOnce installer and hosted on [AppHarbor](https
 Status
 ------
 
-The application is currently a work in progress and the current focus is on a [version 1](https://github.com/tomhunter-gh/SourceLog/issues?milestone=1) release. 
+The application is now fairly stable.  There are a number of enhancements suggested on [the issues list](https://github.com/tomhunter-gh/SourceLog/issues?state=open).
 
-Feedback
+Feedback and Contributions
 --------
 
 Feedback and suggestions are very much welcome and I would be keen to get input on all the following areas:
 
 + The GitHub project page / [AppHarbor host page](http://sourcelog.apphb.com/)
 + The install experience
-+ The features/functionality of the application
-+ The design/architecture of the application
-+ The coding style and conventions/consistency
++ The features and functionality of the application
++ The design and architecture of the application
++ The coding style and conventions in use
 
-I would also be very happy to collaborate with others on further development of the application, so if this is something you’d be interested in, please drop me a line!
+I would also be very happy to accept pull requests and collaborate with others on further development of the application.
 
 tom@unhandledexception.info
 
