@@ -154,7 +154,17 @@ namespace SourceLog
 
 		private void DeleteSubscription(object sender, RoutedEventArgs e)
 		{
-			ViewModel.DeleteSubscription((LogSubscription) lstSubscriptions.SelectedItem);
+			var messageBoxResult = MessageBox.Show(
+				"Are you sure you would like to delete this subscription and all stored log entries?",
+				"Delete subscription",
+				MessageBoxButton.YesNo,
+				MessageBoxImage.Question
+			);
+
+			if (messageBoxResult == MessageBoxResult.Yes)
+			{
+				ViewModel.DeleteSubscription((LogSubscription)lstSubscriptions.SelectedItem);
+			}
 		}
 
 		private void MarkAllLogEntriesAsRead(object sender, RoutedEventArgs e)

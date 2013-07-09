@@ -49,9 +49,9 @@
 			SelectionChanged="LstSubscriptionsSelectionChanged" SelectedItem="{Binding SelectedLogSubscription}">
 			<ListBox.Resources>
 				<ContextMenu x:Key="SubscriptionContextMenu">
-					<MenuItem Header="Edit" Click="EditSubscription" />
-					<MenuItem Header="Delete" Click="DeleteSubscription" />
 					<MenuItem Header="Mark all as read" Click="MarkAllLogEntriesAsRead" />
+					<MenuItem Header="Edit" Click="EditSubscription" />
+					<MenuItem Header="Delete.." Click="DeleteSubscription" />
 				</ContextMenu>
 				<Style TargetType="{x:Type ListBoxItem}">
 					<Setter Property="ContextMenu" Value="{StaticResource SubscriptionContextMenu}" />
