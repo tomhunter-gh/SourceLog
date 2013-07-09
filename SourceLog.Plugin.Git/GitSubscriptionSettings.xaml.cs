@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using SourceLog.Interface;
+using WinForms = System.Windows.Forms;
 
 namespace SourceLog.Plugin.Git
 {
@@ -33,5 +34,14 @@ namespace SourceLog.Plugin.Git
 				txtBranch.Text = settingsXml.Root.Element("Branch").Value;
 			}
 		}
-	}
+
+		private void btnBrowse_Click(object sender, System.Windows.RoutedEventArgs e)
+		{
+			var dlg = new WinForms.FolderBrowserDialog();
+			System.Windows.Forms.DialogResult result = dlg.ShowDialog(this.GetIWin32Window());
+
+			if (result.ToString() == "OK")
+				txtDirectory.Text = dlg.SelectedPath;
+		}
+	}	
 }

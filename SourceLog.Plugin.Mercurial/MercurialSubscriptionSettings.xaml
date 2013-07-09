@@ -8,6 +8,7 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" />
 			<ColumnDefinition />
+			<ColumnDefinition Width="Auto" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -16,6 +17,8 @@
 		</Grid.RowDefinitions>
 		
 		<Label Margin="6">Directory: </Label>
-		<TextBox Name="txtDirectory" Grid.Column="1" Margin="6" />		
-	</Grid>
+        <TextBox Name="txtDirectory" Grid.Column="1" Margin="6" />
+
+        <Button Name="btnBrowse" Grid.Column="2" Content="Browse" Margin="6" Width="60" Click="btnBrowse_Click" />
+    </Grid>
 </UserControl>

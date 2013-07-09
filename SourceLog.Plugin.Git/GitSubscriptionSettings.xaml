@@ -8,6 +8,7 @@
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" />
 			<ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -18,6 +19,8 @@
 		<Label Margin="6">Directory: </Label>
 		<TextBox Name="txtDirectory" Grid.Column="1" Margin="6" />
 		
+        <Button Name="btnBrowse" Grid.Column="2" Content="Browse" Margin="6" Width="60" Click="btnBrowse_Click" />
+        
 		<Label Grid.Row="1" Margin="6">Remote: </Label>
 		<TextBox Name="txtRemote" Grid.Row="1" Grid.Column="1" Margin="6" Text="origin" />
 
