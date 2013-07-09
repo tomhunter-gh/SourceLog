@@ -19,9 +19,9 @@
 		<TextBox Name="txtDirectory" Grid.Column="1" Margin="6" />
 		
 		<Label Grid.Row="1" Margin="6">Remote: </Label>
-		<TextBox Name="txtRemote" Grid.Row="1" Grid.Column="1" Margin="6" />
+		<TextBox Name="txtRemote" Grid.Row="1" Grid.Column="1" Margin="6" Text="origin" />
 
 		<Label Grid.Row="2" Margin="6">Branch: </Label>
-		<TextBox Name="txtBranch" Grid.Row="2" Grid.Column="1" Margin="6" />
+		<TextBox Name="txtBranch" Grid.Row="2" Grid.Column="1" Margin="6" Text="master" />
 	</Grid>
 </UserControl>
