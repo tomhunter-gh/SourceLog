@@ -22,7 +22,7 @@ namespace SourceLog.Plugin.Perforce
 			var logEntries = p4Changes.Cast<string>().Select(PerforceLogParser.Parse)
 				.Where(logEntry => logEntry.CommittedDate > MaxDateTimeRetrieved).ToList();
 
-			foreach (var logEntry in logEntries.OrderBy(le => le.CommittedDate))
+			foreach (var logEntry in logEntries.OrderByDescending(le => le.CommittedDate))
 			{
 				logEntry.ChangedFiles = new List<ChangedFileDto>();
 
