@@ -76,6 +76,9 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>SourceLog.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DiffPlex">
       <HintPath>..\Lib\DiffPlex-1.2.0\Net40\DiffPlex.dll</HintPath>
@@ -119,6 +122,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Microsoft SQL Server Compact Edition\v4.0\Private\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
@@ -135,10 +139,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    </Page>
     <Compile Include="CustomFlowDocumentScrollViewer.cs" />
     <Compile Include="FontInfo.cs" />
     <Compile Include="MarkAsReadCommand.cs" />
@@ -156,6 +160,7 @@
       <DependentUpon>NewSubscriptionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ShowWindowCommand.cs" />
+    <Compile Include="SingleInstance.cs" />
     <Compile Include="SingleLineTextConverter .cs" />
     <Compile Include="SubscriptionLabelConverter.cs" />
     <Compile Include="SubscriptionSettings.xaml.cs">
