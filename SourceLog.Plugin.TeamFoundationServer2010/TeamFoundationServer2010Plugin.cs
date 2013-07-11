@@ -57,42 +57,53 @@ namespace SourceLog.Plugin.TeamFoundationServer2010
 				foreach (var change in changeset.Changes)
 				{
 					var changedFile = new ChangedFileDto { FileName = change.Item.ServerItem };
-					if (change.Item.ItemType != ItemType.File)
+					switch (change.Item.ItemType)
 					{
-						changedFile.OldVersion = new byte[0];
-						changedFile.NewVersion = new byte[0];
-						continue;
-					}
+						case ItemType.Folder:
 
-					if (change.ChangeType.HasFlag(TFS.ChangeType.Delete))
-					{
-						changedFile.NewVersion = new byte[0];
-					}
-					else
-					{
-						using (var memoryStream = new MemoryStream())
-						{
-							change.Item.DownloadFile().CopyTo(memoryStream);
-							changedFile.NewVersion = memoryStream.ToArray();
-						}
-					}
+							// XamlReader.Load seems to require UTF8
+							var folderStringBytes = System.Text.Encoding.UTF8.GetBytes("[Folder]");
+							
+							if(change.ChangeType.HasFlag(TFS.ChangeType.Add))
+								changedFile.OldVersion = new byte[0];
+							else
+								changedFile.OldVersion = folderStringBytes;
 
-					var previousVersion = vcs.GetItem(change.Item.ItemId, changesetId - 1, true);
-					if (previousVersion != null)
-					{
-						using (var previousVersionMemoryStream = new MemoryStream())
-						{
-							previousVersion.DownloadFile().CopyTo(previousVersionMemoryStream);
-							changedFile.OldVersion = previousVersionMemoryStream.ToArray();
-						}
-					}
-					else
-					{
-						changedFile.OldVersion = new byte[0];
+							if (change.ChangeType.HasFlag(TFS.ChangeType.Delete))
+								changedFile.NewVersion = new byte[0];
+							else
+								changedFile.NewVersion = folderStringBytes;
+							
+							break;
+
+						case ItemType.File:
+							
+							if (change.ChangeType.HasFlag(TFS.ChangeType.Delete))
+								changedFile.NewVersion = new byte[0];
+							else
+								using (var memoryStream = new MemoryStream())
+								{
+									change.Item.DownloadFile().CopyTo(memoryStream);
+									changedFile.NewVersion = memoryStream.ToArray();
+								}
+
+							var previousVersion = vcs.GetItem(change.Item.ItemId, changesetId - 1, true);
+							if (previousVersion != null)
+								using (var previousVersionMemoryStream = new MemoryStream())
+								{
+									previousVersion.DownloadFile().CopyTo(previousVersionMemoryStream);
+									changedFile.OldVersion = previousVersionMemoryStream.ToArray();
+								}
+							else
+								changedFile.OldVersion = new byte[0];
+							
+							break;
+
+						default:
+							continue;
 					}
 
 					SetChangeType(changedFile, change);
-
 					logEntry.ChangedFiles.Add(changedFile);
 				}
 
