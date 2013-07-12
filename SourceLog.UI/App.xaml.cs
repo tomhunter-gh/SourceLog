@@ -61,7 +61,9 @@ namespace SourceLog
 
 		public bool SignalExternalCommandLineArgs(IList<string> args)
 		{
-			MainWindow.Activate();
+			var cmd = new ShowWindowCommand();
+			cmd.Execute(MainWindow);
+
 			return true;
 		}
 	}
