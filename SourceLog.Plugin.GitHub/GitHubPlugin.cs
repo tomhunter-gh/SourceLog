@@ -138,7 +138,8 @@ namespace SourceLog.Plugin.GitHub
 				{
 					using (var memoryStream = new MemoryStream())
 					{
-						response.GetResponseStream().CopyTo(memoryStream);
+						var responseStream = response.GetResponseStream();
+						if (responseStream != null) responseStream.CopyTo(memoryStream);
 						return memoryStream.ToArray();
 					}
 				}
