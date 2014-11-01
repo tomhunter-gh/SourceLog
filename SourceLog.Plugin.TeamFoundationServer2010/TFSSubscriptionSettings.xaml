@@ -13,11 +13,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
-        <Label Margin="6">Collection URL:</Label>
-        <TextBox Name="txtCollectionUrl" Grid.Column="1" Margin="6" />
-
-        <Label Grid.Row="1" Margin="6">Source Location:</Label>
-        <TextBox Name="txtSourceLocation" Grid.Row="1" Grid.Column="1" Margin="6" />
+        <Label Style="{StaticResource LabelStyle}">Collection URL:</Label>
+        <TextBox Name="txtCollectionUrl" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
+        <Label Grid.Row="1" Style="{StaticResource LabelStyle}">Source Location:</Label>
+        <TextBox Name="txtSourceLocation" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
     </Grid>
 </UserControl>

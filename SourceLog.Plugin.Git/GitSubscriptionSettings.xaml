@@ -15,16 +15,16 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		
-		<Label Margin="6">Directory: </Label>
-		<TextBox Name="txtDirectory" Grid.Column="1" Margin="6" />
-		
-        <Button Name="btnBrowse" Grid.Column="2" Content="Browse" Margin="6" Width="60" Click="btnBrowse_Click" />
-        
-		<Label Grid.Row="1" Margin="6">Remote: </Label>
-		<TextBox Name="txtRemote" Grid.Row="1" Grid.Column="1" Margin="6" Text="origin" />
 
-		<Label Grid.Row="2" Margin="6">Branch: </Label>
-		<TextBox Name="txtBranch" Grid.Row="2" Grid.Column="1" Margin="6" Text="master" />
+        <Label Style="{StaticResource LabelStyle}">Directory: </Label>
+        <TextBox Name="txtDirectory" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
+        <Button Name="btnBrowse" Grid.Column="2" Content="Browse" Click="btnBrowse_Click" 
+                Style="{StaticResource StandardButtonStyle}"/>
+
+        <Label Grid.Row="1" Style="{StaticResource LabelStyle}">Remote: </Label>
+        <TextBox Name="txtRemote" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="origin" />
+
+        <Label Grid.Row="2" Style="{StaticResource LabelStyle}">Branch: </Label>
+        <TextBox Name="txtBranch" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Text="master" />
 	</Grid>
 </UserControl>

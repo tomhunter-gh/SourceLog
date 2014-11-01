@@ -9,9 +9,8 @@
 			<ColumnDefinition Width="Auto" />
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
-		<Label Margin="6">URL: </Label>
-		<TextBox Name="txtUrl" Grid.Column="1" Margin="6" TextWrapping="Wrap"
-				AcceptsReturn="True" Height="60" />
-				 
+        <Label Style="{StaticResource LabelStyle}">URL: </Label>
+        <TextBox Name="txtUrl" Grid.Column="1" Margin="6" Style="{StaticResource TextBoxStyle}" 
+				AcceptsReturn="True" Height="Auto" />
 	</Grid>
 </UserControl>

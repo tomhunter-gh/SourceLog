@@ -16,8 +16,10 @@ namespace SourceLog
 		{
 			_vm = new NewSubscriptionWindowViewModel(mainWindowViewModel);
 			DataContext = _vm;
-
-			InitializeComponent(); 
+			InitializeComponent();
+            // default selection to first plugin
+            if (ddlPlugin.Items.Count > 0)
+                ddlPlugin.SelectedIndex = 0;
 		}
 
 		// used for editing a subscription

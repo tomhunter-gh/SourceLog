@@ -33,7 +33,10 @@ namespace SourceLog.Plugin.Git
 
 		private void btnBrowse_Click(object sender, System.Windows.RoutedEventArgs e)
 		{
-			var dlg = new WinForms.FolderBrowserDialog();
+            var dlg = new WinForms.FolderBrowserDialog
+            {
+                Description = "Select local Mercurial repository"
+            };
 			WinForms.DialogResult result = dlg.ShowDialog(this.GetIWin32Window());
 
 			if (result.ToString() == "OK")

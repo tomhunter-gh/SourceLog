@@ -15,10 +15,10 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		
-		<Label Margin="6">Directory: </Label>
-        <TextBox Name="txtDirectory" Grid.Column="1" Margin="6" />
 
-        <Button Name="btnBrowse" Grid.Column="2" Content="Browse" Margin="6" Width="60" Click="btnBrowse_Click" />
+        <Label Style="{StaticResource LabelStyle}">Directory: </Label>
+        <TextBox Name="txtDirectory" Grid.Column="1" Style="{StaticResource TextBoxStyle}" />
+
+        <Button Name="btnBrowse" Grid.Column="2" Content="Browse" Style="{StaticResource StandardButtonStyle}" Click="btnBrowse_Click" />
     </Grid>
 </UserControl>
