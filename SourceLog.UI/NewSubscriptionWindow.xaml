@@ -1,13 +1,15 @@
 ﻿<Window x:Class="SourceLog.NewSubscriptionWindow"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:SourceLog="clr-namespace:SourceLog" Title="Add Subscription" Height="300" Width="527"
-		TextOptions.TextFormattingMode="Display">
-	<Grid>
+		xmlns:SourceLog="clr-namespace:SourceLog" Title="Add Subscription" 
+        Height="325" Width="527" MinHeight="250" MinWidth="450"
+		TextOptions.TextFormattingMode="Display"
+        WindowStyle="ToolWindow">
+    <Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
+			<RowDefinition Height="100*" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
@@ -15,10 +17,10 @@
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
 
-		<Label Margin="6">Name:</Label>
-		<TextBox Name="txtName" Grid.Column="1" Margin="6" Width="180" HorizontalAlignment="Left" />
+        <Label Style="{StaticResource LabelStyle}">Name:</Label>
+		<TextBox Name="txtName" Grid.Column="1" Grid.Row="0" Margin="6" />
 
-		<Label Grid.Row="1" Grid.Column="0" Margin="6">Type:</Label>
+        <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Type:</Label>
 		<ComboBox Name="ddlPlugin" Grid.Row="1" Grid.Column="1" Margin="6"
 				  ItemsSource="{Binding LogProviderPluginNames}"
 				  SelectionChanged="LogProviderPluginDropDownSelectionChanged" />
@@ -26,14 +28,18 @@
 		<!--<Label Grid.Row="2" Grid.Column="0" Margin="6">URL: </Label>
 		<TextBox Name="UrlTextBox" Grid.Row="2" Grid.Column="1" Margin="6" TextWrapping="Wrap" AcceptsReturn="True" Height="40" />-->
 		<GroupBox Name="grpSettings" Grid.Row="2" Grid.ColumnSpan="2" Header="Settings" Margin="6">
-			<SourceLog:SubscriptionSettings />
+			<SourceLog:SubscriptionSettings Height="Auto" />
 		</GroupBox>
-
-		<Button Name="btnAdd" Content="Add" Grid.Row="3" Grid.Column="1" Margin="0,6,110,6" 
-				HorizontalAlignment="Right" Width="80" Click="BtnAddClick" />
-		<Button Name="btnUpdate" Content="Update" Grid.Row="3" Grid.Column="1" Margin="0,6,110,6" 
-				HorizontalAlignment="Right" Width="80" Click="BtnUpdateClick" Visibility="Hidden" />
-		<Button Name="btnCancel" Content="Cancel" Grid.Column="1" Grid.Row="3" Margin="0,6,19,0" 
-				VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="BtnCancelClick" />
-	</Grid>
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="btnUpdate" Content="Update" Grid.Row="3" Grid.Column="1"
+				    Click="BtnUpdateClick" Visibility="Hidden" 
+                    Style="{StaticResource DialogButtonStyle}"/>
+            <Button Name="btnAdd" Content="Add" Grid.Row="3" Grid.Column="1"
+				    Click="BtnAddClick" 
+                    Style="{StaticResource DialogButtonStyle}" />
+		    <Button Name="btnCancel" Content="Cancel" Grid.Column="1" Grid.Row="3"
+				    Click="BtnCancelClick"
+                    Style="{StaticResource DialogButtonStyle}" />
+        </StackPanel>
+    </Grid>
 </Window>
